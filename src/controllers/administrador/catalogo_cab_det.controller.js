@@ -50,7 +50,15 @@ const getCatalogosDetalle = async (req, res) => {
     let padre_cab = req.params.padre;
     let estado = req.params.estado;
     let desde = req.query.desde;
-    let consulta = `select * from catalogo_detalle cd inner join catalogo_cabecera cc on cd.fk_catcabecera = cc.pk_catcab where cd.fk_catcabecera = ${padre_cab} and cd.estado_catdetalle = ${estado} order by cd.desc_catdetalle asc`;
+    let consulta ='';
+    
+    if (req.params.estado) {
+        estado=true;
+        consulta = `select * from catalogo_detalle cd inner join catalogo_cabecera cc on cd.fk_catcabecera = cc.pk_catcab where cc.codigo_catcab = '${padre_cab}' and cd.estado_catdetalle = ${estado} order by cd.desc_catdetalle asc`;
+    }else{
+        consulta = `select * from catalogo_detalle cd inner join catalogo_cabecera cc on cd.fk_catcabecera = cc.pk_catcab where cc.codigo_catcab = '${padre_cab}' order by cd.desc_catdetalle asc`;
+    }
+    console.log(consulta);
     desde = Number(desde);
 
     //valido que exista el parametro "desde"
@@ -63,9 +71,8 @@ const getCatalogosDetalle = async (req, res) => {
 
 const getCatalogosDetalleBsq = async (req, res) => {
     let padre_cab = req.params.padre;
-    let estado = req.params.estado;
     let busqueda = req.params.valor;
-    const consulta = `select * from catalogo_detalle cd inner join catalogo_cabecera cc on cd.fk_catcabecera = cc.pk_catcab where cd.fk_catcabecera = ${padre_cab} and cd.estado_catdetalle = ${estado} and desc_catdetalle LIKE UPPER('%${busqueda}%')`;
+    const consulta = `select * from catalogo_detalle cd inner join catalogo_cabecera cc on cd.fk_catcabecera = cc.pk_catcab where cc.codigo_catcab = '${padre_cab}' and desc_catdetalle LIKE UPPER('%${busqueda}%')`;
     await funcionesSQL.getRows(consulta, req, res);
 }
 

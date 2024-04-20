@@ -17,6 +17,10 @@ app.use(express.json());
 const rutasAutenticacion = require('./modulos/autenticacion.modulo');
 rutasAutenticacion(app);
 
+//Modulo Funciones Auxilaires
+const rutasAuxliares = require('./modulos/auxiliares.modulo');
+rutasAuxliares(app);
+
 //Modulo Administrador
 const rutasAdministrador = require('./modulos/administrador.modulo');
 rutasAdministrador(app);
@@ -24,6 +28,7 @@ rutasAdministrador(app);
 //Modulo Historia Clinica
 const rutasHCU = require('./modulos/historia_clinica.modulo');
 rutasHCU(app);
+
 
 module.exports={
     app
