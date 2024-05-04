@@ -38,6 +38,17 @@ const getGeografia = async (req, res) => {
 
 }
 
+const getGeografiaCantonesPais = async (req, res) => {
+
+    let padre = req.query.padre; 
+    let consulta = '';
+
+    consulta =`select c.* from geografia c inner join geografia p on c.fk_padre = p.pk_geo where p.fk_padre =${padre}`;
+
+    await funcionesSQL.getRows(consulta, req, res);
+
+}
+
 const getGeografiaBsq = async (req, res) => {
     let busqueda = req.params.valor;
     let tipoGeografia =(req.query.tipo).toUpperCase(); 
@@ -74,5 +85,6 @@ module.exports = {
     getGeografia,
     getGeografiaBsq,
     getGeografiaID,
+    getGeografiaCantonesPais,
     crudGeografia
 }
