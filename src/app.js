@@ -29,6 +29,9 @@ rutasAdministrador(app);
 const rutasHCU = require('./modulos/historia_clinica.modulo');
 rutasHCU(app);
 
+//Modulo Emergencia
+const rutasEmergencia = require('./modulos/emergencia.modulo');
+rutasEmergencia(app);
 
 module.exports={
     app
