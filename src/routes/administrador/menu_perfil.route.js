@@ -9,6 +9,7 @@ const router = express.Router();
 //Geografia
 router.get("/", authenticationJWT.verificarToken,menu_perfil.getMenuAll);
 router.get("/m_perfil/:perfil/:estado", authenticationJWT.verificarToken,menu_perfil.getMenuAllByPerfil);
+router.get("/m_perfil/:perfil/:modulo/:estado", authenticationJWT.verificarToken,menu_perfil.getMenuAllByPerfilModulo);
 router.post("/:accion", authenticationJWT.verificarToken,menu_perfil.crudMenu);
 router.post("/m_perfil/:accion", authenticationJWT.verificarToken,menu_perfil.crudMenuPerfil);
 

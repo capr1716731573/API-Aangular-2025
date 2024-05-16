@@ -24,6 +24,15 @@ const getMenuAllByPerfil = async (req, res) => {
 
 }
 
+const getMenuAllByPerfilModulo = async (req, res) => {
+    let perfil = req.params.perfil;
+    let modulo = req.params.modulo;
+    let estado = req.params.estado;
+    let consulta = `select * from get_menu_perfilmodulo(${estado},${perfil},${modulo})`;
+    await funcionesSQL.crud_StoreProcedure(consulta, req, res);
+
+}
+
 
 const crudMenu = async (req, res) => {
     const accion = req.params.accion;
@@ -43,6 +52,7 @@ const crudMenuPerfil = async (req, res) => {
 module.exports = {
     getMenuAll,
     getMenuAllByPerfil,
+    getMenuAllByPerfilModulo,
     crudMenu,
     crudMenuPerfil
 }
