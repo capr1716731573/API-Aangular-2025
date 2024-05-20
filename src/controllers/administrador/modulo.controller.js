@@ -17,9 +17,9 @@ const getModulo = async (req, res) => {
 
     //valido que exista el parametro "desde"
     if (req.query.desde) {
-        consulta = `select * from modulo p order by p.nombre_mod LIMIT ${variablesEntorno.ROWS_X_PAGE} OFFSET ${desde}`;
+        consulta = `select * from modulos p order by p.nombre_mod LIMIT ${variablesEntorno.ROWS_X_PAGE} OFFSET ${desde}`;
     } else {
-        consulta = `select * from modulo p order by p.nombre_mod `;
+        consulta = `select * from modulos p order by p.nombre_mod `;
     }
     await funcionesSQL.getRows(consulta, req, res);
 
@@ -27,13 +27,13 @@ const getModulo = async (req, res) => {
 
 const getModuloBsq = async (req, res) => {
     let busqueda = req.params.valor;
-    const consulta = `select * from modulo p  WHERE p.nombre_mod LIKE UPPER('%${busqueda}%')`;
+    const consulta = `select * from modulos p  WHERE p.nombre_mod LIKE UPPER('%${busqueda}%')`;
     await funcionesSQL.getRows(consulta, req, res);
 }
 
 const getModuloID = async (req, res) => {
     let id = req.params.id;
-    const consulta = `select * from modulo p  WHERE p.pk_modulo=${id}`;
+    const consulta = `select * from modulos p  WHERE p.pk_modulo=${id}`;
     await funcionesSQL.getRowID(consulta, req, res);
 }
 
