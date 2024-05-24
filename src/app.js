@@ -25,6 +25,10 @@ rutasAuxliares(app);
 const rutasAdministrador = require('./modulos/administrador.modulo');
 rutasAdministrador(app);
 
+//Modulo Administrador Medico
+const rutasAdministradorMedico = require('./modulos/administrador_medico.modulo');
+rutasAdministradorMedico(app);
+
 //Modulo Historia Clinica
 const rutasHCU = require('./modulos/historia_clinica.modulo');
 rutasHCU(app);

@@ -19,7 +19,6 @@ const getAllHCU = async (req, res) => {
     let desde = req.query.desde;
     let consulta = '';
     desde = Number(desde);
-
     //valido que exista el parametro "desde"
     if (req.query.desde) {        
         opciones.reg_desde=desde;   
