@@ -41,8 +41,9 @@ const getHCUBsq = async (req, res) => {
 }
 
 const getHCUID = async (req, res) => {
+    let opcion = req.params.opcion;
     let id = req.params.id;
-    const consulta = `select * from getid_hcu(${id})`;
+    const consulta = `select * from getid_hcu(${opcion},'${id}')`;
     await funcionesSQL.getID_Row_StoreProcedure(consulta, req, res);
 }
 
