@@ -95,16 +95,23 @@ const reporte008_descarga = async (req, res) => {
 
 //Frame pdf: Multiples Hojas
 const reporte008_frame = async (req, res) => {
-    const id = req.params.id;
+    /*Opcion es texto 1(Busqueda por id) 2(Busqueda por cedula o numero de identificacion)*/
+    let id = req.params.id;
+    const consulta = `select * from emergencia_getpdf_008(1,'${id}')`;
+    let data = await funcionesSQL.getData(consulta);
     const nombre_archivo=`_008.pdf`;
-    const pageContents = [
-        {templatePath: templatePaths.page1, data: { nombres: "CARLOS ALBERTO", apellidos: "PULLAS RECALDE", fechanac: "10-07-1987" } },
-        {templatePath: templatePaths.page2, data: { nombres: "KATHERINE PAOLA", apellidos: "BASANTES BASANTES", fechanac: "19-01-1988" } },
-        {templatePath: templatePaths.page1, data: { nombres: "CARLOS ALBERTO", apellidos: "PULLAS RECALDE", fechanac: "10-07-1987" } },
-        {templatePath: templatePaths.page2, data: { nombres: "KATHERINE PAOLA", apellidos: "BASANTES BASANTES", fechanac: "19-01-1988" } }
 
+    if(!data.mensaje || data.mensaje.status != 'ok')
+      data=null;
+    else data=data.mensaje.data;
+
+    //console.log(JSON.stringify(data));
+
+    const pageContents = [
+        {templatePath: templatePaths.page1, data },
+        {templatePath: templatePaths.page2, data }
       ];
-    //Consulto por id
+      
     await funcionesSQL.generateMultiplesPDF_Frame(pageContents,req,res);   
 }
 
