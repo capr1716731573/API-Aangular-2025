@@ -111,7 +111,7 @@ const reporte008_frame = async (req, res) => {
         {templatePath: templatePaths.page1, data },
         {templatePath: templatePaths.page2, data }
       ];
-      
+
     await funcionesSQL.generateMultiplesPDF_Frame(pageContents,req,res);   
 }
 

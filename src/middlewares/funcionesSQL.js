@@ -139,14 +139,14 @@ const getData = async (sql) => {
 // Registrar un ayudante de comparación para Handlebars
 handlebars.registerHelper('eq', function (a, b) {
     return a === b;
-  });
+});
 
 // Registrar un ayudante de comparación para Handlebars si es nulo o vacio
 handlebars.registerHelper('isNullVacio', function (value) {
     if (value !== null && value !== undefined && value !== '') return true;
     else return false;
-  });
-  
+});
+
 
 // Reportes en donde el pdf se descarga automaticamente 
 const generateMultiplesPDF = async (nombre_archivo, pageContents, req, res) => {
@@ -198,94 +198,117 @@ const generateMultiplesPDF = async (nombre_archivo, pageContents, req, res) => {
 }
 
 const generateMultiplesPDF_Frame = async (pageContents, req, res) => {
-    var waitUntil = 'load';
-    const browser = await puppeteer.launch({
-        headless: true,
-        args: ['--no-sandbox', '--disable-setuid-sandbox'],
-        defaultViewport: { width: 1600, height: 1190 }
-    });
+    try {
+        var waitUntil = 'load';
+        const browser = await puppeteer.launch({
+            headless: true,
+            args: ['--no-sandbox', '--disable-setuid-sandbox'],
+            defaultViewport: { width: 1600, height: 1190 }
+        });
 
-    const page = await browser.newPage();
-    let html = '';
+        const page = await browser.newPage();
+        let html = '';
 
-    // Bucle para generar el contenido de cada página
-    pageContents.forEach((content, index) => {
-        const templateHtml = fs.readFileSync(content.templatePath).toString('utf8');
-        const template = handlebars.compile(templateHtml);
-        html += template(content.data);
+        // Bucle para generar el contenido de cada página
+        pageContents.forEach((content, index) => {
+            const templateHtml = fs.readFileSync(content.templatePath).toString('utf8');
+            const template = handlebars.compile(templateHtml);
+            html += template(content.data);
 
-        // Añadir salto de página sólo si no es la última página
-        if (index < pageContents.length - 1) {
-            html += '<div style="page-break-before: always;"></div>';
-        }
-    });
+            // Añadir salto de página sólo si no es la última página
+            if (index < pageContents.length - 1) {
+                html += '<div style="page-break-before: always;"></div>';
+            }
+        });
 
-    await page.setContent(html);
-    const element = await page.$('body');
-    let screenShot = await element.screenshot();
+        await page.setContent(html);
+        const element = await page.$('body');
+        let screenShot = await element.screenshot();
 
-    const buffer = await page.pdf({
-        printBackground: true,
-        displayHeaderFooter: false,
-        format: 'A4',
+        const buffer = await page.pdf({
+            printBackground: true,
+            displayHeaderFooter: false,
+            format: 'A4',
 
-    });
+        });
 
-    await browser.close();
+        await browser.close();
 
-    //let base64data = screenShot.toString('base64');
-    let pdfBase64 = buffer.toString('base64');
-    let exportar = handlebars.compile("<iframe src='data:application/pdf;base64," + pdfBase64 + "' height='90%' width='100%''></iframe>")
-    let exportarTemplate = exportar({}, { waitUntil });
-    res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.end(exportarTemplate);
+        //let base64data = screenShot.toString('base64');
+        let pdfBase64 = buffer.toString('base64');
+        //let exportar = handlebars.compile("<iframe src='data:application/pdf;base64," + pdfBase64 + "' height='90%' width='100%''></iframe>")
+        let exportar = handlebars.compile(pdfBase64);
+        let exportarTemplate = exportar({}, { waitUntil });
+        //res.writeHead(200, { 'Content-Type': 'text/html' });
+        //res.end(exportarTemplate);
+        return res.status(200).json({
+            status: 'ok',
+            message: exportarTemplate
+        });
 
+    } catch (error) {
+        return res.status(500).json({
+            status: 'error',
+            message: error.message
+        });
+    }
 }
 
 //Reporte  en donde se descangan por medio de un frame
 const generateOnePdf_Frame = async (contenido, req, res) => {
-    var waitUntil = 'load';
-    const browser = await puppeteer.launch({
-        headless: true,
-        args: ['--no-sandbox', '--disable-setuid-sandbox'],
-        defaultViewport: { width: 1600, height: 1190 }
-    });
+    try {
+        var waitUntil = 'load';
+        const browser = await puppeteer.launch({
+            headless: true,
+            args: ['--no-sandbox', '--disable-setuid-sandbox'],
+            defaultViewport: { width: 1600, height: 1190 }
+        });
 
-    var html = fs.readFileSync(contenido.page1).toString('utf8');
-    var data = contenido.data;
+        var html = fs.readFileSync(contenido.page1).toString('utf8');
+        var data = contenido.data;
 
-    const page = await browser.newPage();
+        const page = await browser.newPage();
 
 
-    if (contenido) {
-        const template = handlebars.compile(html);
-        html = template(contenido, { waitUntil });
+        if (contenido) {
+            const template = handlebars.compile(html);
+            html = template(contenido, { waitUntil });
+        }
+
+        await page.setContent(html);
+
+        const element = await page.$('body');
+        let screenShot = await element.screenshot();
+
+        var buffer;
+
+        buffer = await page.pdf({
+            //landscape: landscape,
+            printBackground: true,
+            displayHeaderFooter: true,
+            format: 'A4',
+        });
+
+        await browser.close()
+
+        //let base64data = screenShot.toString('base64');
+        let pdfBase64 = buffer.toString('base64');
+        //let exportar = handlebars.compile("<iframe src='data:application/pdf;base64," + pdfBase64 + "' height='90%' width='100%''></iframe>")
+        let exportar = handlebars.compile(pdfBase64);
+        let exportarTemplate = exportar({}, { waitUntil });
+        //res.writeHead(200, { 'Content-Type': 'text/html' });
+        //res.end(exportarTemplate);
+        return res.status(200).json({
+            status: 'ok',
+            message: exportarTemplate
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            status: 'error',
+            message: error.message
+        });
     }
-
-    await page.setContent(html);
-
-    const element = await page.$('body');
-    let screenShot = await element.screenshot();
-
-    var buffer;
-
-    buffer = await page.pdf({
-        //landscape: landscape,
-        printBackground: true,
-        displayHeaderFooter: true,
-        format: 'A4',
-    });
-
-    await browser.close()
-
-    //let base64data = screenShot.toString('base64');
-    let pdfBase64 = buffer.toString('base64');
-
-    let exportar = handlebars.compile("<iframe src='data:application/pdf;base64," + pdfBase64 + "' height='100%' width='100%''></iframe>")
-    let exportarTemplate = exportar({}, { waitUntil });
-
-    res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.end(exportarTemplate);
 }
 
 module.exports = {
