@@ -37,6 +37,10 @@ rutasHCU(app);
 const rutasEmergencia = require('./modulos/emergencia.modulo');
 rutasEmergencia(app);
 
+//Modulo Hospitalizacion
+const rutasHospitalizacion = require('./modulos/hospitalizacion.modulo');
+rutasHospitalizacion(app);
+
 module.exports={
     app
 }
