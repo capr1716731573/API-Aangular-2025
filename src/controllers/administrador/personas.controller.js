@@ -1,31 +1,40 @@
-const {sequelize} = require('../../config/database');
+const { sequelize } = require('../../config/database');
 const funcionesSQL = require('../../middlewares/funcionesSQL');
 
 require('dotenv').config();
 
-const variablesEntorno=process.env;
+const variablesEntorno = process.env;
 
 //* CRUD DE LA TABLA PERSONA
-let opciones={
-    "busqueda":null,
+let opciones = {
+    "busqueda": null,
     "reg_desde": null,
-    "reg_cantidad":variablesEntorno.ROWS_X_PAGE
-  };
+    "reg_cantidad": variablesEntorno.ROWS_X_PAGE
+};
 
+function resetOpciones() {
+    opciones = {
+        "busqueda": null,
+        "reg_desde": null,
+        "reg_cantidad": variablesEntorno.ROWS_X_PAGE
+    };
+}
+/*  */
 const getAllPersona = async (req, res) => {
 
     let desde = req.query.desde;
     let consulta = '';
     desde = Number(desde);
-    console.log('desde: '+desde);
+    console.log('desde: ' + desde);
 
     //valido que exista el parametro "desde"
-    if (req.query.desde) {        
-        opciones.reg_desde=desde;   
+    if (req.query.desde) {
+        opciones.reg_desde = desde;
     } else {
-        opciones.reg_desde=0;
+        opciones.reg_desde = 0;
     }
     consulta = `select * from getall_persona('${JSON.stringify(opciones)}'::text)`;
+    resetOpciones();
     console.log(consulta);
     await funcionesSQL.getAll_Rows_StoreProcedure(consulta, req, res);
 
@@ -33,10 +42,11 @@ const getAllPersona = async (req, res) => {
 
 const getPersonaBsq = async (req, res) => {
     let busqueda = req.params.valor;
-    opciones.busqueda=busqueda;
-    opciones.reg_desde=null;
-    opciones.reg_cantidad=null;
+    opciones.busqueda = busqueda;
+    opciones.reg_desde = null;
+    opciones.reg_cantidad = null;
     const consulta = `select * from getall_persona('${JSON.stringify(opciones)}'::text)`;
+    resetOpciones();
     await funcionesSQL.getAll_Rows_StoreProcedure(consulta, req, res);
 }
 
@@ -48,14 +58,14 @@ const getPersonaID = async (req, res) => {
     await funcionesSQL.getID_Row_StoreProcedure(consulta, req, res);
 }
 
-const crudPersona= async (req,res) => {
+const crudPersona = async (req, res) => {
     const accion = req.params.accion;
-    const body_json  = req.body;
-    const consulta=`select * from crud_persona ('${accion}','${JSON.stringify(body_json)}'::json)`;
-    await funcionesSQL.crud_StoreProcedure(consulta,req,res);
+    const body_json = req.body;
+    const consulta = `select * from crud_persona ('${accion}','${JSON.stringify(body_json)}'::json)`;
+    await funcionesSQL.crud_StoreProcedure(consulta, req, res);
 }
 
-module.exports={
+module.exports = {
     getAllPersona,
     getPersonaID,
     getPersonaBsq,

@@ -13,6 +13,13 @@ let opciones={
     "reg_cantidad":variablesEntorno.ROWS_X_PAGE
   };
 
+function resetOpciones() {
+    opciones={
+        "busqueda":null,
+        "reg_desde": null,
+        "reg_cantidad":variablesEntorno.ROWS_X_PAGE
+      };
+} 
 
 const getAllHCU = async (req, res) => {
 
@@ -27,6 +34,7 @@ const getAllHCU = async (req, res) => {
     }
     consulta = `select * from getall_hcu('${JSON.stringify(opciones)}'::text)`;
     console.log(consulta);
+    resetOpciones();
     await funcionesSQL.getAll_Rows_StoreProcedure(consulta, req, res);
 
 }
@@ -37,6 +45,7 @@ const getHCUBsq = async (req, res) => {
     opciones.reg_desde=null;
     opciones.reg_cantidad=null;
     const consulta = `select * from getall_hcu('${JSON.stringify(opciones)}'::text)`;
+    resetOpciones();
     await funcionesSQL.getAll_Rows_StoreProcedure(consulta, req, res);
 }
 
