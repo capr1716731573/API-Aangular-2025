@@ -9,7 +9,7 @@ const variablesEntorno=process.env;
 let opciones={
     "busqueda":null,
     "reg_desde": null,
-    "reg_cantidad:":variablesEntorno.ROWS_X_PAGE
+    "reg_cantidad":variablesEntorno.ROWS_X_PAGE
   };
 
 const getAllPersona = async (req, res) => {

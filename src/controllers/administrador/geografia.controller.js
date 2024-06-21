@@ -65,6 +65,21 @@ const getGeografiaBsq = async (req, res) => {
     await funcionesSQL.getRows(consulta, req, res);
 }
 
+const getGeografiaBsqPad = async (req, res) => {
+    let busqueda = req.params.valor;
+    let tipoGeografia =(req.query.tipo).toUpperCase(); 
+    let padre = req.query.padre;
+    let consulta = '';
+
+    if(padre === undefined || padre === null || padre <= 0 || padre === ""){
+        consulta = `select * from geografia geo where geo.tipo_geo = '${tipoGeografia}' `;
+    }else{
+        consulta = `select * from geografia geo where geo.tipo_geo = '${tipoGeografia}' and  geo.fk_padre=${padre} `;
+    }
+    
+    await funcionesSQL.getRows(consulta, req, res);
+}
+
 const getGeografiaID = async (req, res) => {
     let id = req.params.id;
     const consulta = `select geo.pk_geo,geo.fk_padre, geo.tipo_geo, geo.desc_geo, padre.pk_geo as padre_pk_geo ,padre.fk_padre as padre_fk_padre, padre.tipo_geo as padre_tipo_geo, padre.desc_geo as padre_desc_geo from geografia geo inner join geografia padre on geo.pk_geo=padre.pk_geo where geo.pk_geo =${id}`;
@@ -86,5 +101,6 @@ module.exports = {
     getGeografiaBsq,
     getGeografiaID,
     getGeografiaCantonesPais,
-    crudGeografia
+    crudGeografia,
+    getGeografiaBsqPad
 }
