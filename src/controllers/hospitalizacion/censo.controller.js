@@ -41,7 +41,7 @@ const getIngresosXHcuVigente = async (req, res) => {
 //Consulta de ingresos por area y piso
 const getIngresosXAreaPiso = async (req, res) => {
     let area = req.params.area;
-    let consulta = `${consulta_master} where a.areas_id_pk = ${area} and tipo_ciclohosp='INGRESO' order by torre.desc_tipoubi asc, piso.desc_tipoubi asc, u.descripcion_ubicacion ASC`; 
+    let consulta = `${consulta_master} where a.areas_id_pk = ${area} and tipo_ciclohosp='INGRESO' and ch2.activo_ciclohosp=true order by torre.desc_tipoubi asc, piso.desc_tipoubi asc, u.descripcion_ubicacion ASC`; 
     await funcionesSQL.getRows(consulta, req, res);
 }
 
