@@ -18,7 +18,6 @@ let opciones={
 const getAllEvolucion = async (req, res) => {    
     let desde = req.query.desde;
     opciones.hcu = req.params.hcu;
-    opciones.reg_cantidad=null;
     opciones.fecha_desde=null;
     opciones.fecha_hasta=null;
     let consulta = '';

@@ -12,6 +12,9 @@ let consulta_master=`select
                         torre.desc_tipoubi as torre,
                         piso.desc_tipoubi as piso,
                         sala.desc_tipoubi as sala,
+                        torre.pk_tipoubi as torre_pk,
+                        piso.pk_tipoubi as piso_pk,
+                        sala.pk_tipoubi as sala_pk,
                         habitacion.desc_tipoubi as habitacion,
                         u.descripcion_ubicacion as ubicacion,
                         (SELECT row_to_json(ch2.*) 
@@ -45,6 +48,31 @@ const getIngresosXAreaPiso = async (req, res) => {
     await funcionesSQL.getRows(consulta, req, res);
 }
 
+//Consulta de ingresos por area y piso
+const getIngresosXAreaTorrePisoSala = async (req, res) => {
+    let area = req.params.area;
+    let torre = req.params.torre;
+    let piso = req.params.piso;
+    let sala = req.params.sala;
+    let consulta = `${consulta_master} where a.areas_id_pk = ${area} and tipo_ciclohosp='INGRESO' and ch.activo_ciclohosp=true `;
+    let order =' order by torre.desc_tipoubi asc, piso.desc_tipoubi asc, u.descripcion_ubicacion ASC';
+
+    if (torre != undefined || torre != null || torre != ''){
+        consulta = `${consulta} and torre.pk_tipoubi=${torre} `;
+    }  
+    if (piso != undefined || piso != null || piso != ''){
+        consulta = `${consulta} and piso.pk_tipoubi=${piso} `;
+    } 
+    if (sala != undefined || sala != null || sala != '') {
+        consulta = `${consulta} and sala.pk_tipoubi=${sala} `;
+    }
+    
+    consulta = `${consulta}${order}`;
+    console.error(consulta);
+    
+    await funcionesSQL.getRows(consulta, req, res);
+}
+
 const getCensoXId = async (req, res) => {
     let id = req.params.id;
     const consulta = `${consulta_master} where ch.pk_ciclohosp=${id}`;
@@ -62,6 +90,7 @@ const crudCicloHospitalizacion = async (req, res) => {
 module.exports = {
     getIngresosXHcuVigente,
     getIngresosXAreaPiso,
+    getIngresosXAreaTorrePisoSala,
     getCensoXId,
     crudCicloHospitalizacion
 }

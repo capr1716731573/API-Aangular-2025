@@ -36,14 +36,12 @@ const crud_StoreProcedure = async (sql, req, res) => {
 const getRows = async (sql, req, res) => {
     try {
         const consulta = sql;
-
         const [results, metadata] = await sequelize.query(consulta);
         res.status(200).json({
             status: 'ok',
             rows: results,
             count: metadata.rowCount
         });
-
     } catch (error) {
         return res.status(500).json({
             status: 'error',
