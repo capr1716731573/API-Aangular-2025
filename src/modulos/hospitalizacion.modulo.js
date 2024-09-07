@@ -4,6 +4,7 @@ function configurarRutas_Hospitalizacion(app) {
     app.use("/tip_ubi", require('../routes/hospitalizacion/tipo_ubicacion.route'));
     app.use("/ubi", require('../routes/hospitalizacion/ubicacion.route'));
     app.use("/evolucion", require('../routes/hospitalizacion/evolucion.route'));
+    app.use("/anamnesis", require('../routes/hospitalizacion/anamnesis.route'));
         
 }
 
