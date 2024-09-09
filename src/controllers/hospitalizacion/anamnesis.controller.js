@@ -64,6 +64,25 @@ const crud_Anamesis_Hosp = async (req, res) => {
     await funcionesSQL.crud_StoreProcedure(consulta,req,res);    
 }
 
+const getAllDiagnosticoAnamesis_Hosp = async (req, res) => {
+    let id_anam = req.params.id_anam;
+    consulta =`select * from anamnesis_diagnosticos diag inner join cie smc on diag.fk_cie = smc.pk_cie where diag.fk_anam_hosp=${id_anam} order by diag.pk_anamdiag ASC`;
+    await funcionesSQL.getRows(consulta, req, res);
+}
+
+const getDiagnosticoID_Anamesis_Hosp = async (req, res) => {
+    let id = req.params.id;
+    const consulta = `select * from anamnesis_diagnosticos diag inner join cie smc on diag.fk_cie = smc.pk_cie where diag.pk_anamdiag=${id}`;
+    await funcionesSQL.getRowID(consulta, req, res);
+}
+
+const crudDiagnostico_Anamesis_Hosp = async (req, res) => {
+    const accion = req.params.accion;
+    const body_json  = req.body;
+    const consulta=`select * from anamnesis_hosp_crud_diagnosticos ('${accion}','${JSON.stringify(body_json)}'::json)`;
+    await funcionesSQL.crud_StoreProcedure(consulta,req,res);    
+}
+
 /**
  * ZONA DE REPORTES
  */
@@ -143,7 +162,9 @@ module.exports = {
     getAnamesis_Hosp_Fechas,
     getAnamesis_Hosp_ID,
     crud_Anamesis_Hosp,
-    
+    getAllDiagnosticoAnamesis_Hosp,
+    getDiagnosticoID_Anamesis_Hosp,
+    crudDiagnostico_Anamesis_Hosp,    
     reporte008_descarga,
     reporte008_frame,
     reporte008_descarga1,
