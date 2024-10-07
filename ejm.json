@@ -1,131 +1,181 @@
-{
-    "_a": {
-        "pk_anam": 0,
-        "casalud_id_fk": 0,
-        "fk_hcu": 0,
-        "fecha_inicio": null,
-        "hora_inicio": null,
-        "estado_anam": false
-    },
-    "_b": {
-        "descripcion": null
-    },
-    "_c": {
-        "alergia_medicamentos": false,
-        "otras_alergias": false,
-        "vacunas": false,
-        "patologias_clinicas": false,
-        "medicacion_habitual": false,
-        "quirurgicos": false,
-        "habitos": false,
-        "condicion_socio_economica": false,
-        "discapacidad": false,
-        "religion": false,
-        "tipificacion_sanguinea": false,
-        "gineco_obstetricos": {
-            "edad_menarquia": null,
-            "edad_menopausia": null,
-            "ciclos": null,
-            "edad_inicio": null,
-            "numero_gestas": null,
-            "numero_partos": null,
-            "numero_abortos": null,
-            "numero_cesareas": null,
-            "numero_hijos_vivos": null,
-            "fecha_ultima_menstruacion": null,
-            "fecha_ultimo_parto": null,
-            "fecha_ultima_citologia_cervical": null,
-            "fecha_ultima_colposcopia": null,
-            "fecha_ultima_mamografia": null,
-            "metodo_planificacion_familiar": null,
-            "terapia_hormonal": null,
-            "fecha_ultimo_eco_prostatico": null,
-            "fecha_ultimo_antigeno_prostatico": null
-        }
-    },        
-    "_d": {
-        "cardiopatia": true,
-        "hipertension": true,
-        "enfermedadCerebrovascular": false,
-        "endocrinoMetabolico": false,
-        "cancer": false,
-        "tuberculosis": false,
-        "enfermedadMental": false,
-        "enfermedadInfecciosa": true,
-        "malformacion": false,
-        "otro": false,
-        "observacion_d": null
-    },
-    "_e": {
-        "observacion_e": null
-    },
-    "_f": {
-        "piel_anexos": false,
-        "organos_sentidos": false,
-        "respiratorio": false,
-        "cardio": false,
-        "digestivo": false,
-        "genito": false,
-        "musculo": false,
-        "endocrino": false,
-        "hemo": false,
-        "nervioso": false,
-        "observacion_f": null
-    },
-    "_g": {
-        "temperatura_c": null,
-        "presion_arterial_mmHg": null,
-        "pulso_por_minuto": null,
-        "frecuencia_respiratoria_por_minuto": null,
-        "peso_kg": null,
-        "talla_cm": null,
-        "imc_kg_m2": null,
-        "perimetro_cefalico_cm": null,
-        "pulsioximetria_porcentaje": null,
-        "score_mama": null,
-        "otros": null
-    },
-    "_h": {
-        "piel_faneras": false,
-        "cabeza": false,
-        "ojos": false,
-        "oidos": false,
-        "nariz": false,
-        "boca": false,
-        "orofaringe": false,
-        "cuello": false,
-        "axilas_mamas": false,
-        "torax": false,
-        "abdomen": false,
-        "columna_vertebral": false,
-        "ingle_perine": false,
-        "miembros_superiores": false,
-        "miembros_inferiores": false,
-        "organos_sentidos": false,
-        "respiratorio": false,
-        "cardio_vascular": false,
-        "digestivo": false,
-        "genital": false,
-        "urinario": false,
-        "musculo_esqueletico": false,
-        "endocrino": false,
-        "hemo_linfatico": false,
-        "neurologico": false,
-        "observacion_h": null
-      },
-    "_i": {
-        "observacion_i": null
-    },
-    "_k": {
-        "observacion_k": null
-    },
-    "_l": {
-        "medico_usu_id_fk": null,
-        "fecha_fin": null,
-        "hora_fin": null
-    },
-    "auditoria": {
-        "fecha_creacion_anam": null,
-        "fecha_modificacion_anam": null
-    }
-}
+-- DROP FUNCTION public.interconsulta_solicitud_crud(in varchar, in json, out json);
+
+CREATE OR REPLACE FUNCTION public.interconsulta_solicitud_crud(opcion character varying, obj_json json, OUT mensaje json)
+RETURNS json
+LANGUAGE plpgsql
+AS $function$
+DECLARE
+  registro json;
+BEGIN
+  -- Valida que la opción ingresada sea correcta
+  IF opcion IS NULL OR opcion NOT IN ('I', 'U', 'D') THEN
+    mensaje := json_build_object(
+      'status', 'error', 
+      'funcion', 'interconsulta_solicitud_crud',
+      'message', 'Debe ingresar una opción válida'
+    );
+    RETURN;
+  END IF;
+
+  -- Valida que el json enviado sea un json bien armado
+  IF NOT validar_formato_json(obj_json::text) THEN
+    mensaje := json_build_object(
+      'status', 'error', 
+      'funcion', 'interconsulta_solicitud_crud',
+      'message', 'Formato JSON no válido!!'
+    );
+    RETURN;
+  END IF;
+
+  IF opcion = 'I' THEN
+    INSERT INTO interconsulta_solicitud(
+      fecha_creacion_intersol,
+      fecha_inicio,
+      hora_inicio,
+      fecha_fin,
+      hora_fin,
+      casalud_id_fk,
+      fk_hcu,
+      medico_usu_id_fk,
+      caracteristicas_solicitud_intersol,
+      cuadro_clinico_intersol,
+      resultados_examenes_intersol,
+      plan_terapeutico_intersol
+    ) VALUES (
+      (obj_json->>'fecha_creacion_intersol')::json,
+      (obj_json->>'fecha_inicio')::date,
+      (obj_json->>'hora_inicio')::time,
+      (obj_json->>'fecha_fin')::date,
+      (obj_json->>'hora_fin')::time,
+      (obj_json->>'casalud_id_fk')::int8,
+      (obj_json->>'fk_hcu')::int8,
+      (obj_json->>'medico_usu_id_fk')::int8,
+      (obj_json->>'caracteristicas_solicitud_intersol')::json,
+      (obj_json->>'cuadro_clinico_intersol')::text,
+      (obj_json->>'resultados_examenes_intersol')::text,
+      (obj_json->>'plan_terapeutico_intersol')::text
+    ) RETURNING 
+    json_build_object(
+      'pk_intersol', pk_intersol,
+      'fecha_creacion_intersol', fecha_creacion_intersol,
+      'fecha_modificacion_intersol', fecha_modificacion_intersol,
+      'fecha_inicio', fecha_inicio,
+      'hora_inicio', hora_inicio,
+      'fecha_fin', fecha_fin,
+      'hora_fin', hora_fin,
+      'casalud_id_fk', casalud_id_fk,
+      'fk_hcu', fk_hcu,
+      'medico_usu_id_fk', medico_usu_id_fk,
+      'caracteristicas_solicitud_intersol', caracteristicas_solicitud_intersol,
+      'cuadro_clinico_intersol', cuadro_clinico_intersol,
+      'resultados_examenes_intersol', resultados_examenes_intersol,
+      'plan_terapeutico_intersol', plan_terapeutico_intersol
+    ) INTO registro;
+
+    mensaje := json_build_object(
+      'status', 'ok',
+      'funcion', 'interconsulta_solicitud_crud',
+      'message', 'Registro creado',
+      'data', registro
+    );
+    RETURN;
+
+  ELSIF opcion = 'U' THEN
+    UPDATE interconsulta_solicitud SET
+      fecha_modificacion_intersol = (obj_json->>'fecha_modificacion_intersol')::json,
+      fecha_inicio = (obj_json->>'fecha_inicio')::date,
+      hora_inicio = (obj_json->>'hora_inicio')::time,
+      fecha_fin = (obj_json->>'fecha_fin')::date,
+      hora_fin = (obj_json->>'hora_fin')::time,
+      casalud_id_fk = (obj_json->>'casalud_id_fk')::int8,
+      fk_hcu = (obj_json->>'fk_hcu')::int8,
+      medico_usu_id_fk = (obj_json->>'medico_usu_id_fk')::int8,
+      caracteristicas_solicitud_intersol = (obj_json->>'caracteristicas_solicitud_intersol')::json,
+      cuadro_clinico_intersol = (obj_json->>'cuadro_clinico_intersol')::text,
+      resultados_examenes_intersol = (obj_json->>'resultados_examenes_intersol')::text,
+      plan_terapeutico_intersol = (obj_json->>'plan_terapeutico_intersol')::text
+    WHERE pk_intersol = (obj_json->>'pk_intersol')::int4
+   RETURNING 
+    json_build_object(
+      'pk_intersol', pk_intersol,
+      'fecha_creacion_intersol', fecha_creacion_intersol,
+      'fecha_modificacion_intersol', fecha_modificacion_intersol,
+      'fecha_inicio', fecha_inicio,
+      'hora_inicio', hora_inicio,
+      'fecha_fin', fecha_fin,
+      'hora_fin', hora_fin,
+      'casalud_id_fk', casalud_id_fk,
+      'fk_hcu', fk_hcu,
+      'medico_usu_id_fk', medico_usu_id_fk,
+      'caracteristicas_solicitud_intersol', caracteristicas_solicitud_intersol,
+      'cuadro_clinico_intersol', cuadro_clinico_intersol,
+      'resultados_examenes_intersol', resultados_examenes_intersol,
+      'plan_terapeutico_intersol', plan_terapeutico_intersol
+    ) INTO registro;
+
+    mensaje := json_build_object(
+      'status', 'ok',
+      'funcion', 'interconsulta_solicitud_crud',
+      'message', 'Registro actualizado',
+      'data', registro
+    );
+    RETURN;
+
+  ELSIF opcion = 'D' THEN
+    DELETE FROM interconsulta_solicitud
+    WHERE pk_intersol = (obj_json->>'pk_intersol')::int4;
+
+    mensaje := json_build_object(
+      'status', 'ok',
+      'funcion', 'interconsulta_solicitud_crud',
+      'message', 'Registro eliminado'
+    );
+    RETURN;
+  END IF;
+
+ /*
+  {
+    "pk_intersol": 0,
+    "fecha_creacion_intersol": null,
+    "fecha_modificacion_intersol": null,
+    "fecha_inicio": null,
+    "hora_inicio": null,
+    "fecha_fin": null,
+    "hora_fin": null,
+    "casalud_id_fk": 0,
+    "fk_hcu": 0,
+    "medico_usu_id_fk": 0,
+    "caracteristicas_solicitud_intersol": {
+	  "servicio": {
+	    "emergencia": false,
+	    "consulta_externa": false,
+	    "hospitalizacion": false
+	  },
+	  "especialidad": {
+	    "especialidad_origen": null,
+	    "especialidad_destino": null
+	  },
+	  "cama": null,
+	  "sala": null,
+	  "urgente": {
+	    "si": false,
+	    "no": false
+	  },
+	  "descripcion_motivo": ""
+	},
+    "cuadro_clinico_intersol": null,
+    "resultados_examenes_intersol": null,
+    "plan_terapeutico_intersol": null
+  }
+  * */
+ 
+EXCEPTION WHEN OTHERS THEN
+  mensaje := json_build_object(
+    'status', 'error',
+    'funcion', 'interconsulta_solicitud_crud',
+    'message', SQLERRM
+  );
+  RETURN;
+END;
+$function$
+;
