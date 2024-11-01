@@ -17,7 +17,7 @@ const router = express.Router();
 //Anamnesis Hospitalizacion
 router.get("/hosp/all/:hcu", authenticationJWT.verificarToken,getAllAnamesis_Hosp);
 router.get("/hosp/fechas/:hcu/:f1/:f2", authenticationJWT.verificarToken,getAnamesis_Hosp_Fechas);
-router.get("/hosp/id/:id", authenticationJWT.verificarToken,getAnamesis_Hosp_ID);
+router.get("/hosp/id/:opcion/:id", authenticationJWT.verificarToken,getAnamesis_Hosp_ID);
 router.post("/hosp/:accion", authenticationJWT.verificarToken,crud_Anamesis_Hosp);
 
 //Diagnostico

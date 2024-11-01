@@ -5,9 +5,9 @@ require('dotenv').config();
 let consulta_master=`select 
                     u.*,
                     (CASE
-                        WHEN u.tipo_tipoubi = 'O' THEN 'OCUPADA'
-                        WHEN u.tipo_tipoubi = 'D' THEN 'DESOCUPADA'
-                        WHEN u.tipo_tipoubi = 'P' THEN 'PRESTAMO'
+                        WHEN u.estado_ubicacion = 'O' THEN 'OCUPADA'
+                        WHEN u.estado_ubicacion = 'D' THEN 'DESOCUPADA'
+                        WHEN u.estado_ubicacion = 'P' THEN 'PRESTAMO'
                         ELSE 'AVERIADA'
                     END) as estado, 
                     (SELECT row_to_json(torre.*) 

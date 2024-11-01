@@ -57,13 +57,13 @@ const getIngresosXAreaTorrePisoSala = async (req, res) => {
     let consulta = `${consulta_master} where a.areas_id_pk = ${area} and tipo_ciclohosp='INGRESO' and ch.activo_ciclohosp=true `;
     let order =' order by torre.desc_tipoubi asc, piso.desc_tipoubi asc, u.descripcion_ubicacion ASC';
 
-    if (torre != undefined || torre != null || torre != ''){
+    if (torre != undefined && torre != null && torre != '' && torre != 0){
         consulta = `${consulta} and torre.pk_tipoubi=${torre} `;
     }  
-    if (piso != undefined || piso != null || piso != ''){
+    if (piso != undefined && piso != null && piso != '' && piso != 0){
         consulta = `${consulta} and piso.pk_tipoubi=${piso} `;
     } 
-    if (sala != undefined || sala != null || sala != '') {
+    if (sala != undefined && sala != null && sala != '' && sala != 0) {
         consulta = `${consulta} and sala.pk_tipoubi=${sala} `;
     }
     

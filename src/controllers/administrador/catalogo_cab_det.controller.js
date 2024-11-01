@@ -52,7 +52,7 @@ const getCatalogosDetalle = async (req, res) => {
     let desde = req.query.desde;
     let consulta ='';
     
-    if (req.params.estado) {
+    if (req.params.estado == 'true') {
         estado=true;
         consulta = `select * from catalogo_detalle cd inner join catalogo_cabecera cc on cd.fk_catcabecera = cc.pk_catcab where cc.codigo_catcab = '${padre_cab}' and cd.estado_catdetalle = ${estado} order by cd.desc_catdetalle asc`;
     }else{

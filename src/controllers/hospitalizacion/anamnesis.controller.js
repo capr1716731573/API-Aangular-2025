@@ -31,6 +31,10 @@ const getAllAnamesis_Hosp = async (req, res) => {
     } else {
         opciones.reg_desde=0;
     }
+
+    console.log("AAAAAAAA");
+    console.log(JSON.stringify(opciones));
+
     consulta = `select * from anamnesis_hosp_getall('${JSON.stringify(opciones)}'::text)`;
     console.log(consulta);
     await funcionesSQL.getAll_Rows_StoreProcedure(consulta, req, res);

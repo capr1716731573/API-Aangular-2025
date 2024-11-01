@@ -14,7 +14,8 @@ const router = express.Router();
 // HCU
 router.get("/", authenticationJWT.verificarToken,getAllHCU);
 router.get("/bsq/:valor", authenticationJWT.verificarToken,getHCUBsq);
-router.get("/id/:opcion/:id", authenticationJWT.verificarToken,getHCUID);
+//router.get("/id/:opcion/:id", authenticationJWT.verificarToken,getHCUID);
+router.get("/id/:opcion/:id", getHCUID);
 router.post("/:accion", authenticationJWT.verificarToken,crudHCU);
 
 

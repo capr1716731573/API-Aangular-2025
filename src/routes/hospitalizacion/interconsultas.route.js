@@ -19,7 +19,7 @@ const router = express.Router();
 //Interconsulta Solicitudes
 router.get("/intersol/all/:hcu", authenticationJWT.verificarToken,getAllInterconsultas_Solicitudes);
 router.get("/intersol/fechas/:hcu/:f1/:f2", authenticationJWT.verificarToken,getAllInterconsultas_Fechas);
-router.get("/intersol/id/:id", authenticationJWT.verificarToken,getInterconsultas_Solicitudes_ID);
+router.get("/intersol/id/:opcion/:id", authenticationJWT.verificarToken,getInterconsultas_Solicitudes_ID);
 router.post("/intersol/:accion", authenticationJWT.verificarToken,crud_Interconsultas_Solicitud);
 
 //Interconsulta Respuestas
