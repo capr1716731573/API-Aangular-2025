@@ -101,7 +101,7 @@ const getAllMedicosEpicrisis = async (req, res) => {
             inner join catalogo_detalle espe on espe.pk_catdetalle = espemed.fk_catdetalle 
             on espemed.pk_espemed = epimed.pk_epimed 
             where epimed.fk_epi = ${id_epi}
-            order by epimed.periodo_desde ASC
+            order by epimed.periodo_desde_epimed ASC
     `;
     await funcionesSQL.getRows(consulta, req, res);
 }

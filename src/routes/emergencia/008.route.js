@@ -2,9 +2,11 @@ const express= require('express');
 var authenticationJWT = require('../../middlewares/authentication');
 const {
     getAll008,
+    getAll008_Espera,
     get008Bsq,
     get008Fechas,
     get008ID,
+    getAlerta008,
     crud008,
     reporte008_descarga,
     reporte008_frame,
@@ -18,9 +20,11 @@ const router = express.Router();
 // Routes
 //Catalogo Cabecera
 router.get("/all/", authenticationJWT.verificarToken,getAll008);
+router.get("/espera/:color",getAll008_Espera);
 router.get("/bsq/:valor", authenticationJWT.verificarToken,get008Bsq);
 router.get("/fechas/:f1/:f2", authenticationJWT.verificarToken,get008Fechas);
 router.get("/id/:opcion/:id", authenticationJWT.verificarToken,get008ID);
+router.get("/alerta/:usuario",authenticationJWT.verificarToken,getAlerta008);
 router.post("/:accion", authenticationJWT.verificarToken,crud008);
 /*Multiples Paginas*/
 router.get("/rep_descarga/:id",reporte008_descarga);
