@@ -1,41 +1,52 @@
 const express= require('express');
 var authenticationJWT = require('../../middlewares/authentication');
 const {
-    getAllEpicrisis,
-    getEpicrisis_Fechas,
-    getEpicrisis_ID,
-    crud_Epicrisis,
-    getAllDiagnosticoEpicrisis,
-    getDiagnosticoID_Epicrisis,
-    crudDiagnostico_Epicrisis,    
-    getAllMedicosEpicrisis,
-    getMedicosID_Epicrisis,
-    crudMedicos_Epicrisis,
-    reporte008_descarga,
-    reporte008_frame,
-    reporte008_descarga1,
-    reporte008_frame1
-}=require("../../controllers/hospitalizacion/epicrisis.controller");
+    getAll_SignosVitales_a,
+    getAll_SignosVitales_c,
+    getAll_SignosVitales_d,
+    getAll_SignosVitales_e,
+    getSignosVitales_Fechas_a,
+    getSignosVitales_Fechas_c,
+    getSignosVitales_Fechas_d,
+    getSignosVitales_Fechas_e,
+    getSignosVitales_a_ID,
+    getSignosVitales_c_ID,
+    getSignosVitales_d_ID,
+    getSignosVitales_e_ID,
+    crud_SignosVitales_a,
+    crud_SignosVitales_c,
+    crud_SignosVitales_d,
+    crud_SignosVitales_e
+}=require("../../controllers/hospitalizacion/signos_vitales.controller");
 
 
 const router = express.Router();
 
 // Routes
-//Anamnesis Hospitalizacion
-router.get("/hosp/all/:hcu", authenticationJWT.verificarToken,getAllEpicrisis);
-router.get("/hosp/fechas/:hcu/:f1/:f2", authenticationJWT.verificarToken,getEpicrisis_Fechas);
-router.get("/hosp/id/:opcion/:id", authenticationJWT.verificarToken,getEpicrisis_ID);
-router.post("/hosp/:accion", authenticationJWT.verificarToken,crud_Epicrisis);
+//Signos Vitales Seccion A
+router.get("/signos/a/all/:hcu", authenticationJWT.verificarToken,getAll_SignosVitales_a);
+router.get("/signos/a/fechas/:hcu/:f1/:f2", authenticationJWT.verificarToken,getSignosVitales_Fechas_a);
+router.get("/signos/a/id/:opcion/:id", authenticationJWT.verificarToken,getSignosVitales_a_ID);
+router.post("/signos/a/:accion", authenticationJWT.verificarToken,crud_SignosVitales_a);
 
-//Diagnostico
-router.get("/diag/:id_epi", authenticationJWT.verificarToken,getAllDiagnosticoEpicrisis);
-router.get("/diag/id/:id", authenticationJWT.verificarToken,getDiagnosticoID_Epicrisis);
-router.post("/diag/:accion", authenticationJWT.verificarToken,crudDiagnostico_Epicrisis);
+//Signos Vitales Seccion c
+router.get("/signos/c/all/:hcu", authenticationJWT.verificarToken,getAll_SignosVitales_c);
+router.get("/signos/c/fechas/:hcu/:f1/:f2", authenticationJWT.verificarToken,getSignosVitales_Fechas_c);
+router.get("/signos/c/id/:opcion/:id", authenticationJWT.verificarToken,getSignosVitales_c_ID);
+router.post("/signos/c/:accion", authenticationJWT.verificarToken,crud_SignosVitales_c);
 
-//Médicos Epicrisis
-router.get("/med/:id_epi", authenticationJWT.verificarToken,getAllMedicosEpicrisis);
-router.get("/med/id/:id", authenticationJWT.verificarToken,getMedicosID_Epicrisis);
-router.post("/med/:accion", authenticationJWT.verificarToken,crudMedicos_Epicrisis);
+//Signos Vitales Seccion D
+router.get("/signos/d/all/:hcu", authenticationJWT.verificarToken,getAll_SignosVitales_d);
+router.get("/signos/d/fechas/:hcu/:f1/:f2", authenticationJWT.verificarToken,getSignosVitales_Fechas_d);
+router.get("/signos/d/id/:opcion/:id", authenticationJWT.verificarToken,getSignosVitales_d_ID);
+router.post("/signos/d/:accion", authenticationJWT.verificarToken,crud_SignosVitales_d);
+
+//Signos Vitales Seccion E
+router.get("/signos/e/all/:hcu", authenticationJWT.verificarToken,getAll_SignosVitales_e);
+router.get("/signos/e/fechas/:hcu/:f1/:f2", authenticationJWT.verificarToken,getSignosVitales_Fechas_e);
+router.get("/signos/e/id/:opcion/:id", authenticationJWT.verificarToken,getSignosVitales_e_ID);
+router.post("/signos/e/:accion", authenticationJWT.verificarToken,crud_SignosVitales_e);
+
 
 
 module.exports=router;
