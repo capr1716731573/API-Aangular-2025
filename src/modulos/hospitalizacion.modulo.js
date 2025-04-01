@@ -7,6 +7,8 @@ function configurarRutas_Hospitalizacion(app) {
     app.use("/anamnesis", require('../routes/hospitalizacion/anamnesis.route'));
     app.use("/interconsulta", require('../routes/hospitalizacion/interconsultas.route'));
     app.use("/epicrisis", require('../routes/hospitalizacion/epicrisis.route'));
+    app.use("/sigvita", require('../routes/hospitalizacion/signos_vitales.route'));
+    app.use("/kardex", require('../routes/hospitalizacion/kardex.route'));
         
 }
 
