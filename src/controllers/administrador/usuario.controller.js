@@ -15,10 +15,10 @@ const getUsuario = async (req, res) => {
     let hasta = req.query.hasta;
     let consulta = '';
     desde = Number(desde);
-
+    console.log(`${desde} - ${hasta}`);
     //valido que exista el parametro "desde"
     if (req.query.desde) {
-        consulta = `select * from usuarios p inner join persona p2 on p.fk_persona = p2.pk_persona  order by p.login_usuario LIMIT ${hasta} OFFSET ${desde}`;
+        consulta = `select * from usuarios p inner join persona p2 on p.fk_persona = p2.pk_persona  order by p.login_usuario LIMIT ${desde+variablesEntorno.ROWS_X_PAGE} OFFSET ${desde}`;
     } else {
         consulta = `select * from usuarios p inner join persona p2 on p.fk_persona = p2.pk_persona  order by p.login_usuario `;
     }
@@ -28,7 +28,14 @@ const getUsuario = async (req, res) => {
 
 const getUsuarioBsq = async (req, res) => {
     let busqueda = req.params.valor;
-    const consulta = `select * from usuarios p inner join persona p2 on p.fk_persona = p2.pk_persona  WHERE (p.login_usuario LIKE '%${busqueda}%' OR p2.apellidopat_persona LIKE '%${busqueda}%' OR p2.apellidomat_persona LIKE '%${busqueda}%' OR p2.nombres_persona LIKE '%${busqueda}%' OR p2.numidentificacion_persona LIKE '%${busqueda}%') order by p.login_usuario`;
+    const consulta = `select * from usuarios p inner join persona p2 on p.fk_persona = p2.pk_persona  
+    WHERE (p.login_usuario LIKE '%${busqueda}%' 
+    OR p2.apellidopat_persona LIKE '%${busqueda}%' 
+    OR p2.apellidomat_persona LIKE '%${busqueda}%' 
+    OR p2.nombre_primario_persona LIKE '%${busqueda}%' 
+    OR p2.nombre_secundario_persona LIKE '%${busqueda}%'
+    OR p2.numidentificacion_persona LIKE '%${busqueda}%')
+      order by p.login_usuario`;
     await funcionesSQL.getRows(consulta, req, res);
 }
 

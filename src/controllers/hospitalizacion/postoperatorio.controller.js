@@ -31,6 +31,7 @@ const getAllPostoperatorio = async (req, res) => {
     } else {
         opciones.reg_desde=0;
     }
+    console.log(`${JSON.stringify(opciones)}`);
 
     consulta = `select * from protocolo_operatorio_getall('${JSON.stringify(opciones)}'::text)`;
     console.log(consulta);
