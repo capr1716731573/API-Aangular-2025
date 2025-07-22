@@ -25,6 +25,16 @@ const getPerfil = async (req, res) => {
 
 }
 
+const getPerfilByModulo = async (req, res) => {
+
+    let mod = req.params.mod;
+    let consulta = '';
+    consulta = `select * from perfil p where p.fk_mod =${mod} order by p.nombre_perfil `;
+    console.log(consulta)
+    await funcionesSQL.getRows(consulta, req, res);
+
+}
+
 const getPerfilBsq = async (req, res) => {
     let busqueda = req.params.valor;
     const consulta = `select * from perfil p  WHERE p.nombre_perfil LIKE UPPER('%${busqueda}%')`;
@@ -50,6 +60,7 @@ const crudPerfil = async (req, res) => {
 module.exports = {
     getPerfil,
     getPerfilBsq,
+    getPerfilByModulo,
     getPerfilID,
     crudPerfil
 }

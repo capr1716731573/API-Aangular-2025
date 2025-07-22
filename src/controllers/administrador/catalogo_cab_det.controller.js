@@ -51,14 +51,14 @@ const getCatalogosDetalle = async (req, res) => {
     let estado = req.params.estado;
     let desde = req.query.desde;
     let consulta ='';
-    
+
     if (req.params.estado == 'true') {
         estado=true;
         consulta = `select * from catalogo_detalle cd inner join catalogo_cabecera cc on cd.fk_catcabecera = cc.pk_catcab where cc.codigo_catcab = '${padre_cab}' and cd.estado_catdetalle = ${estado} order by cd.desc_catdetalle asc`;
     }else{
         consulta = `select * from catalogo_detalle cd inner join catalogo_cabecera cc on cd.fk_catcabecera = cc.pk_catcab where cc.codigo_catcab = '${padre_cab}' order by cd.desc_catdetalle asc`;
     }
-    console.log(consulta);
+    
     desde = Number(desde);
 
     //valido que exista el parametro "desde"
@@ -79,6 +79,7 @@ const getCatalogosDetalleBsq = async (req, res) => {
 const getCatalogosDetalleID = async (req, res) => {
     let id = req.params.id;
     const consulta = `select * from catalogo_detalle cd inner join catalogo_cabecera cc on cd.fk_catcabecera = cc.pk_catcab where cd.pk_catdetalle =${id}`;
+    console.log(`aqui `+consulta);
     await funcionesSQL.getRowID(consulta, req, res);
 }
 

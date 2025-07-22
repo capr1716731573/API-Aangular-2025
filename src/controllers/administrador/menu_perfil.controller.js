@@ -16,6 +16,17 @@ const getMenuAll = async (req, res) => {
 
 }
 
+const getMenuPadresHijos = async (req, res) => {
+
+    let padre = req.params.padre;
+    let consulta = '';
+    consulta = `select * from menu m where m.fkpadre_menu=${padre} ORDER BY desc_menu ASC, pk_menu ASC `;
+    console.log(consulta)
+    await funcionesSQL.getRows(consulta, req, res);
+
+}
+
+
 const getMenuAllByPerfil = async (req, res) => {
     let perfil = req.params.perfil;
     let estado = req.params.estado;
@@ -23,6 +34,21 @@ const getMenuAllByPerfil = async (req, res) => {
     await funcionesSQL.crud_StoreProcedure(consulta, req, res);
 
 }
+
+const getMenuAllByPerfil2 = async (req, res) => {
+    let perfil = req.params.perfil;
+    let consulta = `select * from getMenubyPerfil(${perfil})`;
+    await funcionesSQL.crud_StoreProcedure(consulta, req, res);
+
+}
+
+const getMenuAllByPerfilTodos = async (req, res) => {
+    let perfil = req.params.perfil;
+    let consulta = `select * from getMenubyPerfilTodos(${perfil})`;
+    await funcionesSQL.crud_StoreProcedure(consulta, req, res);
+
+}
+
 
 const getMenuAllByPerfilModulo = async (req, res) => {
     let perfil = req.params.perfil;
@@ -52,7 +78,10 @@ const crudMenuPerfil = async (req, res) => {
 module.exports = {
     getMenuAll,
     getMenuAllByPerfil,
+    getMenuAllByPerfil2,
+    getMenuAllByPerfilTodos,
     getMenuAllByPerfilModulo,
+    getMenuPadresHijos,
     crudMenu,
     crudMenuPerfil
 }

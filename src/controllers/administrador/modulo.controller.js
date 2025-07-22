@@ -33,7 +33,7 @@ const getModuloBsq = async (req, res) => {
 
 const getModuloID = async (req, res) => {
     let id = req.params.id;
-    const consulta = `select * from modulos p  WHERE p.pk_modulo=${id}`;
+    const consulta = `select * from modulos p  WHERE p.pk_mod=${id}`;
     await funcionesSQL.getRowID(consulta, req, res);
 }
 

@@ -23,7 +23,7 @@ router.post("/cab/:accion", authenticationJWT.verificarToken,crudCatalogosCabece
 //Catalogo Detalle
 router.get("/det/:padre/:estado", authenticationJWT.verificarToken,getCatalogosDetalle);
 router.get("/det/bsq/:padre/:estado/:valor", authenticationJWT.verificarToken,getCatalogosDetalleBsq);
-router.get("/det/:id", authenticationJWT.verificarToken,getCatalogosDetalleID);
+router.get("/detalle/id/:id", authenticationJWT.verificarToken,getCatalogosDetalleID);
 router.post("/det/:accion", authenticationJWT.verificarToken,crudCatalogosDetalle);
 
 module.exports=router;

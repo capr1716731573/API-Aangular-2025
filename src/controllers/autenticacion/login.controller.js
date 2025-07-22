@@ -1,5 +1,7 @@
 const {sequelize} = require('../../config/database');
 
+const funcionesSQL = require('../../middlewares/funcionesSQL');
+
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
@@ -64,8 +66,17 @@ try {
 
 }
 
+const verificarUsuarioPerfilModulo = async (req, res) => {
+    let usuario = req.params.usuario;
+    let perfil = req.params.perfil;
+    let modulo = req.params.modulo;
+    //console.log(`usuario: ${usuario} - perfil: ${perfil} - modulo: ${modulo}`)
+    const consulta = `select * from verificar_usuario_perfil(${usuario},${perfil},${modulo})`;
+    await funcionesSQL.getRowID(consulta, req, res);
+}
 
 
 module.exports={
-    login
+    login,
+    verificarUsuarioPerfilModulo
 }

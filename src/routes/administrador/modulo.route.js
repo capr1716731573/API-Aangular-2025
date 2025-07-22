@@ -11,7 +11,7 @@ const {
 const router = express.Router();
 
 // Routes
-router.get("/", authenticationJWT.verificarToken,getModulo);
+router.get("/",getModulo);
 router.get("/bsq/:valor", authenticationJWT.verificarToken,getModuloBsq);
 router.get("/id/:id", authenticationJWT.verificarToken,getModuloID);
 router.post("/:accion", authenticationJWT.verificarToken,crudModulo);
