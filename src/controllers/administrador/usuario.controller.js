@@ -15,7 +15,6 @@ const getUsuario = async (req, res) => {
     let hasta = req.query.hasta;
     let consulta = '';
     desde = Number(desde);
-    console.log(`${desde} - ${hasta}`);
     //valido que exista el parametro "desde"
     if (req.query.desde) {
         consulta = `select * from usuarios p inner join persona p2 on p.fk_persona = p2.pk_persona  order by p.login_usuario LIMIT ${desde+variablesEntorno.ROWS_X_PAGE} OFFSET ${desde}`;
@@ -45,7 +44,16 @@ const getUsuarioID = async (req, res) => {
     await funcionesSQL.getRowID(consulta, req, res);
 }
 
-const crudUsuario = async (req, res) => {
+
+const crudUsuario= async (req, res) => {
+    const accion = req.params.accion;
+    const body_json = req.body;
+    const consulta = `select * from crud_usuarios ('${accion}','${JSON.stringify(body_json)}'::json)`;
+    await funcionesSQL.crud_StoreProcedure(consulta, req, res);
+    
+    
+}
+const crudUsuarioPassword = async (req, res) => {
     const accion = req.params.accion;
     const body_json = req.body;
 
@@ -82,6 +90,17 @@ const getUsuarioPerfil = async (req, res) => {
     await funcionesSQL.getRows(consulta, req, res);
 }
 
+const getPerfilUsuario = async (req, res) => {
+
+    let usuario = req.params.usuario;
+    let consulta = '';
+    consulta=`select * from usuario_perfil up 
+                inner join perfil p 
+                on up.fk_perfil = p.pk_perfil
+                where up.fk_usuario =${usuario} order by p.nombre_perfil ASC`
+    await funcionesSQL.getRows(consulta, req, res);
+}
+
 const getUsuarioPerfilBsq = async (req, res) => {
     let busqueda = req.params.valor;
     let perfil = req.params.perfil;
@@ -101,7 +120,9 @@ module.exports = {
     getUsuarioBsq,
     crudUsuario,
     getUsuarioPerfil,
+    getPerfilUsuario,
     getUsuarioPerfilBsq,
     getUsuarioID,
-    crudUsuarioPerfil
+    crudUsuarioPerfil,
+    crudUsuarioPassword
 }

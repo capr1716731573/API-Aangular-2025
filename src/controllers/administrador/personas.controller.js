@@ -58,6 +58,25 @@ const getPersonaID = async (req, res) => {
     await funcionesSQL.getID_Row_StoreProcedure(consulta, req, res);
 }
 
+const getUVerificaPersonaUsuario = async (req, res) => {
+    let identificacion = req.params.identificacion;
+    const consulta = `SELECT 
+                        COALESCE(p.pk_persona, 0) AS pk_persona,
+                        COALESCE(u.pk_usuario, 0) AS pk_usuario
+                        FROM persona p
+                        LEFT JOIN usuarios u ON p.pk_persona = u.fk_persona
+                        WHERE p.numidentificacion_persona = '${identificacion}'
+                        UNION ALL
+                        SELECT 0, 0
+                        WHERE NOT EXISTS (
+                        SELECT 1
+                        FROM persona p
+                        LEFT JOIN usuarios u ON p.pk_persona = u.fk_persona
+                        WHERE p.numidentificacion_persona = '${identificacion}'
+);`;
+    await funcionesSQL.getRowID(consulta, req, res);
+}
+
 const crudPersona = async (req, res) => {
     const accion = req.params.accion;
     const body_json = req.body;
@@ -69,5 +88,6 @@ module.exports = {
     getAllPersona,
     getPersonaID,
     getPersonaBsq,
+    getUVerificaPersonaUsuario,
     crudPersona
 }

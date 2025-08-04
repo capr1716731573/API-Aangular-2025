@@ -4,6 +4,7 @@ const {
     getAllPersona,
     getPersonaID,
     getPersonaBsq,
+    getUVerificaPersonaUsuario,
     crudPersona
 }=require("../../controllers/administrador/personas.controller");
 
@@ -14,6 +15,7 @@ const router = express.Router();
 router.get("/", authenticationJWT.verificarToken,getAllPersona);
 router.get("/bsq/:valor", authenticationJWT.verificarToken,getPersonaBsq);
 router.get("/id/:opcion/:id", authenticationJWT.verificarToken,getPersonaID);
+router.get("/usupersona/:identificacion", authenticationJWT.verificarToken,getUVerificaPersonaUsuario);
 router.post("/:accion", authenticationJWT.verificarToken,crudPersona);
 
 module.exports=router;
