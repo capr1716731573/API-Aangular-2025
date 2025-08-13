@@ -30,7 +30,7 @@ const getInstitucionesBsq = async (req, res) => {
 
 const getInstitucionesID = async (req, res) => {
     let id = req.params.id;
-    const consulta = `select * from institucion i where i.ins_descripcion where i.ins_id_pk=${id}`;
+    const consulta = `select * from institucion i where i.ins_id_pk=${id}`;
     await funcionesSQL.getRowID(consulta, req, res);
 }
 

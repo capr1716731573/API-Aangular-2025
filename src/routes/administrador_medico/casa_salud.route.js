@@ -13,7 +13,7 @@ const router = express.Router();
 
 // Routes
 router.get("/", authenticationJWT.verificarToken,getCasaSalud);
-router.get("/principal/", authenticationJWT.verificarToken,getCasaSaludPrincipal);
+router.get("/principal", authenticationJWT.verificarToken,getCasaSaludPrincipal);
 router.get("/bsq/:valor", authenticationJWT.verificarToken,getCasaSaludBsq);
 router.get("/id/:id", authenticationJWT.verificarToken,getCasaSaludID);
 router.post("/:accion", authenticationJWT.verificarToken,crudCasaSalud);
