@@ -11,6 +11,7 @@ router.get("/", authenticationJWT.verificarToken,geografia.getGeografia);
 router.get("/bsq/:valor", authenticationJWT.verificarToken,geografia.getGeografiaBsq);
 router.get("/bsq", authenticationJWT.verificarToken,geografia.getGeografiaBsqPad);
 router.get("/ciudad/", authenticationJWT.verificarToken,geografia.getGeografiaCantonesPais);
+router.get("/tipo/:tipo", authenticationJWT.verificarToken,geografia.getGeografiaXTipo);
 router.get("/id/:id", authenticationJWT.verificarToken,geografia.getGeografiaID);
 router.post("/:accion", authenticationJWT.verificarToken,geografia.crudGeografia);
 

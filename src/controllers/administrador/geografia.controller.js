@@ -49,6 +49,18 @@ const getGeografiaCantonesPais = async (req, res) => {
 
 }
 
+const getGeografiaXTipo = async (req, res) => {
+
+    let tipo = req.params.tipo; 
+    let consulta = '';
+
+    consulta =`select c.* from geografia c where c.tipo_geo ='${tipo}' order by c.desc_geo ASC`;
+
+    await funcionesSQL.getRows(consulta, req, res);
+
+}
+
+
 const getGeografiaBsq = async (req, res) => {
     let busqueda = req.params.valor;
     let tipoGeografia =(req.query.tipo).toUpperCase(); 
@@ -100,6 +112,7 @@ module.exports = {
     getGeografia,
     getGeografiaBsq,
     getGeografiaID,
+    getGeografiaXTipo,
     getGeografiaCantonesPais,
     crudGeografia,
     getGeografiaBsqPad
