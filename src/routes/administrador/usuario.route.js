@@ -24,7 +24,7 @@ router.post("/usu_per/:accion", authenticationJWT.verificarToken, usuario.crudUs
 //Subir la firma y actulizar en la base de datos
 router.post(
     '/upload/firma/U',
-    authenticationJWT.verificarToken,
+    //authenticationJWT.verificarToken,
     uploadFirma.single('archivo'), // upload genérico
     async (req, res, next) => {
         if (!req.file) {
@@ -61,7 +61,7 @@ router.post(
 //Subir el sello y actulizar en la base de datos
 router.post(
     '/upload/sello/U',
-    authenticationJWT.verificarToken,
+    //authenticationJWT.verificarToken,
     uploadSello.single('archivo'), // nombre genérico
     async (req, res, next) => {
         if (!req.file) return res.status(400).json({ error: 'No se recibió ningún sello.' });
@@ -75,7 +75,7 @@ router.post(
 
         const pk = data.pk_usuario;
         const ext = path.extname(req.file.filename);
-        const nuevoNombre = `${pk}_sello_${Date.now()}${ext}`;
+        const nuevoNombre = `${pk}_sello_${Date.now()}${ext}`; 
         const nuevaRuta = path.join(path.dirname(req.file.path), nuevoNombre);
 
         fs.renameSync(req.file.path, nuevaRuta);
@@ -112,11 +112,11 @@ function serveStoredPath(req, res, queryKey) {
     res.sendFile(rutaAbs);
 }
 
-router.get('/ver/firma', authenticationJWT.verificarToken, (req, res) => {
+router.get('/ver/firma', (req, res) => {
     serveStoredPath(req, res, 'pathfirma');
 });
 
-router.get('/ver/sello', authenticationJWT.verificarToken, (req, res) => {
+router.get('/ver/sello', (req, res) => {
     serveStoredPath(req, res, 'pathsello');
 });
 module.exports = router;
