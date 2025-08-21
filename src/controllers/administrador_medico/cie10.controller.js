@@ -20,12 +20,45 @@ const getCie10= async (req, res) => {
     
     //valido que exista el parametro "desde"
     if (req.query.desde) {
-        consulta = consulta + ` order by c.desc_cie LIMIT ${variablesEntorno.ROWS_X_PAGE} OFFSET ${desde}`;
+        consulta = consulta + ` order by c.codigo_cie ASC LIMIT ${variablesEntorno.ROWS_X_PAGE} OFFSET ${desde}`;
     } 
 
     await funcionesSQL.getRows(consulta, req, res);
 
 }
+
+const getCie10Padres= async (req, res) => {
+
+    let estado = req.params.estado;
+    let consulta = '';
+    consulta =`select * from cie c where c.padre_cie=0 `;
+
+    if (estado === true){
+        consulta = consulta + ` and c.estado_cie=true order by c.codigo_cie ASC`; 
+    }else if (estado === false){
+        consulta=consulta +` order by c.codigo_cie ASC `;
+    }
+    
+    await funcionesSQL.getRows(consulta, req, res);
+
+}
+
+const getCie10Hijos= async (req, res) => {
+
+    let estado = req.params.estado;
+    let consulta = '';
+    consulta =`select * from cie c where c.padre_cie<>0 `;
+
+    if (estado === true){
+        consulta = consulta + ` and c.estado_cie=true order by c.codigo_cie ASC`; 
+    }else if (estado === false){
+        consulta=consulta +` order by c.codigo_cie ASC `;
+    }
+    
+    await funcionesSQL.getRows(consulta, req, res);
+
+}
+
 
 const getCie10Bsq = async (req, res) => {
     let busqueda = req.params.valor;
@@ -43,7 +76,7 @@ const getCie10ID = async (req, res) => {
 const crudCie10= async (req, res) => {
     const accion = req.params.accion;
     const body_json = req.body;
-    const consulta = `select * from crud_casasalud ('${accion}','${JSON.stringify(body_json)}'::json)`;
+    const consulta = `select * from crud_cie ('${accion}','${JSON.stringify(body_json)}'::json)`;
     await funcionesSQL.crud_StoreProcedure(consulta, req, res);
 }
 
@@ -53,5 +86,7 @@ module.exports = {
     getCie10,
     getCie10Bsq,
     getCie10ID,
+    getCie10Padres,
+    getCie10Hijos,
     crudCie10
 }
