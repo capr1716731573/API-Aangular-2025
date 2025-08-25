@@ -17,7 +17,7 @@ const getUsuario = async (req, res) => {
     desde = Number(desde);
     //valido que exista el parametro "desde"
     if (req.query.desde) {
-        consulta = `select * from usuarios p inner join persona p2 on p.fk_persona = p2.pk_persona  order by p.login_usuario LIMIT ${desde+variablesEntorno.ROWS_X_PAGE} OFFSET ${desde}`;
+        consulta = `select * from usuarios p inner join persona p2 on p.fk_persona = p2.pk_persona  order by p.login_usuario LIMIT ${desde + variablesEntorno.ROWS_X_PAGE} OFFSET ${desde}`;
     } else {
         consulta = `select * from usuarios p inner join persona p2 on p.fk_persona = p2.pk_persona  order by p.login_usuario `;
     }
@@ -44,30 +44,37 @@ const getUsuarioID = async (req, res) => {
     await funcionesSQL.getRowID(consulta, req, res);
 }
 
+const getUsuarioMedicos = async (req, res) => {
+    consulta = `select *,CONCAT(p2.apellidopat_persona,' ',p2.apellidomat_persona,' ',p2.nombre_primario_persona,' ',p2.nombre_secundario_persona) as nombres_completos from usuarios p inner join persona p2 on p.fk_persona = p2.pk_persona where p.doctor_usuario =true order by p.login_usuario`;
 
-const crudUsuario= async (req, res) => {
+    await funcionesSQL.getRows(consulta, req, res);
+
+}
+
+
+const crudUsuario = async (req, res) => {
     const accion = req.params.accion;
     const body_json = req.body;
     const consulta = `select * from crud_usuarios ('${accion}','${JSON.stringify(body_json)}'::json)`;
     await funcionesSQL.crud_StoreProcedure(consulta, req, res);
-    
-    
+
+
 }
 const crudUsuarioPassword = async (req, res) => {
     const accion = req.params.accion;
     const body_json = req.body;
 
-    if(body_json.password_usuario === undefined || body_json.password_usuario === null || body_json.password_usuario === '' || body_json.password_usuario === ""){
-        return res.status(500).json({ 
-            status:'error',
-            message: 'Error al enviar password' 
+    if (body_json.password_usuario === undefined || body_json.password_usuario === null || body_json.password_usuario === '' || body_json.password_usuario === "") {
+        return res.status(500).json({
+            status: 'error',
+            message: 'Error al enviar password'
         });
-    }else{
+    } else {
         body_json.password_usuario = bcryptjs.hashSync(body_json.password_usuario, 10);
         const consulta = `select * from crud_usuarios ('${accion}','${JSON.stringify(body_json)}'::json)`;
         await funcionesSQL.crud_StoreProcedure(consulta, req, res);
     }
-    
+
 }
 
 
@@ -94,7 +101,7 @@ const getPerfilUsuario = async (req, res) => {
 
     let usuario = req.params.usuario;
     let consulta = '';
-    consulta=`select * from usuario_perfil up 
+    consulta = `select * from usuario_perfil up 
                 inner join perfil p 
                 on up.fk_perfil = p.pk_perfil
                 where up.fk_usuario =${usuario} order by p.nombre_perfil ASC`
@@ -118,6 +125,7 @@ const crudUsuarioPerfil = async (req, res) => {
 module.exports = {
     getUsuario,
     getUsuarioBsq,
+    getUsuarioMedicos,
     crudUsuario,
     getUsuarioPerfil,
     getPerfilUsuario,

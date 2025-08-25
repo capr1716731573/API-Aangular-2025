@@ -11,6 +11,7 @@ const router = express.Router();
 //Usuario
 router.get("/", authenticationJWT.verificarToken, usuario.getUsuario);
 router.get("/bsq/:valor", authenticationJWT.verificarToken, usuario.getUsuarioBsq);
+router.get("/medicos", authenticationJWT.verificarToken, usuario.getUsuarioMedicos);
 router.get("/id/:id", authenticationJWT.verificarToken, usuario.getUsuarioID);
 router.post("/crud/:accion", authenticationJWT.verificarToken, usuario.crudUsuario);
 router.post("/usu_password/:accion", authenticationJWT.verificarToken, usuario.crudUsuarioPassword);
