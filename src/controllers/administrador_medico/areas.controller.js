@@ -12,7 +12,7 @@ const getAreas = async (req, res) => {
     let desde = req.query.desde;
     let consulta = 'select * from areas';
     desde = Number(desde);
-    if (estado) {       
+    if (estado) {
         consulta = `${consulta} where (area_habilitada=true)`;
     } else {
         consulta = `${consulta} where (area_habilitada=true OR area_habilitada=false)`;
@@ -22,11 +22,11 @@ const getAreas = async (req, res) => {
         consulta = `${consulta} AND casalud_id_fk=${casa_salud}`;
     }
     //Ordeno por descripcion
-    consulta=`${consulta} ORDER BY area_descripcion ASC `
-    
+    consulta = `${consulta} ORDER BY area_descripcion ASC `
+
     //valido que exista el parametro "desde"
-    if (req.query.desde) {
-        consulta = `${consulta} LIMIT ${variablesEntorno.ROWS_X_PAGE} OFFSET ${desde}`;
+    if (desde && desde !== "null" && !isNaN(Number(desde))) {
+        consulta += ` LIMIT ${variablesEntorno.ROWS_X_PAGE} OFFSET ${Number(desde)}`;
     }
 
     console.lo
@@ -42,19 +42,19 @@ const getAreasBsq = async (req, res) => {
 
     let consulta = 'select * from areas';
 
-    if (!estado) {
-        consulta = `${consulta} where (area_habilitada=true OR area_habilitada=false)`;
-    } else {
+    if (estado) {
         consulta = `${consulta} where (area_habilitada=true)`;
+    } else {
+        consulta = `${consulta} where (area_habilitada=true OR area_habilitada=false)`;
     }
 
     if (casa_salud != null) {
         consulta = `${consulta} AND casalud_id_fk=${casa_salud}`;
     }
-    
+
     //valido la busqueda
-    consulta=`${consulta} AND area_descripcion LIKE UPPER('%${busqueda}%') ORDER BY area_descripcion ASC`
-   
+    consulta = `${consulta} AND area_descripcion LIKE UPPER('%${busqueda}%') ORDER BY area_descripcion ASC`
+
     await funcionesSQL.getRows(consulta, req, res);
 }
 

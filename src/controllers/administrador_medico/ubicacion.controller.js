@@ -4,7 +4,14 @@ require('dotenv').config();
 const variablesEntorno = process.env;
 
 //* CODIGO DE LA TABLA DE TIPO DE UBICACION
-let consulta_master=`select u.*,torre.*,piso.*,sala.*,habitacion.*,clase_ubicacion.*,areas.* from
+let consulta_master = `select u.*,
+                        torre.desc_tipoubi as torre,
+                        piso.desc_tipoubi as piso,
+                        sala.desc_tipoubi as sala,
+                        habitacion.desc_tipoubi as habitacion,
+                        clase_ubicacion.desc_catdetalle as clase,
+                        areas.area_descripcion as area
+                        from
                         ubicacion u 
                         inner join tipo_ubicacion torre on u.fk_torre = torre.pk_tipoubi
                         inner join tipo_ubicacion piso on u.fk_piso = piso.pk_tipoubi
@@ -21,18 +28,20 @@ const getUbicacion = async (req, res) => {
     let consulta = consulta_master;
     desde = Number(desde);
 
-    if (!estado) {
+   if (!estado || estado === 'null' || estado === null|| estado === 'undefined' || estado === undefined) {
         consulta = `${consulta} where (estado_ubicacion='A' OR estado_ubicacion='O' OR estado_ubicacion='D')`;
+
     } else {
         consulta = `${consulta} where (estado_ubicacion='${estado}')`;
     }
 
-    if (area != null) {
+
+    if (area && area !== "null" && area !== "undefined") {
         consulta = `${consulta} AND areas_id_fk=${area}`;
     }
     //Ordeno por descripcion
-    consulta=`${consulta} ORDER BY descripcion_ubicacion ASC `
-    
+    consulta = `${consulta} ORDER BY descripcion_ubicacion ASC `
+
     //valido que exista el parametro "desde"
     if (req.query.desde) {
         consulta = `${consulta} LIMIT ${variablesEntorno.ROWS_X_PAGE} OFFSET ${desde}`;
@@ -47,27 +56,28 @@ const getUbicacionBsq = async (req, res) => {
     let area = req.params.area;
     let busqueda = req.params.valor;
 
-   let consulta = consulta_master;
+    let consulta = consulta_master;
 
-    if (!estado) {
+    if (!estado || estado === 'null' || estado === null|| estado === 'undefined' || estado === undefined) {
         consulta = `${consulta} where (estado_ubicacion='A' OR estado_ubicacion='O' OR estado_ubicacion='D')`;
+
     } else {
         consulta = `${consulta} where (estado_ubicacion='${estado}')`;
     }
 
-    if (area != null) {
+    if (area && area !== "null" && area !== "undefined") {
         consulta = `${consulta} AND areas_id_fk=${area}`;
     }
-    
+
     //valido la busqueda
-    consulta=`${consulta} and u.descripcion_ubicacion like UPPER('%${busqueda}%')
-                        and torre.desc_tipoubi like UPPER('%${busqueda}%')
-                        and piso.desc_tipoubi like UPPER('%${busqueda}%')
-                        and sala.desc_tipoubi like UPPER('%${busqueda}%')
-                        and habitacion.desc_tipoubi like UPPER('%${busqueda}%')
-                        and clase_ubicacion.desc_catdetalle  like UPPER('%${busqueda}%')
-                        and areas.area_descripcion like UPPER('%${busqueda}%')`
-   
+    consulta = `${consulta} and (u.descripcion_ubicacion like UPPER('%${busqueda}%')
+                        or torre.desc_tipoubi like UPPER('%${busqueda}%')
+                        or piso.desc_tipoubi like UPPER('%${busqueda}%')
+                        or sala.desc_tipoubi like UPPER('%${busqueda}%')
+                        or habitacion.desc_tipoubi like UPPER('%${busqueda}%')
+                        or clase_ubicacion.desc_catdetalle  like UPPER('%${busqueda}%')
+                        or areas.area_descripcion like UPPER('%${busqueda}%'))`
+
     await funcionesSQL.getRows(consulta, req, res);
 }
 

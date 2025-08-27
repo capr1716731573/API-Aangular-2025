@@ -90,7 +90,6 @@ const getAll_Rows_StoreProcedure = async (sql, req, res) => {
         res.status(200).json(results[0].mensaje);
 
     } catch (error) {
-        console.log(JSON.stringify(error));
         return res.status(500).json({
             status: 'error',
             message: error.message
