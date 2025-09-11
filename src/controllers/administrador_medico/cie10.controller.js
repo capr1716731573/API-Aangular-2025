@@ -62,7 +62,7 @@ const getCie10Hijos= async (req, res) => {
 
 const getCie10Bsq = async (req, res) => {
     let busqueda = req.params.valor;
-    const consulta = `select c.*,concat(c.codigo_cie,' - ',c.desc_cie) as cie_completo, c_padre.desc_cie as cie_padre_nombre, c_padre.codigo_cie as cie_padre_codigo  from cie c left join cie c_padre on c.padre_cie = c_padre.pk_cie WHERE c.desc_cie LIKE UPPER('%${busqueda}%')`;
+    const consulta = `select c.*,concat(c.codigo_cie,' - ',c.desc_cie) as cie_completo, c_padre.desc_cie as cie_padre_nombre, c_padre.codigo_cie as cie_padre_codigo  from cie c left join cie c_padre on c.padre_cie = c_padre.pk_cie WHERE c.desc_cie LIKE UPPER('%${busqueda}%') OR c.codigo_cie LIKE UPPER('%${busqueda}%')`;
     await funcionesSQL.getRows(consulta, req, res);
 }
 
