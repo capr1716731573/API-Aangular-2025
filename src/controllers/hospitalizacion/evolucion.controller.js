@@ -18,6 +18,7 @@ let opciones={
 const getAllEvolucion = async (req, res) => {    
     let desde = req.query.desde;
     opciones.hcu = req.params.hcu;
+    opciones.busqueda=null;
     opciones.fecha_desde=null;
     opciones.fecha_hasta=null;
     let consulta = '';
@@ -68,9 +69,9 @@ const reporteEvolucion_descarga = async (req, res) => {
 
     if(!data.mensaje || data.mensaje.status != 'ok')
       data=null;
-    else data=data.mensaje.data;
+    else data=data.mensaje;
 
-    //console.log(JSON.stringify(data));
+    console.log(JSON.stringify(data));
 
     const pageContents = [
         {templatePath: templatePaths.page1, data }
@@ -89,9 +90,9 @@ const reporteEvolucion_frame = async (req, res) => {
 
     if(!data.mensaje || data.mensaje.status != 'ok')
       data=null;
-    else data=data.mensaje.data;
+    else data=data.mensaje;
 
-    //console.log(JSON.stringify(data));
+    /* console.log(JSON.stringify(data)); */
 
     const pageContents = [
         {templatePath: templatePaths.page1, data }

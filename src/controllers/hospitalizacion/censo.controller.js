@@ -9,6 +9,7 @@ let consulta_master = `select
                         concat(p.nombre_primario_persona,' ',p.nombre_secundario_persona) as nombres_persona,
                         p.numidentificacion_persona,
                         calcular_edad_json(p.fecnac_persona::timestamp, now()::timestamp) as edad,
+                        sexo.desc_catdetalle as sexo,
                         a.area_descripcion as area,
                         torre.desc_tipoubi as torre,
                         piso.desc_tipoubi as piso,
@@ -24,7 +25,9 @@ let consulta_master = `select
                         ch2.tipo_ciclohosp='EGRESO') AS egreso
                         from ciclo_hospitalizacion ch 
                         inner join historia_clinica hc 
-                        inner join persona p on hc.fk_persona =p.pk_persona 
+                        inner join persona p 
+                        inner join catalogo_detalle as sexo on sexo.pk_catdetalle = p.fk_sexo
+                        on hc.fk_persona =p.pk_persona 
                         on ch.fk_hcu = hc.pk_hcu 
                         inner join ubicacion u 
                         left join tipo_ubicacion torre on u.fk_torre = torre.pk_tipoubi
