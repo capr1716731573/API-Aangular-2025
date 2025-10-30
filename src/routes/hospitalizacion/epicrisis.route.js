@@ -11,10 +11,8 @@ const {
     getAllMedicosEpicrisis,
     getMedicosID_Epicrisis,
     crudMedicos_Epicrisis,
-    reporte008_descarga,
-    reporte008_frame,
-    reporte008_descarga1,
-    reporte008_frame1
+    reporte_descarga,
+    reporte_frame,
 }=require("../../controllers/hospitalizacion/epicrisis.controller");
 
 
@@ -26,6 +24,11 @@ router.get("/hosp/all/:hcu", authenticationJWT.verificarToken,getAllEpicrisis);
 router.get("/hosp/fechas/:hcu/:f1/:f2", authenticationJWT.verificarToken,getEpicrisis_Fechas);
 router.get("/hosp/id/:opcion/:id", authenticationJWT.verificarToken,getEpicrisis_ID);
 router.post("/hosp/:accion", authenticationJWT.verificarToken,crud_Epicrisis);
+
+//Reporte
+/*Multiples Paginas*/
+router.get("/hosp/rep_descarga/:id",reporte_descarga);
+router.get("/hosp/rep_frame/:id",reporte_frame);
 
 //Diagnostico
 router.get("/diag/:id_epi", authenticationJWT.verificarToken,getAllDiagnosticoEpicrisis);

@@ -4,7 +4,8 @@ require('dotenv').config();
 const variablesEntorno = process.env;
 
 //* CONSULTA MASTER
-let consulta_master=`select * from
+let consulta_master=`select CONCAT(p.apellidopat_persona,' ',p.apellidomat_persona,' ',p.nombre_primario_persona,' ',p.nombre_secundario_persona) as nombre_completo,*                    
+                    from
                     especialidad_medica em
                     inner join usuarios u 
                     inner join persona p on u.fk_persona = p.pk_persona
