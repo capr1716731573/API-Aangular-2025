@@ -46,10 +46,26 @@ const getUsuarioID = async (req, res) => {
 
 const getUsuarioMedicos = async (req, res) => {
     consulta = `select *,CONCAT(p2.apellidopat_persona,' ',p2.apellidomat_persona,' ',p2.nombre_primario_persona,' ',p2.nombre_secundario_persona) as nombres_completos from usuarios p inner join persona p2 on p.fk_persona = p2.pk_persona where p.doctor_usuario =true order by p.login_usuario`;
-
     await funcionesSQL.getRows(consulta, req, res);
-
 }
+
+const getUsuarioMedicoBsq = async (req, res) => {
+    let busqueda = req.params.valor;
+    const consulta = `select *,
+    CONCAT(p2.apellidopat_persona,' ',p2.apellidomat_persona,' ',p2.nombre_primario_persona,' ',p2.nombre_secundario_persona) as nombres_completos
+    from usuarios p inner join persona p2 on p.fk_persona = p2.pk_persona  
+    WHERE
+    (p.doctor_usuario =true) AND
+    (p.login_usuario LIKE '%${busqueda}%' 
+    OR p2.apellidopat_persona LIKE '%${busqueda}%' 
+    OR p2.apellidomat_persona LIKE '%${busqueda}%' 
+    OR p2.nombre_primario_persona LIKE '%${busqueda}%' 
+    OR p2.nombre_secundario_persona LIKE '%${busqueda}%'
+    OR p2.numidentificacion_persona LIKE '%${busqueda}%')
+      order by p.login_usuario`;
+    await funcionesSQL.getRows(consulta, req, res);
+}
+
 
 
 const crudUsuario = async (req, res) => {
@@ -79,8 +95,6 @@ const crudUsuarioPassword = async (req, res) => {
 
 
 //* CRUD DE LA TABLA MENU PERFIL
-
-
 const getUsuarioPerfil = async (req, res) => {
 
     let desde = req.query.desde;
@@ -126,6 +140,7 @@ module.exports = {
     getUsuario,
     getUsuarioBsq,
     getUsuarioMedicos,
+    getUsuarioMedicoBsq,
     crudUsuario,
     getUsuarioPerfil,
     getPerfilUsuario,

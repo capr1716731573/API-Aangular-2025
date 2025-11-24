@@ -17,6 +17,10 @@
         white-space: pre-line;
       }
 
+      .texto-multilinea {
+        white-space: pre-line; /* respeta \n como saltos de línea */
+      }
+
       a.comment-indicator:hover + div.comment {
         background: #ffd;
         position: absolute;
@@ -679,6 +683,7 @@
       }
 
       /* FIN ESTILO RESPUESTAS CENTRADAS*/
+
       table.sheet0 col.col0 {
         width: 8.13333324pt;
       }
@@ -1337,21 +1342,48 @@
         </tr>
 
         <!-- FIN SECCION A -->
+
         <tr class="row3">
           <td class="column0 style74 null style74" colspan="65"></td>
         </tr>
         <!-- SECCION B -->
         <tr class="row0">
           <td class="column0 style82 s style84" colspan="65">
-            B. RESUMEN DEL CUADRO CLÍNICO
+            B. DIAGNÓSTICOS
           </td>
         </tr>
         <tr class="row1">
-          <td class="column8 style44 null style46" colspan="65">
-            {{resumen_cuadro_clinico_epi}}
-          </td>
+          <td class="column0 style97 s style98" colspan="65">PREOPERATORIO</td>
         </tr>
+        {{#each diagnostico_preoperatorio}}
+        <tr class="row41">
+          <td class="column7 style44 null style46" colspan="47">
+            {{desc_cie}}
+          </td>
+          <td class="column33 style64 null style64" colspan="10">
+            {{codigo_cie}}
+          </td>
+          <td class="column33 style64 null style64" colspan="4"></td>
+          <td class="column33 style64 null style64" colspan="4">X</td>
+        </tr>
+        {{/each}}
+        <tr class="row1">
+          <td class="column0 style97 s style98" colspan="65">POSTOPERATORIO</td>
+        </tr>
+        {{#each diagnostico_postoperatorio}}
+        <tr class="row41">
+          <td class="column7 style44 null style46" colspan="47">
+            {{desc_cie}}
+          </td>
+          <td class="column33 style64 null style64" colspan="10">
+            {{codigo_cie}}
+          </td>
+          <td class="column33 style64 null style64" colspan="4"></td>
+          <td class="column33 style64 null style64" colspan="4">X</td>
+        </tr>
+        {{/each}}
         <!-- FIN SECCION B -->
+
         <tr class="row3">
           <td class="column0 style74 null style74" colspan="65"></td>
         </tr>
@@ -1359,12 +1391,42 @@
         <!-- SECCION C -->
         <tr class="row0">
           <td class="column0 style82 s style84" colspan="65">
-            C. RESUMEN DE EVOLUCIÓN Y COMPLICACIONES
+            C. PROCEDIMIENTO
+          </td>
+        </tr>
+        <tr>
+          <td class="style14" colspan="12">EFECTIVA</td>
+          <td class="style43" colspan="10">
+            {{#if procedimiento_protope.electiva}}X{{else}}&nbsp;{{/if}}
+          </td>
+
+          <td class="style14" colspan="12">EMERGENCIA</td>
+          <td class="style43" colspan="10">
+            {{#if procedimiento_protope.emergencia}}X{{else}}&nbsp;{{/if}}
+          </td>
+
+          <td class="style14" colspan="11">URGENCIA</td>
+          <td class="style43" colspan="10">
+            {{#if procedimiento_protope.urgencia}}X{{else}}&nbsp;{{/if}}
           </td>
         </tr>
         <tr class="row1">
+          <td class="column0 style97 s style98" colspan="65">PROYECTADO</td>
+        </tr>
+        <tr>
+          <td
+            class="column8 style44 null style46 texto-multilinea"
+            colspan="65"
+          >
+            {{procedimiento_protope.proyectado}}
+          </td>
+        </tr>
+        <tr class="row1">
+          <td class="column0 style97 s style98" colspan="65">REALIZADO</td>
+        </tr>
+        <tr>
           <td class="column8 style44 null style46" colspan="65">
-            {{resumen_evolucion_complic_epi}}
+            {{procedimiento_protope.realizado}}
           </td>
         </tr>
         <!-- FIN SECCION C -->
@@ -1375,24 +1437,188 @@
         <!-- SECCION D -->
         <tr class="row0">
           <td class="column0 style82 s style84" colspan="65">
-            D. HALLAZGOS RELEVANTES DE EXÁMENES Y PROCEDIMIENTOS DIAGNÓSTICOS
+            D. INTEGRANTES DEL EQUIPO QUIRÚRGICO
           </td>
         </tr>
-        <tr class="row1">
-          <td class="column8 style44 null style46" colspan="65">
-            {{hallazgos_relevantes_epi}}
+        <tr>
+          <td class="style14" colspan="15">Cirujano 1:</td>
+          <td class="style43" colspan="15">
+            {{integrantes_protope.cirujano_1}}
           </td>
+
+          <td class="style14" colspan="15">Instrumentista:</td>
+          <td class="style43" colspan="20">
+            {{integrantes_protope.instrumentista}}
+          </td>
+        </tr>
+        <tr>
+          <td class="style14" colspan="15">Cirujano 2:</td>
+          <td class="style43" colspan="15">
+            {{integrantes_protope.cirujano_2}}
+          </td>
+
+          <td class="style14" colspan="15">Circulante:</td>
+          <td class="style43" colspan="20">
+            {{integrantes_protope.circulante}}
+          </td>
+        </tr>
+        <tr>
+          <td class="style14" colspan="15">Primer Ayudante:</td>
+          <td class="style43" colspan="15">
+            {{integrantes_protope.primer_ayudante}}
+          </td>
+
+          <td class="style14" colspan="15">Anestesiologo/a:</td>
+          <td class="style43" colspan="20">
+            {{integrantes_protope.anestesiologo}}
+          </td>
+        </tr>
+        <tr>
+          <td class="style14" colspan="15">Segundo Ayudante:</td>
+          <td class="style43" colspan="15">
+            {{integrantes_protope.segundo_ayudante}}
+          </td>
+
+          <td class="style14" colspan="15">Ayudante Anestesia:</td>
+          <td class="style43" colspan="20">
+            {{integrantes_protope.ayudanteanesteciologia}}
+          </td>
+        </tr>
+        <tr>
+          <td class="style14" colspan="15">Tercer Ayudante:</td>
+          <td class="style43" colspan="15">
+            {{integrantes_protope.tercer_ayudante}}
+          </td>
+
+          <td class="style14" colspan="15">Otros:</td>
+          <td class="style43" colspan="20">{{integrantes_protope.otros}}</td>
         </tr>
         <!-- FIN SECCION D -->
         <tr class="row3">
           <td class="column0 style74 null style74" colspan="65"></td>
         </tr>
 
+        <!-- SECCION E -->
+        <tr class="row0">
+          <td class="column0 style82 s style84" colspan="65">
+            E. TIPO ANESTESIA
+          </td>
+        </tr>
+        <tr>
+          <td class="style14" colspan="8">General</td>
+          <td class="style43" colspan="8">
+            {{#if tipoanestesia_protope.general}}X{{else}}&nbsp;{{/if}}
+          </td>
+
+          <td class="style14" colspan="8">Regional</td>
+          <td class="style43" colspan="8">
+            {{#if tipoanestesia_protope.regional}}X{{else}}&nbsp;{{/if}}
+          </td>
+
+          <td class="style14" colspan="8">Sedación</td>
+          <td class="style43" colspan="8">
+            {{#if tipoanestesia_protope.sedacion}}X{{else}}&nbsp;{{/if}}
+          </td>
+          <td class="style14" colspan="8">Otros</td>
+          <td class="style43" colspan="9">
+            {{#if tipoanestesia_protope.otros}}X{{else}}&nbsp;{{/if}}
+          </td>
+        </tr>
+        <!-- FIN SECCION E -->
+        <tr class="row3">
+          <td class="column0 style74 null style74" colspan="65"></td>
+        </tr>
+
+        <!-- SECCION F -->
+        <tr class="row0">
+          <td class="column0 style82 s style84" colspan="65">
+            F. TIEMPOS QUIRÚRGICOS
+          </td>
+        </tr>
+        <tr class="row1">
+          <td class="column0 style97 s style98" colspan="65">
+            FECHA DE OPERACIÓN
+          </td>
+        </tr>
+        <tr>
+          <td class="style14" colspan="39">DIA/MES/AÑO</td>
+          <td class="style14" colspan="13">HORA DE INICIO</td>
+          <td class="style14" colspan="13">HORA DE TERMINACIÓN</td>
+        </tr>
+        <tr>
+          <td class="style43" colspan="39">
+            {{tiemposquirurgicos_protope.fecha_operacion}}
+          </td>
+          <td class="style43" colspan="13">
+            {{tiemposquirurgicos_protope.hora_inicio}}
+          </td>
+          <td class="style43" colspan="13">
+            {{tiemposquirurgicos_protope.hora_terminacion}}
+          </td>
+        </tr>
+        <tr class="row1">
+          <td class="column0 style97 s style98" colspan="65">Dieresis:</td>
+        </tr>
+        <tr>
+          <td class="column8 style44 null style46" colspan="65">
+            {{tiemposquirurgicos_protope.dieresis}}
+          </td>
+        </tr>
+        <tr class="row1">
+          <td class="column0 style97 s style98" colspan="65">
+            Exposición y Exploración:
+          </td>
+        </tr>
+        <tr>
+          <td class="column8 style44 null style46" colspan="65">
+            {{tiemposquirurgicos_protope.exposicion}}
+          </td>
+        </tr>
+        <tr class="row1">
+          <td class="column0 style97 s style98" colspan="65">
+            Hallazgos Quirúrgicos:
+          </td>
+        </tr>
+        <tr>
+          <td class="column8 style44 null style46" colspan="65">
+            {{tiemposquirurgicos_protope.hallazgos}}
+          </td>
+        </tr>
+        <tr class="row1">
+          <td class="column0 style97 s style98" colspan="65">
+            Procedimiento Quirúrgico:
+          </td>
+        </tr>
+        <tr>
+          <td class="column8 style44 null style46" colspan="65">
+            {{tiemposquirurgicos_protope.procedimiento}}
+          </td>
+        </tr>
+        <!-- FIN SECCION F -->
+        <tr class="row3">
+          <td class="column0 style74 null style74" colspan="65"></td>
+        </tr>
+
         <tr class="row66">
           <td class="column0 style95 s style95" colspan="32">
-            SNS-MSP/HCU-form.006/2021
+            SNS-MSP/HCU-form.017/2021
           </td>
-          <td class="column32 style94 s style94" colspan="33">EPICRISIS (1)</td>
+          <!-- <td class="column32 style94 s style94" colspan="33">
+            PROTOCOLO QUIRÚRGICO (1)
+            <img
+              src="{{logo}}"
+              alt="Logo Veltimed"
+              style="
+                width: 45mm;
+                height: 10mm;
+                object-fit: contain;
+                display: inline-block;
+                vertical-align: middle;
+                margin-left: 8px;
+                page-break-inside: avoid;
+              "
+            />
+          </td> -->
         </tr>
       </tbody>
     </table>

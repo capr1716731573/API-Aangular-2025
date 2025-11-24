@@ -42,7 +42,7 @@ let consulta_master = `select
 const getIngresosXHcuVigente = async (req, res) => {
     let hcu = req.params.hcu;
     //tipo_censo puede ser INGRESO  o EGRESO
-    let consulta = `${consulta_master} where ch.fk_hcu=${hcu} and tipo_ciclohosp='INGRESO' order by ch.fecha_ciclohosp desc, ch.hora_ciclohosp desc limit 1`;
+    let consulta = `${consulta_master} where ch.fk_hcu=${hcu} and tipo_ciclohosp='INGRESO' and ch.activo_ciclohosp=true order by ch.fecha_ciclohosp desc, ch.hora_ciclohosp desc limit 1`;
     await funcionesSQL.getRows(consulta, req, res);
 }
 

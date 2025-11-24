@@ -7,14 +7,72 @@
     <meta name="title" content="Untitled Spreadsheet" />
     <meta name="company" content="Microsoft Corporation" />
     <style type="text/css">
+      /*aqui nuevos cambios*/
+      /* 1) Bloquea el tamaño de página y márgenes reales */
+      @page {
+        size: A4; /* o '210mm 297mm' */
+        margin: 12mm 10mm; /* ajusta a lo que usas realmente */
+      }
+
+      /* 2) Define un contenedor con el ancho imprimible exacto
+        (ancho A4 210mm - márgenes izq/der) */
+      .print-page {
+        width: calc(
+          210mm - 20mm
+        ); /* 210 - (10+10)mm; ajusta si cambias márgenes */
+        margin: 0 auto;
+        box-sizing: border-box;
+      }
+
+       .multilinea * {
+        white-space: pre-line;
+      }
+
+      /* 3) La tabla NO debe crecer más que el ancho imprimible */
+      table.sheet0 {
+        width: 100% !important; /* usa el ancho del contenedor */
+        table-layout: fixed; /* ya lo usas: mejor para cortes */
+        box-sizing: border-box;
+        border-collapse: collapse;
+      }
+
+      /* 4) Evita desbordes por textos largos / tokens sin espacios */
+      td,
+      th {
+        word-break: break-word; /* rompe palabras largas */
+        overflow-wrap: anywhere; /* permite cortes en cualquier punto */
+        white-space: normal; /* asegura que se pueda envolver */
+      }
+
+      /* 5) Evita que imágenes/SVG fuerzen el ancho */
+      img,
+      svg,
+      canvas,
+      video {
+        max-width: 100% !important;
+        height: auto !important;
+      }
+
+      /* 6) Asegura que los bordes cuenten dentro del ancho asignado */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      /* 7) (Opcional) Evita escalado automático en impresión */
+      @media print {
+        html,
+        body {
+          zoom: 1 !important;
+        } /* mantiene escala 1:1 */
+      }
+      /********************/
+
       html {
         font-family: Calibri, Arial, Helvetica, sans-serif;
         font-size: 11pt;
         background-color: white;
-      }
-
-      .multilinea * {
-        white-space: pre-line;
       }
 
       a.comment-indicator:hover + div.comment {
@@ -679,6 +737,7 @@
       }
 
       /* FIN ESTILO RESPUESTAS CENTRADAS*/
+
       table.sheet0 col.col0 {
         width: 8.13333324pt;
       }
@@ -1229,172 +1288,246 @@
         margin-bottom: 0.1in;
       }
     </style>
-    <table
-      border="0"
-      cellpadding="0"
-      cellspacing="0"
-      id="sheet0"
-      class="sheet0"
-      style="width: 100%; table-layout: fixed"
-    >
-      <tbody class="multilinea">
-        <!-- SECCION A -->
-        <tr class="row0">
-          <td class="column0 style82 s style84" colspan="65">
-            A. DATOS DEL ESTABLECIMIENTO Y USUARIO/PACIENTE
+    <div class="print-page">
+      <table
+        border="0"
+        cellpadding="0"
+        cellspacing="0"
+        id="sheet0"
+        class="sheet0"
+        style="width: 100%; table-layout: fixed"
+      >
+        <tbody class="multilinea">
+          <!-- SECCION G -->
+          <tr class="row0">
+            <td class="column0 style82 s style84" colspan="65">
+              G. COMPLICACIONES DEL PROCEDIMIENTO QUIRÚRGICO
+            </td>
+          </tr>
+          <tr>
+            <td class="column8 style44 null style46" colspan="65">
+              {{complicaciones_protope.observacion}}
+            </td>
+          </tr>
+          <tr>
+            <td class="style14" colspan="10">Pérdida Sanguínea total:</td>
+            <td class="style43" colspan="10">
+              {{complicaciones_protope.perdida}} ml
+            </td>
+
+            <td class="style14" colspan="9">Sangrado aproximado:</td>
+            <td class="style43" colspan="9">
+              {{complicaciones_protope.sangrado}} ml
+            </td>
+
+            <td class="style14" colspan="9">Uso de Material Protésico:</td>
+            <td class="style14" colspan="2">SI</td>
+            <td class="style43" colspan="7">
+              {{#if complicaciones_protope.uso}} X {{else}} &nbsp; {{/if}}
+            </td>
+
+            <td class="style14" colspan="2">NO</td>
+            <td class="style43" colspan="7">
+              {{#if complicaciones_protope.uso}} &nbsp; {{else}} X {{/if}}
+            </td>
+          </tr>
+          <tr>
+            <td class="column8 style44 null style46" colspan="65">
+              <b>Descripción: </b>{{complicaciones_protope.descripcion}}
+            </td>
+          </tr>
+          <!-- FIN SECCION G -->
+          <tr class="row3">
+            <td class="column0 style74 null style74" colspan="65"></td>
+          </tr>
+          <!-- SECCION H -->
+          <tr class="row0">
+            <td class="column0 style82 s style84" colspan="65">
+              H. EXÁMENES HISTOPATOLÓGICOS
+            </td>
+          </tr>
+          <tr>
+            <td class="column8 style44 null style46" colspan="65">
+              <b>- Transquirúrgico:</b>
+              {{histopatologicos_protope.transquirurgico}}
+            </td>
+          </tr>
+          <tr>
+            <td class="style14" colspan="9">Biopsia por congelación:</td>
+
+            <td class="style14" colspan="2">SI</td>
+            <td class="style43" colspan="7">
+              {{#if (eq histopatologicos_protope.biopsia "SI")}} X {{else}}
+              &nbsp; {{/if}}
+            </td>
+
+            <td class="style14" colspan="2">NO</td>
+            <td class="style43" colspan="7">
+              {{#if (eq histopatologicos_protope.biopsia "NO")}} X {{else}}
+              &nbsp; {{/if}}
+            </td>
+          </tr>
+          <tr>
+            <td class="column8 style44 null style46" colspan="65">
+              <b>- Resultado:</b> {{histopatologicos_protope.resultado}}
+            </td>
+          </tr>
+          <tr>
+            <td class="column8 style44 null style46" colspan="65">
+              <b>- Patólogo que reporta:</b>
+              {{histopatologicos_protope.medico_nombre}}
+            </td>
+          </tr>
+          <tr>
+            <td class="style14" colspan="9">Histopatológico:</td>
+
+            <td class="style14" colspan="2">SI</td>
+            <td class="style43" colspan="7">
+              {{#if (eq histopatologicos_protope.histopatologico "SI")}} X
+              {{else}} &nbsp; {{/if}}
+            </td>
+
+            <td class="style14" colspan="2">NO</td>
+            <td class="style43" colspan="7">
+              {{#if (eq histopatologicos_protope.histopatologico "NO")}} X
+              {{else}} &nbsp; {{/if}}
+            </td>
+          </tr>
+          <tr>
+            <td class="column8 style44 null style46" colspan="65">
+              <b>- Muestra: </b>{{histopatologicos_protope.muestra}}
+            </td>
+          </tr>
+          <!-- FIN SECCION H -->
+          <tr class="row3">
+            <td class="column0 style74 null style74" colspan="65"></td>
+          </tr>
+
+          <!-- SECCION I -->
+          <tr class="row0">
+            <td class="column0 style82 s style84" colspan="65">
+              I. DIAGRAMA DEL PROCEDIMIENTO
+            </td>
+          </tr>
+
+          <tr class="row69">
+            <td class="column0 style64" colspan="65">
+              {{#if diagrama_protope}}
+              <div class="diagram-wrapper">
+                <img
+                  src="{{diagrama_protope}}"
+                  alt="Diagrama"
+                  style="width: 400px; height: 400px; object-fit: contain"
+                />
+              </div>
+              {{/if}}
+            </td>
+          </tr>
+          <!--  <tr class="row0">
+            <td class="column0 style82 s style84" colspan="65">
+              I. DIAGRAMA DEL PROCEDIMIENTO 
+            </td>
+          </tr>
+          <tr class="row69">
+            {{#if diagrama_posoperatorio}}
+            <img src="{{diagrama_posoperatorio.ruta_anexos}}" width="120" height="70" alt="Diagrama" />
+            {{/if}}
+          </tr> -->
+          <!-- <tr class="row69"></tr>
+          <tr class="row69"></tr>
+          <tr class="row69"></tr>
+          <tr class="row69"></tr>
+          <tr class="row69"></tr>
+          <tr class="row69"></tr>
+          <tr class="row69"></tr>
+          <tr class="row69"></tr>
+          <tr class="row69"></tr>
+          <tr class="row69"></tr> -->
+          <!-- FIN SECCION I -->
+          <tr class="row3">
+            <td class="column0 style74 null style74" colspan="65"></td>
+          </tr>
+          <!-- SECCION J -->
+          <tr class="row0">
+            <td class="column0 style82 s style84" colspan="65">
+              J. DATOS DEL PROFESIONAL RESPONSABLE
+            </td>
+          </tr>
+          <tr>
+            <td class="style14" colspan="24">NOMBRE Y APELLIDOS</td>
+            <td class="style14" colspan="14">ESPECIALIDAD</td>
+            <td class="style14" colspan="14">FIRMA</td>
+            <td class="style14" colspan="13">
+              SELLO Y NÚMERO DE DOCUMENTO DE IDENTIFICACIÓN
+            </td>
+          </tr>
+          <!--  {{#each medicos_protocolo}}
+        <tr class="row41">
+          <td class="column33 style64 null style64" colspan="24" rowspan="3">
+            {{apellidopat_persona}} {{apellidomat_persona}}
+            {{nombre_primario_persona}} {{nombre_secundario_persona}}
           </td>
-        </tr>
-        <tr class="row1">
-          <td class="column0 style97 s style98" colspan="15">
-            INSTITUCIÓN DEL SISTEMA
+          <td class="column33 style64 null style64" colspan="14" rowspan="3">
+            {{desc_catdetalle}}
           </td>
-          <td class="column15 style98 s style98" colspan="6">UNICÓDIGO</td>
-          <td class="column21 style98 s style98" colspan="15">
-            ESTABLECIMIENTO DE SALUD
-          </td>
-          <td class="column36 style98 s style98" colspan="18">
-            NÚMERO DE HISTORIA CLÍNICA
-          </td>
-          <td class="column54 style98 s style99" colspan="11">
-            NÚMERO DE ARCHIVO
-          </td>
-        </tr>
-        <tr class="row2">
-          <td class="column15 style43 null style43" colspan="15">
-            {{ins_descripcion}}
-          </td>
-          <td class="column15 style43 null style43" colspan="6">
-            {{casalud_codigo}}
-          </td>
-          <td class="column15 style43 null style43" colspan="15">
-            {{casalud_descripcion}}
-          </td>
-          <td class="column15 style43 null style43" colspan="18">
-            {{numidentificacion_persona}}
-          </td>
-          <td class="column15 style43 null style43" colspan="11">
-            {{numarchivo_hcu}}
-          </td>
-        </tr>
-        <tr class="row1">
-          <td class="column0 style97 s style98" colspan="8" rowspan="2">
-            PRIMER APELLIDO
-          </td>
-          <td class="column15 style98 s style98" colspan="8" rowspan="2">
-            SEGUNDO APELLIDO
-          </td>
-          <td class="column21 style98 s style98" colspan="8" rowspan="2">
-            PRIMER NOMBRE
-          </td>
-          <td class="column36 style98 s style98" colspan="8" rowspan="2">
-            SEGUNDO NOMBRE
-          </td>
-          <td class="column54 style98 s style99" colspan="8" rowspan="2">
-            SEXO
-          </td>
-          <td class="column54 style98 s style99" colspan="8" rowspan="2">
-            EDAD
-          </td>
-          <td class="column54 style98 s style99" colspan="17">
-            CONDICIÓN EDAD (MARCAR)
-          </td>
-        </tr>
-        <tr class="row8">
-          <td class="column0 style14 s style14" colspan="4">H</td>
-          <td class="column0 style14 s style14" colspan="4">D</td>
-          <td class="column0 style14 s style14" colspan="4">M</td>
-          <td class="column0 style14 s style14" colspan="5">A</td>
-        </tr>
-        <tr class="row1">
-          <td class="column15 style43 null style43" colspan="8">
-            {{apellidopat_persona}}
-          </td>
-          <td class="column15 style43 null style43" colspan="8">
-            {{apellidomat_persona}}
-          </td>
-          <td class="column15 style43 null style43" colspan="8">
-            {{nombre_primario_persona }}
-          </td>
-          <td class="column15 style43 null style43" colspan="8">
-            {{nombre_secundario_persona}}
-          </td>
-          <td class="column15 style43 null style43" colspan="8">{{sexo}}</td>
-          <td class="column15 style43 null style43" colspan="8">
-            {{edad_completa.valor}}
-          </td>
-          <td class="column33 style64 null style64" colspan="4">
-            {{#if (eq this.edad_completa.tipo 'horas')}}X{{/if}}
-          </td>
-          <td class="column33 style64 null style64" colspan="4">
-            {{#if (eq this.edad_completa.tipo 'dias')}}X{{/if}}
-          </td>
-          <td class="column33 style64 null style64" colspan="4">
-            {{#if (eq this.edad_completa.tipo 'meses')}}X{{/if}}
-          </td>
-          <td class="column33 style64 null style64" colspan="5">
-            {{#if (eq this.edad_completa.tipo 'años')}}X{{/if}}
-          </td>
+          <td
+            class="column33 style64 null style64"
+            colspan="14"
+            rowspan="3"
+          ></td>
+          <td
+            class="column33 style64 null style64"
+            colspan="13"
+            rowspan="3"
+          ></td>
         </tr>
 
-        <!-- FIN SECCION A -->
-        <tr class="row3">
-          <td class="column0 style74 null style74" colspan="65"></td>
-        </tr>
-        <!-- SECCION B -->
-        <tr class="row0">
-          <td class="column0 style82 s style84" colspan="65">
-            B. RESUMEN DEL CUADRO CLÍNICO
-          </td>
-        </tr>
-        <tr class="row1">
-          <td class="column8 style44 null style46" colspan="65">
-            {{resumen_cuadro_clinico_epi}}
-          </td>
-        </tr>
-        <!-- FIN SECCION B -->
-        <tr class="row3">
-          <td class="column0 style74 null style74" colspan="65"></td>
-        </tr>
+        {{/each}} -->
 
-        <!-- SECCION C -->
-        <tr class="row0">
-          <td class="column0 style82 s style84" colspan="65">
-            C. RESUMEN DE EVOLUCIÓN Y COMPLICACIONES
-          </td>
-        </tr>
-        <tr class="row1">
-          <td class="column8 style44 null style46" colspan="65">
-            {{resumen_evolucion_complic_epi}}
-          </td>
-        </tr>
-        <!-- FIN SECCION C -->
-        <tr class="row3">
-          <td class="column0 style74 null style74" colspan="65"></td>
-        </tr>
+          {{#each medicos_protocolo}}
+          <tr class="row41" style="height: 75px">
+            <td class="column33 style64" colspan="24">
+              {{apellidopat_persona}} {{apellidomat_persona}}
+              {{nombre_primario_persona}} {{nombre_secundario_persona}}
+            </td>
+            <td class="column33 style64" colspan="14">{{desc_catdetalle}}</td>
+            <td class="column33 style64" colspan="14"></td>
+            <td class="column33 style64" colspan="13">
+              {{numidentificacion_persona}}
+            </td>
+          </tr>
+          {{/each}}
 
-        <!-- SECCION D -->
-        <tr class="row0">
-          <td class="column0 style82 s style84" colspan="65">
-            D. HALLAZGOS RELEVANTES DE EXÁMENES Y PROCEDIMIENTOS DIAGNÓSTICOS
-          </td>
-        </tr>
-        <tr class="row1">
-          <td class="column8 style44 null style46" colspan="65">
-            {{hallazgos_relevantes_epi}}
-          </td>
-        </tr>
-        <!-- FIN SECCION D -->
-        <tr class="row3">
-          <td class="column0 style74 null style74" colspan="65"></td>
-        </tr>
+          <tr></tr>
+          <tr></tr>
 
-        <tr class="row66">
-          <td class="column0 style95 s style95" colspan="32">
-            SNS-MSP/HCU-form.006/2021
-          </td>
-          <td class="column32 style94 s style94" colspan="33">EPICRISIS (1)</td>
-        </tr>
-      </tbody>
-    </table>
+          <!-- FIN SECCION J -->
+          <tr class="row3">
+            <td class="column0 style74 null style74" colspan="65"></td>
+          </tr>
+          <tr class="row66">
+            <td class="column0 style95 s style95" colspan="32">
+              SNS-MSP/HCU-form.017/2021
+            </td>
+            <!-- <td class="column32 style94 s style94" colspan="33">
+              PROTOCOLO QUIRÚRGICO (2)
+              <img
+                src="{{logo}}"
+                alt="Logo Veltimed"
+                style="
+                  width: 45mm;
+                  height: 10mm;
+                  object-fit: contain;
+                  display: inline-block;
+                  vertical-align: middle;
+                  margin-left: 8px;
+                  page-break-inside: avoid;
+                "
+              />
+            </td> -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </body>
 </html>

@@ -13,6 +13,11 @@
         background-color: white;
       }
 
+      /*Respeta los Enter en los tipos campos o textarea*/
+      .multilinea * {
+        white-space: pre-line;
+      }
+
       a.comment-indicator:hover + div.comment {
         background: #ffd;
         position: absolute;
@@ -1233,7 +1238,7 @@
       class="sheet0"
       style="width: 100%; table-layout: fixed"
     >
-      <tbody>
+      <tbody class="multilinea">
         <!-- SECCION ENCABEZADO -->
         <tr class="row0">
           <td class="column0 style82 s style84" colspan="65">
@@ -1540,17 +1545,16 @@
         <tr></tr>
         <tr>
           <td class="column8 style44 null style46" colspan="35">
-            <b><i>ELABORADO POR: </i></b> 
+            <b><i>ELABORADO POR: </i></b>
             {{fecha_creacion_epi.apellidopat_persona}}&nbsp;{{fecha_creacion_epi.apellidomat_persona}}&nbsp;{{fecha_creacion_epi.nombre_primario_persona}}&nbsp;{{fecha_creacion_epi.nombre_secundario_persona}}
           </td>
           <td class="column8 style44 null style46" colspan="30">
-            <b><i>REVISADO POR: </i></b> 
-            {{#if fecha_modificacion_epi}} 
-              {{fecha_modificacion_epi.apellidopat_persona}}&nbsp;{{fecha_modificacion_epi.apellidomat_persona}}&nbsp;{{fecha_modificacion_epi.nombre_primario_persona}}&nbsp;{{fecha_modificacion_epi.nombre_secundario_persona}}
-            {{else}} 
-              {{fecha_creacion_epi.apellidopat_persona}}&nbsp;{{fecha_creacion_epi.apellidomat_persona}}&nbsp;{{fecha_creacion_epi.nombre_primario_persona}}&nbsp;{{fecha_creacion_epi.nombre_secundario_persona}}
+            <b><i>REVISADO POR: </i></b>
+            {{#if fecha_modificacion_epi}}
+            {{fecha_modificacion_epi.apellidopat_persona}}&nbsp;{{fecha_modificacion_epi.apellidomat_persona}}&nbsp;{{fecha_modificacion_epi.nombre_primario_persona}}&nbsp;{{fecha_modificacion_epi.nombre_secundario_persona}}
+            {{else}}
+            {{fecha_creacion_epi.apellidopat_persona}}&nbsp;{{fecha_creacion_epi.apellidomat_persona}}&nbsp;{{fecha_creacion_epi.nombre_primario_persona}}&nbsp;{{fecha_creacion_epi.nombre_secundario_persona}}
             {{/if}}
-            
           </td>
         </tr>
         <!-- FIN SECCION L -->

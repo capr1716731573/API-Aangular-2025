@@ -31,4 +31,5 @@ const crearMiddlewareUpload = (subcarpeta, sufijo) => {
 module.exports = {
   uploadFirma: crearMiddlewareUpload('firmas', 'firma'),
   uploadSello: crearMiddlewareUpload('sellos', 'sello'),
+  uploadProtocoloOperatorio: crearMiddlewareUpload('protocolo', 'protocolo'),
 };
