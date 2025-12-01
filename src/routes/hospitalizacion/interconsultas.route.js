@@ -9,7 +9,9 @@ const {
     crud_Interconsultas_Respuestas,
     getAllDiagnosticoInterconsultas,
     getDiagnosticoID_Interconsultas,
-    crudDiagnostico_Interconsultas
+    crudDiagnostico_Interconsultas,
+    reporte_descarga,
+    reporte_frame
 }=require("../../controllers/hospitalizacion/interconsultas.controller");
 
 
@@ -23,8 +25,12 @@ router.get("/intersol/id/:opcion/:id", authenticationJWT.verificarToken,getInter
 router.post("/intersol/:accion", authenticationJWT.verificarToken,crud_Interconsultas_Solicitud);
 
 //Interconsulta Respuestas
-router.get("/interresp/id/:id", authenticationJWT.verificarToken,getInterconsultas_Respuestas_ID);
+router.get("/interresp/id/:opcion/:id", authenticationJWT.verificarToken,getInterconsultas_Respuestas_ID);
 router.post("/interresp/:accion", authenticationJWT.verificarToken,crud_Interconsultas_Respuestas);
+
+//Reportes
+router.get("/reporte_descarga/:id_sol/:id_resp", reporte_descarga);
+router.get("/reporte_frame/:id_sol/:id_resp", reporte_frame);
 
 //Diagnostico
 router.get("/diag/:id_inter/:tipo_inter", authenticationJWT.verificarToken,getAllDiagnosticoInterconsultas);

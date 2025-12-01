@@ -14,7 +14,11 @@ const sequelize = new Sequelize(
         host: variablesEntorno.HOST,
         port: variablesEntorno.PORT,
         dialect: "postgres",
-        logging: true
+        logging: true,
+        timezone: '-05:00',              // muy importante
+        dialectOptions: {
+            useUTC: false,                 // si quieres trabajar en hora local
+        },
     }
 );
 

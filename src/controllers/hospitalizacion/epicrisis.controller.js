@@ -21,6 +21,8 @@ let opciones = {
 const getAllEpicrisis = async (req, res) => {
     let desde = req.query.desde;
     opciones.hcu = req.params.hcu;
+    opciones.busqueda = null;
+    opciones.reg_cantidad = variablesEntorno.ROWS_X_PAGE;
     opciones.fecha_desde = null;
     opciones.fecha_hasta = null;
     let consulta = '';

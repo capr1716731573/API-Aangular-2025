@@ -8,6 +8,8 @@ const {
     getAllDiagnosticoAnamesis_Hosp,
     getDiagnosticoID_Anamesis_Hosp,
     crudDiagnostico_Anamesis_Hosp, 
+    reporte_descarga,
+    reporte_frame
 }=require("../../controllers/hospitalizacion/anamnesis.controller");
 
 
@@ -19,6 +21,9 @@ router.get("/hosp/all/:hcu", authenticationJWT.verificarToken,getAllAnamesis_Hos
 router.get("/hosp/fechas/:hcu/:f1/:f2", authenticationJWT.verificarToken,getAnamesis_Hosp_Fechas);
 router.get("/hosp/id/:opcion/:id", authenticationJWT.verificarToken,getAnamesis_Hosp_ID);
 router.post("/hosp/:accion", authenticationJWT.verificarToken,crud_Anamesis_Hosp);
+/*Multiples Paginas*/
+router.get("/hosp/rep_descarga/:id",reporte_descarga);
+router.get("/hosp/rep_frame/:id",reporte_frame);
 
 //Diagnostico
 router.get("/diag/:id_anam", authenticationJWT.verificarToken,getAllDiagnosticoAnamesis_Hosp);
