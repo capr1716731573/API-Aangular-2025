@@ -1,0 +1,717 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Reporte</title>
+    <meta name="author" content="GSFC." />
+    <meta name="title" content="Untitled Spreadsheet" />
+    <meta name="company" content="Microsoft Corporation" />
+    <style type="text/css">
+      /* === TAMAÑO Y ORIENTACIÓN === */
+      @page {
+        size: A4 landscape;
+        margin: 12mm 10mm;
+      }
+      html {
+        font-family: Calibri, Arial, Helvetica, sans-serif;
+        font-size: 11pt;
+        background-color: white;
+      }
+      table {
+        border-collapse: collapse;
+        page-break-after: always;
+      }
+      .gridlines td,
+      .gridlines th {
+        border: 1px dotted black;
+      }
+      .b,
+      .e {
+        text-align: center;
+      }
+      .f,
+      .n {
+        text-align: right;
+      }
+      .s,
+      .inlineStr {
+        text-align: left;
+      }
+
+      /* === CABECERAS Y CELDAS (copiadas de tu ejemplo) === */
+      td.style82,
+      th.style82,
+      td.style83,
+      th.style83,
+      td.style84,
+      th.style84,
+      td.style85,
+      th.style85 {
+        vertical-align: middle;
+        text-align: left;
+        padding-left: 0;
+        border-bottom: 1px solid #5f5f5f !important;
+        border-top: 1px solid #5f5f5f !important;
+        border-left: 1px solid #5f5f5f !important;
+        border-right: 1px solid #5f5f5f !important;
+        font-weight: bold;
+        color: #000000;
+        font-family: "Arial";
+        background-color: #ccccff;
+      }
+      td.style82 {
+        font-size: 10pt;
+      }
+      th.style82 {
+        font-size: 15pt;
+      }
+      td.style83,
+      th.style83 {
+        font-size: 15pt;
+      }
+      td.style84,
+      th.style84 {
+        font-size: 10pt;
+      }
+      td.style85,
+      th.style85 {
+        font-size: 10pt;
+      }
+
+      td.style43,
+      th.style43 {
+        vertical-align: middle;
+        text-align: center;
+        border: 1px solid #5f5f5f !important;
+        color: #000000;
+        font-family: "Arial";
+        font-size: 7pt;
+        background-color: white;
+      }
+
+      td.style97,
+      th.style97,
+      td.style98,
+      th.style98,
+      td.style99,
+      th.style99,
+      td.style14,
+      th.style14,
+      td.style15,
+      th.style15 {
+        vertical-align: middle;
+        text-align: center;
+        border-bottom: 1px solid #5f5f5f !important;
+        border-top: 1px solid #5f5f5f !important;
+        border-left: 1px solid #5f5f5f !important;
+        border-right: 1px solid #5f5f5f !important;
+        font-weight: bold;
+        color: #000000;
+        font-family: "Arial";
+        background-color: #ccffcc;
+      }
+      td.style97,
+      th.style97,
+      td.style98,
+      th.style98,
+      td.style99,
+      th.style99 {
+        font-size: 7pt;
+      }
+      td.style14,
+      th.style14,
+      td.style15,
+      th.style15 {
+        font-size: 5pt;
+      }
+
+      td.style18,
+      th.style18,
+      td.style19,
+      th.style19 {
+        vertical-align: middle;
+        text-align: right;
+        padding-right: 0;
+        border-bottom: 1px solid #5f5f5f !important;
+        border-top: 1px solid #5f5f5f !important;
+        color: #000;
+        font-family: "Arial";
+        font-size: 5pt;
+        background-color: #ccccff;
+      }
+      td.style18,
+      th.style18 {
+        border-left: none;
+        border-right: none;
+      }
+      td.style19,
+      th.style19 {
+        border-left: none;
+        border-right: 1px solid #5f5f5f !important;
+      }
+
+      td.style56,
+      th.style56 {
+        vertical-align: middle;
+        text-align: center;
+        border: 1px solid #5f5f5f !important;
+        color: #000000;
+        font-family: "Arial";
+        font-size: 10pt;
+        background-color: white;
+      }
+
+      td.style44,
+      th.style44,
+      td.style45,
+      th.style45,
+      td.style46,
+      th.style46 {
+        vertical-align: middle;
+        color: #000;
+        font-family: "Arial";
+        font-size: 10pt;
+        background-color: white;
+        border-top: 1px solid #5f5f5f !important;
+      }
+      td.style44,
+      th.style44 {
+        text-align: center;
+        border-left: 1px solid #5f5f5f !important;
+        border-right: none;
+      }
+      td.style45,
+      th.style45 {
+        text-align: center;
+        border-left: none;
+        border-right: none;
+      }
+      td.style46,
+      th.style46 {
+        text-align: left;
+        border-left: none;
+        border-right: 1px solid #5f5f5f !important;
+      }
+
+      td.style64,
+      th.style64 {
+        vertical-align: middle;
+        text-align: center;
+        border: 1px solid #5f5f5f !important;
+        color: #000;
+        font-family: "Arial";
+        font-size: 6pt;
+        background-color: white;
+      }
+
+      td.style25,
+      th.style25 {
+        vertical-align: middle;
+        text-align: center;
+        border-bottom: 1px solid #5f5f5f !important;
+        border-top: 1px solid #5f5f5f !important;
+        border-left: 1px solid #5f5f5f !important;
+        border-right: none;
+        font-weight: bold;
+        color: #000;
+        font-family: "Arial";
+        font-size: 12pt;
+        background-color: white;
+      }
+
+      td.style94,
+      th.style94 {
+        vertical-align: middle;
+        text-align: right;
+        padding-right: 0;
+        border: none;
+        font-weight: bold;
+        color: #000;
+        font-family: "Arial";
+        font-size: 12pt;
+        background-color: white;
+      }
+      td.style95,
+      th.style95 {
+        vertical-align: middle;
+        text-align: left;
+        padding-left: 0;
+        border: none;
+        font-weight: bold;
+        color: #000;
+        font-family: "Arial";
+        font-size: 8pt;
+        background-color: white;
+      }
+
+      /* Alturas de filas (puedes ajustar) */
+      table.sheet0 tr {
+        height: 12.75pt;
+      }
+      table.sheet0 tr.row0 {
+        height: 15.5pt;
+      }
+      table.sheet0 tr.row1 {
+        height: 17pt;
+      }
+      table.sheet0 tr.row3 {
+        height: 8.95pt;
+      }
+      table.sheet0 tr.row41 {
+        height: 14.75pt;
+      }
+      table.sheet0 tr.row66 {
+        height: 13.25pt;
+      }
+
+      /* Logo final pequeño y horizontal (inline style también posible) */
+      .logo-footer {
+        width: 45mm;
+        height: 10mm;
+        object-fit: contain;
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 8px;
+        page-break-inside: avoid;
+      }
+    </style>
+  </head>
+
+  <body>
+    <style>
+      /* márgenes del documento impreso */
+      @page {
+        margin-left: 0.2in;
+        margin-right: 0.2in;
+        margin-top: 0.2in;
+        margin-bottom: 0.1in;
+      }
+      body {
+        margin-left: 0.2in;
+        margin-right: 0.2in;
+        margin-top: 0.1in;
+        margin-bottom: 0.1in;
+      }
+    </style>
+
+    <table
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      id="sheet0"
+      class="sheet0"
+      style="width: 100%; table-layout: fixed"
+    >
+      <tbody>
+        <!-- A. DATOS DEL ESTABLECIMIENTO Y USUARIO / PACIENTE -->
+        <tr class="row0">
+          <td class="column0 style82 s style84" colspan="65">
+            A. DATOS DEL ESTABLECIMIENTO Y USUARIO / PACIENTE
+          </td>
+        </tr>
+        <tr class="row1">
+          <td class="column0 style97 s style98" colspan="15">
+            INSTITUCIÓN DEL SISTEMA
+          </td>
+          <td class="column15 style98 s style98" colspan="6">UNICÓDIGO</td>
+          <td class="column21 style98 s style98" colspan="15">
+            ESTABLECIMIENTO DE SALUD
+          </td>
+          <td class="column36 style98 s style98" colspan="18">
+            NÚMERO DE HISTORIA CLÍNICA ÚNICA
+          </td>
+          <td class="column54 style98 s style99" colspan="11">
+            NÚMERO DE ARCHIVO
+          </td>
+        </tr>
+        <tr class="row2">
+          <td class="column15 style43" colspan="15">
+            {{casa_salud.ins_descripcion}}
+          </td>
+          <td class="column15 style43" colspan="6">
+            {{casa_salud.casalud_codigo}}
+          </td>
+          <td class="column15 style43" colspan="15">
+            {{casa_salud.casalud_descripcion}}
+          </td>
+          <td class="column15 style43" colspan="18">
+            {{hcu.numidentificacion_persona}}
+          </td>
+          <td class="column15 style43" colspan="11">{{hcu.numarchivo_hcu}}</td>
+        </tr>
+        <tr class="row1">
+          <td class="column0 style97 s style98" colspan="8" rowspan="2">
+            PRIMER APELLIDO
+          </td>
+          <td class="column15 style98 s style98" colspan="8" rowspan="2">
+            SEGUNDO APELLIDO
+          </td>
+          <td class="column21 style98 s style98" colspan="8" rowspan="2">
+            PRIMER NOMBRE
+          </td>
+          <td class="column36 style98 s style98" colspan="8" rowspan="2">
+            SEGUNDO NOMBRE
+          </td>
+          <td class="column54 style98 s style99" colspan="8" rowspan="2">
+            SEXO
+          </td>
+          <td class="column54 style98 s style99" colspan="8" rowspan="2">
+            EDAD
+          </td>
+          <td class="column54 style98 s style99" colspan="17">
+            CONDICIÓN EDAD (MARCAR)
+          </td>
+        </tr>
+        <tr class="row8">
+          <td class="column0 style14" colspan="4">H</td>
+          <td class="column0 style14" colspan="4">D</td>
+          <td class="column0 style14" colspan="4">M</td>
+          <td class="column0 style14" colspan="5">A</td>
+        </tr>
+        <tr class="row1">
+          <td class="column15 style43" colspan="8">
+            {{hcu.apellidopat_persona}}
+          </td>
+          <td class="column15 style43" colspan="8">
+            {{hcu.apellidomat_persona}}
+          </td>
+          <td class="column15 style43" colspan="8">
+            {{hcu.nombre_primario_persona}}
+          </td>
+          <td class="column15 style43" colspan="8">
+            {{hcu.nombre_secundario_persona}}
+          </td>
+          <td class="column15 style43" colspan="8">{{hcu.sexo}}</td>
+          <td class="column15 style43" colspan="8">
+            {{hcu.edad_completa.valor}}
+          </td>
+          <td class="column33 style64" colspan="4">
+            {{#if (eq hcu.edad_completa.tipo 'horas')}}X{{/if}}
+          </td>
+          <td class="column33 style64" colspan="4">
+            {{#if (eq hcu.edad_completa.tipo 'dias')}}X{{/if}}
+          </td>
+          <td class="column33 style64" colspan="4">
+            {{#if (eq hcu.edad_completa.tipo 'meses')}}X{{/if}}
+          </td>
+          <td class="column33 style64" colspan="5">
+            {{#if (eq hcu.edad_completa.tipo 'años')}}X{{/if}}
+          </td>
+        </tr>
+
+        <tr class="row3">
+          <td class="column0 style43" colspan="65"></td>
+        </tr>
+
+        <!-- B. CONSTANTES VITALES -->
+        <tr class="row0">
+          <td class="column0 style82 s style84" colspan="65">
+            B. CONSTANTES VITALES
+          </td>
+        </tr>
+        <tr class="row1">
+          <td class="column0 style97 s style98" colspan="4">FECHA</td>
+          <td class="column0 style97 s style98" colspan="4">HORA</td>
+          <td class="column0 style97 s style98" colspan="4">DÍA DE INTER.</td>
+          <td class="column0 style97 s style98" colspan="4">DÍA POSTQUIRÚ.</td>
+          <td class="column0 style97 s style98" colspan="4">PULSO</td>
+          <td class="column0 style97 s style98" colspan="4">TEMP.</td>
+          <td class="column0 style97 s style98" colspan="4">F. RESP</td>
+          <td class="column0 style97 s style98" colspan="4">PULSOMETRIA</td>
+          <td class="column0 style97 s style98" colspan="5">P.SISTOLICA</td>
+          <td class="column0 style97 s style98" colspan="5">P.DIASTOLICA</td>
+          <td class="column0 style97 s style98" colspan="5">EST.CONC</td>
+          <td class="column0 style97 s style98" colspan="5">PROTEINURIA</td>
+          <td class="column0 style97 s style98" colspan="5">SCORE MAMA</td>
+          <td class="column0 style97 s style98" colspan="8">RESPONSABLE</td>
+        </tr>
+        {{#each seccion_b}}
+        <tr class="row41">
+          <td class="style43" colspan="4">
+            <small>{{fecha_sigvita_b}}</small>
+          </td>
+          <td class="style43" colspan="4"><small>{{hora_sigvita_b}}</small></td>
+          <td class="style43" colspan="4">
+            <small>{{dia_inter_sigvita_b}}</small>
+          </td>
+          <td class="style43" colspan="4">
+            <small>{{dia_post_sigvita_b}}</small>
+          </td>
+          <td class="style43" colspan="4">
+            <small>{{pulso_sigvita_b}}</small>
+          </td>
+          <td class="style43" colspan="4"><small>{{temp_sigvita_b}}</small></td>
+          <td class="style43" colspan="4">
+            <small>{{frecresp_sigvita_b}}</small>
+          </td>
+          <td class="style43" colspan="4">
+            <small>{{pulsometria_sigvita_b}}</small>
+          </td>
+          <td class="style43" colspan="5">
+            <small>{{presistolica_sigvita_b}}</small>
+          </td>
+          <td class="style43" colspan="5">
+            <small>{{prediastolica_sigvita_b}}</small>
+          </td>
+          <td class="style43" colspan="5">
+            <small>{{estadoconciencia_sigvita_b}}</small>
+          </td>
+          <td class="style43" colspan="5">
+            <small>{{proteinuria_sigvita_b}}</small>
+          </td>
+          <td class="style43" colspan="5">
+            <small>{{scoremama_sigvita_b}}</small>
+          </td>
+          <td class="style43" colspan="8">
+            <small>
+              {{medico_apellidopat_persona}} {{medico_apellidomat_persona}}
+              {{medico_nombre_primario_persona}}
+              {{medico_nombre_secundario_persona}}</small
+            >
+          </td>
+        </tr>
+        {{/each}}
+
+        <tr class="row3">
+          <td class="column0 style43" colspan="65"></td>
+        </tr>
+
+        <!-- C. MEDIDAS ANTROPOMÉTRICAS -->
+        <tr class="row0">
+          <td class="column0 style82 s style84" colspan="65">
+            C. MEDIDAS ANTROPOMÉTRICAS
+          </td>
+        </tr>
+        <tr class="row1">
+          <td class="column0 style97 s style98" colspan="8">FECHA</td>
+          <td class="column0 style97 s style98" colspan="8">HORA</td>
+          <td class="column0 style97 s style98" colspan="8">PESO (kg)</td>
+          <td class="column0 style97 s style98" colspan="8">TALLA (cm)</td>
+          <td class="column0 style97 s style98" colspan="8">
+            PERÍMETRO CEFÁLICO (cm)
+          </td>
+          <td class="column0 style97 s style98" colspan="8">
+            PERÍMETRO ABDOMINAL (cm)
+          </td>
+          <td class="column0 style97 s style98" colspan="8">
+            OTROS (ESPECIFIQUE)
+          </td>
+          <td class="column0 style97 s style98" colspan="9">RESPONSABLE</td>
+        </tr>
+        {{#each seccion_c}}
+        <tr class="row41">
+          <td class="style43" colspan="8">
+            <small>{{fecha_sigvita_c}}</small>
+          </td>
+          <td class="style43" colspan="8"><small>{{hora_sigvita_c}}</small></td>
+          <td class="style43" colspan="8"><small>{{peso_sigvita_c}}</small></td>
+          <td class="style43" colspan="8">
+            <small>{{talla_sigvita_c}}</small>
+          </td>
+          <td class="style43" colspan="8">
+            <small>{{pericefalico_sigvita_c}}</small>
+          </td>
+          <td class="style43" colspan="8">
+            <small>{{periabdominal_sigvita_c}}</small>
+          </td>
+          <td class="style43" colspan="8">
+            <small>{{otros_sigvita_c}}</small>
+          </td>
+          <td class="style43" colspan="9">
+            <small>
+              {{medico_apellidopat_persona}} {{medico_apellidomat_persona}}
+              {{medico_nombre_primario_persona}}
+              {{medico_nombre_secundario_persona}}</small
+            >
+          </td>
+        </tr>
+        {{/each}}
+
+        <tr class="row3">
+          <td class="column0 style43" colspan="65"></td>
+        </tr>
+
+        <!-- D. INGESTA - ELIMINACIÓN / BALANCE HÍDRICO -->
+        <tr class="row0">
+          <td class="column0 style82 s style84" colspan="65">
+            D. INGESTA - ELIMINACIÓN / BALANCE HÍDRICO
+          </td>
+        </tr>
+        <tr class="row1">
+          <td class="column0 style97 s style98" colspan="10">FECHA/HORA</td>
+          <td class="column0 style97 s style98" colspan="20">INGRESOS (mL)</td>
+          <td class="column0 style97 s style98" colspan="27">
+            ELIMINACIONES (mL)
+          </td>
+          <td class="column0 style97 s style98" colspan="8">TOTAL</td>
+        </tr>
+        <tr class="row1">
+          <td class="column0 style97 s style98" colspan="5">FECHA</td>
+          <td class="column0 style97 s style98" colspan="5">HORA</td>
+          <td class="column0 style97 s style98" colspan="5">ENTERAL</td>
+          <td class="column0 style97 s style98" colspan="5">PARENTERAL</td>
+          <td class="column0 style97 s style98" colspan="5">VÍA ORAL</td>
+          <td class="column0 style97 s style98" colspan="5">TOTAL</td>
+          <td class="column0 style97 s style98" colspan="5">ORINA</td>
+          <td class="column0 style97 s style98" colspan="5">DRENAJE</td>
+          <td class="column0 style97 s style98" colspan="5">VÓMITO</td>
+          <td class="column0 style97 s style98" colspan="4">DIARREAS</td>
+          <td class="column0 style97 s style98" colspan="4">OTROS</td>
+          <td class="column0 style97 s style98" colspan="4">TOTAL</td>
+          <td class="column0 style97 s style98" colspan="4">BALANCE HÍDRICO</td>
+          <td class="column0 style97 s style98" colspan="4">RESPONSABLE</td>
+        </tr>
+        {{#each seccion_d}}
+        <tr>
+          <td class="style43" colspan="5">
+            <small>{{fecha_sigvita_d}}</small>
+          </td>
+          <td class="style43" colspan="5"><small>{{hora_sigvita_d}}</small></td>
+          <td class="style43" colspan="5">
+            <small>{{bh_i_enteral_sigvita_d}}</small>
+          </td>
+          <td class="style43" colspan="5"><small>{{bh_i_parenteral_sigvita_d}}</small></td>
+          <td class="style43" colspan="5">
+            <small>{{bh_i_viaoral_sigvita_d}}</small>
+          </td>
+          <td class="style43" colspan="5"><small>{{bh_i_total_sigvita_d}}</small></td>
+          <td class="style43" colspan="5">
+            <small>{{bh_e_orina_sigvita_d}}</small>
+          </td>
+          <td class="style43" colspan="5"><small>{{bh_e_drenaje_sigvita_d}}</small></td>
+          <td class="style43" colspan="5"><small>{{bh_e_vomito_sigvita_d}}</small></td>
+          <td class="style43" colspan="4"><small>{{bh_e_diarreas_sigvita_d}}</small></td>
+          <td class="style43" colspan="4"><small>{{bh_e_otros_sigvita_d}}</small></td>
+          <td class="style43" colspan="4"><small>{{bh_e_total_sigvita_d}}</small></td>
+          <td class="style43" colspan="4"><small>{{bh_ie_total_sigvita_d}}</small></td>
+
+          <td class="style43" colspan="4">
+            <small>
+              {{medico_apellidopat_persona}} {{medico_apellidomat_persona}}
+              {{medico_nombre_primario_persona}}
+              {{medico_nombre_secundario_persona}}
+            </small>
+          </td>
+        </tr>
+        <tr>
+          <td class="column0 style97 s style98" colspan="5">DIETA</td>
+          <td class="style43" colspan="10"><small>{{dieta_sigvita_d}}</small></td>
+          <td class="column0 style97 s style98" colspan="5">NÚMERO DE COMIDAS</td>
+          <td class="style43" colspan="4"><small>{{num_comidas_sigvita_d}}</small></td>
+          <td class="column0 style97 s style98" colspan="5">NÚMERO DE MICCIONES</td>
+          <td class="style43" colspan="4"><small>{{num_micciones_sigvita_d}}</small></td>
+          <td class="column0 style97 s style98" colspan="5">NÚMERO DE DEPOSICIONES</td>
+          <td class="style43" colspan="4"><small>{{num_deposiciones_sigvita_d}}</small></td>
+        </tr>
+        {{/each}}
+
+     
+
+        <tr class="row3">
+          <td class="column0 style43" colspan="65"></td>
+        </tr>
+
+        <!-- E. CUIDADOS GENERALES -->
+        <tr class="row0">
+          <td class="column0 style82 s style84" colspan="65">
+            E. CUIDADOS GENERALES
+          </td>
+        </tr>
+        <tr>
+          <td class="column0 style97 s style98" colspan="8">FECHA</td>
+          <td class="column0 style97 s style98" colspan="8">HORA</td>
+          <td class="column0 style97 s style98" colspan="8">ASEO</td>
+          <td class="column0 style97 s style98" colspan="8">BAÑO</td>
+          <td class="column0 style97 s style98" colspan="8">REPOSO</td>
+          <td class="column0 style97 s style98" colspan="8">POSICIÓN (ESP.)</td>
+          <td class="column0 style97 s style98" colspan="8">OTROS (ESP.)</td>
+          <td class="column0 style97 s style98" colspan="9">RESPONSABLE</td>
+        </tr>
+        {{#each seccion_e}}
+        <tr>
+          <td class="style43" colspan="8">
+            <small>{{fecha_sigvita_e}}</small>
+          </td>
+          <td class="style43" colspan="8"><small>{{hora_sigvita_e}}</small></td>
+          <td class="style43" colspan="8"><small>{{aseo_sigvita_e}}</small></td>
+          <td class="style43" colspan="8"><small>{{bano_sigvita_e}}</small></td>
+          <td class="style43" colspan="8">
+            <small>{{reposo_sigvita_e}}</small>
+          </td>
+          <td class="style43" colspan="8">
+            <small>{{posicion_sigvita_e}}</small>
+          </td>
+          <td class="style43" colspan="8">
+            <small>{{otros_sigvita_e}}</small>
+          </td>
+          <td class="style43" colspan="9">
+            <small>
+              {{medico_apellidopat_persona}} {{medico_apellidomat_persona}}
+              {{medico_nombre_primario_persona}}
+              {{medico_nombre_secundario_persona}}</small
+            >
+          </td>
+        </tr>
+        {{/each}}
+
+        <tr class="row3">
+          <td class="column0 style43" colspan="65"></td>
+        </tr>
+
+        <!-- F. FECHA DE COLOCACIÓN DE DISPOSITIVOS MÉDICOS (aaaa-mm-dd) -->
+        <tr class="row0">
+          <td class="column0 style82 s style84" colspan="65">
+            F. FECHA DE COLOCACIÓN DE DISPOSITIVOS MÉDICOS (aaaa-mm-dd)
+          </td>
+        </tr>
+        <tr>
+          <td class="column0 style97 s style98" colspan="11">VÍA CENTRAL</td>
+          <td class="column0 style97 s style98" colspan="11">VÍA PERIFÉRICA</td>
+          <td class="column0 style97 s style98" colspan="11">
+            SONDA NASOGÁSTRICA
+          </td>
+          <td class="column0 style97 s style98" colspan="11">SONDA VESICAL</td>
+          <td class="column0 style97 s style98" colspan="10">OTROS (ESP.)</td>
+          <td class="column0 style97 s style98" colspan="11">RESPONSABLE</td>
+        </tr>
+        {{#each seccion_f}}
+        <tr>
+          <td class="style43" colspan="11">
+            <small>{{viacentral_sigvita_f}}</small>
+          </td>
+          <td class="style43" colspan="11">
+            <small>{{viaperiferica_sigvita_f}}</small>
+          </td>
+          <td class="style43" colspan="11">
+            <small>{{sondanaso_sigvita_f}}</small>
+          </td>
+          <td class="style43" colspan="11">
+            <small>{{sondavesi_sigvita_f}}</small>
+          </td>
+          <td class="style43" colspan="10">
+            <small>{{otros_sigvita_f}}</small>
+          </td>
+          <td class="style43" colspan="11">
+            <small>
+              {{medico_apellidopat_persona}} {{medico_apellidomat_persona}}
+              {{medico_nombre_primario_persona}}
+              {{medico_nombre_secundario_persona}}</small
+            >
+          </td>
+        </tr>
+        {{/each}}
+
+        <!-- FOOTER -->
+        <tr class="row66">
+          <td class="column0 style95 s style95" colspan="32">
+            SNS-MSP/HCU-form.020/2021
+          </td>
+          <td class="column32 style94 s style94" colspan="33">
+            CONSTANTES VITALES / BALANCE HÍDRICO (1)
+            <!-- <img src="{{logo}}" alt="Logo Veltimed" class="logo-footer" /> -->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

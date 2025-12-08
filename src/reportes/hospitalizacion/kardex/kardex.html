@@ -1,0 +1,501 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Reporte</title>
+    <meta name="author" content="GSFC." />
+    <meta name="title" content="Untitled Spreadsheet" />
+    <meta name="company" content="Microsoft Corporation" />
+    <style type="text/css">
+      /* === TAMAÑO Y ORIENTACIÓN === */
+      @page {
+        size: A4 landscape;
+        margin: 12mm 10mm;
+      }
+      html {
+        font-family: Calibri, Arial, Helvetica, sans-serif;
+        font-size: 11pt;
+        background-color: white;
+      }
+      table {
+        border-collapse: collapse;
+        page-break-after: always;
+      }
+      .gridlines td,
+      .gridlines th {
+        border: 1px dotted black;
+      }
+      .b,
+      .e {
+        text-align: center;
+      }
+      .f,
+      .n {
+        text-align: right;
+      }
+      .s,
+      .inlineStr {
+        text-align: left;
+      }
+
+      /* === CABECERAS Y CELDAS (copiadas de tu ejemplo) === */
+      td.style82,
+      th.style82,
+      td.style83,
+      th.style83,
+      td.style84,
+      th.style84,
+      td.style85,
+      th.style85 {
+        vertical-align: middle;
+        text-align: left;
+        padding-left: 0;
+        border-bottom: 1px solid #5f5f5f !important;
+        border-top: 1px solid #5f5f5f !important;
+        border-left: 1px solid #5f5f5f !important;
+        border-right: 1px solid #5f5f5f !important;
+        font-weight: bold;
+        color: #000000;
+        font-family: "Arial";
+        background-color: #ccccff;
+      }
+      td.style82 {
+        font-size: 10pt;
+      }
+      th.style82 {
+        font-size: 15pt;
+      }
+      td.style83,
+      th.style83 {
+        font-size: 15pt;
+      }
+      td.style84,
+      th.style84 {
+        font-size: 10pt;
+      }
+      td.style85,
+      th.style85 {
+        font-size: 10pt;
+      }
+
+      td.style43,
+      th.style43 {
+        vertical-align: middle;
+        text-align: center;
+        border: 1px solid #5f5f5f !important;
+        color: #000000;
+        font-family: "Arial";
+        font-size: 7pt;
+        background-color: white;
+      }
+
+      td.style97,
+      th.style97,
+      td.style98,
+      th.style98,
+      td.style99,
+      th.style99,
+      td.style14,
+      th.style14,
+      td.style15,
+      th.style15 {
+        vertical-align: middle;
+        text-align: center;
+        border-bottom: 1px solid #5f5f5f !important;
+        border-top: 1px solid #5f5f5f !important;
+        border-left: 1px solid #5f5f5f !important;
+        border-right: 1px solid #5f5f5f !important;
+        font-weight: bold;
+        color: #000000;
+        font-family: "Arial";
+        background-color: #ccffcc;
+      }
+      td.style97,
+      th.style97,
+      td.style98,
+      th.style98,
+      td.style99,
+      th.style99 {
+        font-size: 7pt;
+      }
+      td.style14,
+      th.style14,
+      td.style15,
+      th.style15 {
+        font-size: 5pt;
+      }
+
+      td.style18,
+      th.style18,
+      td.style19,
+      th.style19 {
+        vertical-align: middle;
+        text-align: right;
+        padding-right: 0;
+        border-bottom: 1px solid #5f5f5f !important;
+        border-top: 1px solid #5f5f5f !important;
+        color: #000;
+        font-family: "Arial";
+        font-size: 5pt;
+        background-color: #ccccff;
+      }
+      td.style18,
+      th.style18 {
+        border-left: none;
+        border-right: none;
+      }
+      td.style19,
+      th.style19 {
+        border-left: none;
+        border-right: 1px solid #5f5f5f !important;
+      }
+
+      td.style56,
+      th.style56 {
+        vertical-align: middle;
+        text-align: center;
+        border: 1px solid #5f5f5f !important;
+        color: #000000;
+        font-family: "Arial";
+        font-size: 10pt;
+        background-color: white;
+      }
+
+      td.style44,
+      th.style44,
+      td.style45,
+      th.style45,
+      td.style46,
+      th.style46 {
+        vertical-align: middle;
+        color: #000;
+        font-family: "Arial";
+        font-size: 10pt;
+        background-color: white;
+        border-top: 1px solid #5f5f5f !important;
+      }
+      td.style44,
+      th.style44 {
+        text-align: center;
+        border-left: 1px solid #5f5f5f !important;
+        border-right: none;
+      }
+      td.style45,
+      th.style45 {
+        text-align: center;
+        border-left: none;
+        border-right: none;
+      }
+      td.style46,
+      th.style46 {
+        text-align: left;
+        border-left: none;
+        border-right: 1px solid #5f5f5f !important;
+      }
+
+      td.style64,
+      th.style64 {
+        vertical-align: middle;
+        text-align: center;
+        border: 1px solid #5f5f5f !important;
+        color: #000;
+        font-family: "Arial";
+        font-size: 6pt;
+        background-color: white;
+      }
+
+      td.style25,
+      th.style25 {
+        vertical-align: middle;
+        text-align: center;
+        border-bottom: 1px solid #5f5f5f !important;
+        border-top: 1px solid #5f5f5f !important;
+        border-left: 1px solid #5f5f5f !important;
+        border-right: none;
+        font-weight: bold;
+        color: #000;
+        font-family: "Arial";
+        font-size: 12pt;
+        background-color: white;
+      }
+
+      td.style94,
+      th.style94 {
+        vertical-align: middle;
+        text-align: right;
+        padding-right: 0;
+        border: none;
+        font-weight: bold;
+        color: #000;
+        font-family: "Arial";
+        font-size: 12pt;
+        background-color: white;
+      }
+      td.style95,
+      th.style95 {
+        vertical-align: middle;
+        text-align: left;
+        padding-left: 0;
+        border: none;
+        font-weight: bold;
+        color: #000;
+        font-family: "Arial";
+        font-size: 8pt;
+        background-color: white;
+      }
+
+      /* Alturas de filas (puedes ajustar) */
+      table.sheet0 tr {
+        height: 12.75pt;
+      }
+      table.sheet0 tr.row0 {
+        height: 15.5pt;
+      }
+      table.sheet0 tr.row1 {
+        height: 17pt;
+      }
+      table.sheet0 tr.row3 {
+        height: 8.95pt;
+      }
+      table.sheet0 tr.row41 {
+        height: 14.75pt;
+      }
+      table.sheet0 tr.row66 {
+        height: 13.25pt;
+      }
+
+      /* Logo final pequeño y horizontal (inline style también posible) */
+      .logo-footer {
+        width: 45mm;
+        height: 10mm;
+        object-fit: contain;
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 8px;
+        page-break-inside: avoid;
+      }
+    </style>
+  </head>
+
+  <body>
+    <style>
+      /* márgenes del documento impreso */
+      @page {
+        margin-left: 0.2in;
+        margin-right: 0.2in;
+        margin-top: 0.2in;
+        margin-bottom: 0.1in;
+      }
+      body {
+        margin-left: 0.2in;
+        margin-right: 0.2in;
+        margin-top: 0.1in;
+        margin-bottom: 0.1in;
+      }
+    </style>
+
+    <table
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      id="sheet0"
+      class="sheet0"
+      style="width: 100%; table-layout: fixed"
+    >
+      <tbody>
+        <!-- A. DATOS DEL ESTABLECIMIENTO Y USUARIO / PACIENTE -->
+        <tr class="row0">
+          <td class="column0 style82 s style84" colspan="65">
+            A. DATOS DEL ESTABLECIMIENTO Y USUARIO / PACIENTE
+          </td>
+        </tr>
+        <tr class="row1">
+          <td class="column0 style97 s style98" colspan="15">
+            INSTITUCIÓN DEL SISTEMA
+          </td>
+          <td class="column15 style98 s style98" colspan="6">UNICÓDIGO</td>
+          <td class="column21 style98 s style98" colspan="15">
+            ESTABLECIMIENTO DE SALUD
+          </td>
+          <td class="column36 style98 s style98" colspan="18">
+            NÚMERO DE HISTORIA CLÍNICA ÚNICA
+          </td>
+          <td class="column54 style98 s style99" colspan="11">
+            NÚMERO DE ARCHIVO
+          </td>
+        </tr>
+        <tr class="row2">
+          <td class="column15 style43" colspan="15">
+            {{casa_salud.ins_descripcion}}
+          </td>
+          <td class="column15 style43" colspan="6">
+            {{casa_salud.casalud_codigo}}
+          </td>
+          <td class="column15 style43" colspan="15">
+            {{casa_salud.casalud_descripcion}}
+          </td>
+          <td class="column15 style43" colspan="18">
+            {{hcu.numidentificacion_persona}}
+          </td>
+          <td class="column15 style43" colspan="11">{{hcu.numarchivo_hcu}}</td>
+        </tr>
+        <tr class="row1">
+          <td class="column0 style97 s style98" colspan="8" rowspan="2">
+            PRIMER APELLIDO
+          </td>
+          <td class="column15 style98 s style98" colspan="8" rowspan="2">
+            SEGUNDO APELLIDO
+          </td>
+          <td class="column21 style98 s style98" colspan="8" rowspan="2">
+            PRIMER NOMBRE
+          </td>
+          <td class="column36 style98 s style98" colspan="8" rowspan="2">
+            SEGUNDO NOMBRE
+          </td>
+          <td class="column54 style98 s style99" colspan="8" rowspan="2">
+            SEXO
+          </td>
+          <td class="column54 style98 s style99" colspan="8" rowspan="2">
+            EDAD
+          </td>
+          <td class="column54 style98 s style99" colspan="17">
+            CONDICIÓN EDAD (MARCAR)
+          </td>
+        </tr>
+        <tr class="row8">
+          <td class="column0 style14" colspan="4">H</td>
+          <td class="column0 style14" colspan="4">D</td>
+          <td class="column0 style14" colspan="4">M</td>
+          <td class="column0 style14" colspan="5">A</td>
+        </tr>
+        <tr class="row1">
+          <td class="column15 style43" colspan="8">
+            {{hcu.apellidopat_persona}}
+          </td>
+          <td class="column15 style43" colspan="8">
+            {{hcu.apellidomat_persona}}
+          </td>
+          <td class="column15 style43" colspan="8">
+            {{hcu.nombre_primario_persona}}
+          </td>
+          <td class="column15 style43" colspan="8">
+            {{hcu.nombre_secundario_persona}}
+          </td>
+          <td class="column15 style43" colspan="8">{{hcu.sexo}}</td>
+          <td class="column15 style43" colspan="8">
+            {{hcu.edad_completa.valor}}
+          </td>
+          <td class="column33 style64" colspan="4">
+            {{#if (eq hcu.edad_completa.tipo 'horas')}}X{{/if}}
+          </td>
+          <td class="column33 style64" colspan="4">
+            {{#if (eq hcu.edad_completa.tipo 'dias')}}X{{/if}}
+          </td>
+          <td class="column33 style64" colspan="4">
+            {{#if (eq hcu.edad_completa.tipo 'meses')}}X{{/if}}
+          </td>
+          <td class="column33 style64" colspan="5">
+            {{#if (eq hcu.edad_completa.tipo 'años')}}X{{/if}}
+          </td>
+        </tr>
+
+        <tr class="row3">
+          <td class="column0 style43" colspan="65"></td>
+        </tr>
+
+        <!-- B. ADMINISTRACIÓN DE MEDICAMENTOS -->
+        <tr class="row0">
+          <td class="column0 style82 s style84" colspan="65">
+            B. ADMINISTRACIÓN DE MEDICAMENTOS PRESCRITOS
+          </td>
+        </tr>
+
+        {{#each kardex}}
+        <!-- ENCABEZADO DEL MEDICAMENTO -->
+        <tr class="row1">
+          <td class="column0 style32 s style84" colspan="25">
+            <center>MEDICAMENTO</center>
+          </td>
+          <td class="column0 style32 s style84" colspan="10">
+            <center>DOSIS</center>
+          </td>
+          <td class="column0 style32 s style84" colspan="10">
+            <center>VÍA</center>
+          </td>
+          <td class="column0 style32 s style84" colspan="10">
+            <center>FRECUENCIA</center>
+          </td>
+          <td class="column0 style32 s style84" colspan="10">
+            <center>RESPONSABLE</center>
+          </td>
+        </tr>
+
+        <!-- DATOS DEL MEDICAMENTO -->
+        <tr class="row41">
+          <td class="style43" colspan="25">{{medicamento_kardexcab}}</td>
+          <td class="style43" colspan="10">{{dosis_kardexcab}}</td>
+          <td class="style43" colspan="10">{{via_kardexcab}}</td>
+          <td class="style43" colspan="10">{{frecuencia_kardexcab}}</td>
+          <td class="style43" colspan="10">
+            <small>
+              {{medico_apellidopat_persona}} {{medico_apellidomat_persona}}
+              {{medico_nombre_primario_persona}}
+              {{medico_nombre_secundario_persona}}
+            </small>
+          </td>
+        </tr>
+
+        <!-- ENCABEZADO DE DETALLES -->
+        {{#if kardex_det}}
+        <tr class="row1">
+          <td class="column0 style97 s style98" colspan="13">FECHA</td>
+          <td class="column0 style97 s style98" colspan="13">HORA</td>
+          <td class="column0 style97 s style98" colspan="13">ADMINISTRADO</td>
+          <td class="column0 style97 s style98" colspan="26">RESPONSABLE</td>
+        </tr>
+
+        <!-- DETALLES (FECHAS) DEL MEDICAMENTO -->
+        {{#each kardex_det}}
+        <tr class="row1">
+          <td class="style43" colspan="13">
+            {{fecha_kardexdet}}
+          </td>
+          <td class="style43" colspan="13">
+            {{hora_kardexdet}}
+          </td>
+          <td class="style43" colspan="13">
+            {{#if administrado_kardexdet}}SÍ{{else}}NO{{/if}}
+          </td>
+          <td class="style43" colspan="26">
+            
+              {{medico_apellidopat_persona}} {{medico_apellidomat_persona}}
+              {{medico_nombre_primario_persona}}
+              {{medico_nombre_secundario_persona}}
+            
+          </td>
+        </tr>
+        {{/each}} {{else}}
+        <!-- Si no hay detalles, mostrar mensaje -->
+        <tr class="row1">
+          <td class="style43" colspan="65">
+            <center>
+              No se encuentran registros en la prescripción de este medicamento
+            </center>
+          </td>
+        </tr>
+        {{/if}} {{/each}}
+
+        <!-- FOOTER -->
+        <tr class="row66">
+          <td class="column0 style95 s style95" colspan="32">
+            SNS-MSP/HCU-form.022/2021
+          </td>
+          <td class="column32 style94 s style94" colspan="33">
+            ADMINISTRACIÓN DE MEDICAMENTOS
+            <!-- <img src="{{logo}}" alt="Logo Veltimed" class="logo-footer" /> -->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
