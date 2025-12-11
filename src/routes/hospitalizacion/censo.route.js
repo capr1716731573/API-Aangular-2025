@@ -6,7 +6,10 @@ const {
     getCensoXId,
     getHcuHospitalizado,
     getIngresosXAreaTorrePisoSala,
-    crudCicloHospitalizacion
+    crudCicloHospitalizacion,
+    getEgresosAll,
+    getEgresosBusqueda,
+    getEgresoXId
 }=require("../../controllers/hospitalizacion/censo.controller");
 
 
@@ -20,5 +23,10 @@ router.get("/paciente_ingresado/:identificacion", authenticationJWT.verificarTok
 router.get("/total/:area/:torre/:piso/:sala", authenticationJWT.verificarToken,getIngresosXAreaTorrePisoSala);
 router.get("/id/:id", authenticationJWT.verificarToken,getCensoXId);
 router.post("/:accion", authenticationJWT.verificarToken,crudCicloHospitalizacion);
+
+//Egresos
+router.get("/egresos/all", authenticationJWT.verificarToken,getEgresosAll);
+router.get("/egresos/bsq/:bsq", authenticationJWT.verificarToken,getEgresosBusqueda);
+router.get("/egresos/id/:id", authenticationJWT.verificarToken,getEgresoXId);
 
 module.exports=router;

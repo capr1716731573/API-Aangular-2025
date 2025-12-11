@@ -1,6 +1,8 @@
 const funcionesSQL = require('../../middlewares/funcionesSQL');
 require('dotenv').config();
 
+const variablesEntorno = process.env;
+
 //* CONSULTA MASTER DE CENSOS TANTO EN INGRESOS O EGRESOS
 let consulta_master = `select 
                         ch.*, 
@@ -37,7 +39,9 @@ let consulta_master = `select
                         inner join areas a on a.areas_id_pk = u.areas_id_fk 
                         on u.pk_ubi =ch.fk_ubi 
                         `;
-
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//@@@@@@@@@@@@@@@@@@       Ingresos     @@@@@@@@@@@@@@@@@@@@@
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 //Consulta por HCU del ultimo ingreso activo es decir esta hospitalizado
 const getIngresosXHcuVigente = async (req, res) => {
     let hcu = req.params.hcu;
@@ -140,6 +144,94 @@ const crudCicloHospitalizacion = async (req, res) => {
     await funcionesSQL.crud_StoreProcedure(consulta, req, res);
 }
 
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//@@@@@@@@@@@@@@@@@@       Egresos     @@@@@@@@@@@@@@@@@@@@@
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+let consulta_egreso_master = `
+select 
+persona.apellidopat_persona ,
+persona.apellidomat_persona ,
+concat(persona.nombre_primario_persona,' ',persona.nombre_secundario_persona) as nombres_persona,
+persona.numidentificacion_persona,
+calcular_edad_json(persona.fecnac_persona::timestamp, now()::timestamp) as edad,
+sexo.desc_catdetalle as sexo,
+ch.*,
+ie.nombre_inecespe,
+ie.codigo_inecespe,
+cieprincipal.desc_cie as "cie_principal",
+cieprincipal.codigo_cie as "cod_cie_principal",
+ciesecundario1.desc_cie as "cie_secundario1",
+ciesecundario1.codigo_cie as "cod_cie_secundario1",
+ciesecundario2.desc_cie as "cie_secundario2",
+ciesecundario2.codigo_cie as "cod_cie_secundario2",
+ciecausaext.desc_cie as "cie_causaext",
+ciecausaext.codigo_cie as "_cod_cie_causaext"
+from
+ciclo_hospitalizacion ch 
+inner join historia_clinica hcu
+inner join persona persona
+inner join catalogo_detalle sexo on sexo.pk_catdetalle = persona.fk_sexo 
+on persona.pk_persona = hcu.fk_persona 
+on hcu.pk_hcu  = ch.fk_hcu 
+left join inec_especialidades ie on ch.fk_inecespe= ie.pk_inecespe 
+left join cie cieprincipal on cieprincipal.pk_cie= ch.fk_cieprincipal 
+left join cie ciesecundario1 on ciesecundario1.pk_cie= ch.fk_ciesecundaria1
+left join cie ciesecundario2 on ciesecundario2.pk_cie= ch.fk_ciesecundaria2
+left join cie ciecausaext on ciecausaext.pk_cie= ch.fk_ciecausaext
+where ch.tipo_ciclohosp ='EGRESO'
+`;
+
+const getEgresosAll = async (req, res) => {
+    const isDefined = (v) =>
+        v !== undefined &&
+        v !== null &&
+        v !== '' &&
+        v !== 'null' &&
+        v !== 'undefined';
+    let { desde } = req.query;
+    let consulta_egreso='';
+    // Validación correcta de paginación
+    if (isDefined(desde) && !isNaN(Number(desde))) {
+        desde = Number(desde);
+        consulta_egreso += `${consulta_egreso_master} order by ch.pk_ciclohosp DESC LIMIT ${variablesEntorno.ROWS_X_PAGE} OFFSET ${desde}`;
+    } else {
+        consulta_egreso += `${consulta_egreso_master} order by ch.pk_ciclohosp DESC`;
+    }
+
+    await funcionesSQL.getRows(consulta_egreso, req, res);
+}
+
+const getEgresosBusqueda = async (req, res) => {
+    let valor = req.params.bsq;
+    const isDefined = (v) =>
+        v !== undefined &&
+        v !== null &&
+        v !== '' &&
+        v !== 'null' &&
+        v !== 'undefined';
+    let consulta_egreso='';
+    // Validación correcta del estado
+    if (isDefined(valor)) {
+        consulta_egreso += `${consulta_egreso_master} 
+                            and 
+                            (persona.apellidopat_persona like upper('%${valor}%') or 
+                            persona.apellidomat_persona like upper('%${valor}%') or
+                            persona.nombre_primario_persona like upper('%${valor}%') or
+                            persona.nombre_secundario_persona like upper('%${valor}%') or
+                            persona.numidentificacion_persona like '%${valor}%') order by ch.pk_ciclohosp DESC`;
+    } else {
+        consulta_egreso += `${consulta_egreso_master} order by ch.pk_ciclohosp DESC`;
+    }
+
+    await funcionesSQL.getRows(consulta_egreso, req, res);
+}
+
+const getEgresoXId = async (req, res) => {
+    let id = req.params.id;
+    const consulta = `${consulta_egreso_master} and ch.pk_ciclohosp=${id}`;
+    await funcionesSQL.getRowID(consulta, req, res);
+}
+
 
 module.exports = {
     getIngresosXHcuVigente,
@@ -147,5 +239,8 @@ module.exports = {
     getIngresosXAreaTorrePisoSala,
     getCensoXId,
     getHcuHospitalizado,
-    crudCicloHospitalizacion
+    crudCicloHospitalizacion,
+    getEgresosAll,
+    getEgresosBusqueda,
+    getEgresoXId
 }

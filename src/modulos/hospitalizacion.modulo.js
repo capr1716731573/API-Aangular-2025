@@ -10,6 +10,7 @@ function configurarRutas_Hospitalizacion(app) {
     app.use("/sigvita", require('../routes/hospitalizacion/signos_vitales.route'));
     app.use("/kardex", require('../routes/hospitalizacion/kardex.route'));
     app.use("/postoperatorio", require('../routes/hospitalizacion/postoperatorio.route'));
+    app.use("/anexos", require('../routes/hospitalizacion/anexos.route'));
         
 }
 
