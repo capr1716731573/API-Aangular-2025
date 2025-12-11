@@ -48,3 +48,8 @@ Thumbs.db
 *.mov
 *.wmv
 
+# ---- Uploads del sistema (no versionar archivos subidos) ----
+src/uploads/anexos/**
+src/uploads/firmas/**
+src/uploads/protocolo/**
+src/uploads/sellos/**
