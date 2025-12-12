@@ -21,8 +21,12 @@ router.get("/bsq/:hcu/:valor", authenticationJWT.verificarToken,getBsqEvolucion)
 router.get("/id/:id", authenticationJWT.verificarToken,getIdEvolucion);
 router.post("/:accion", authenticationJWT.verificarToken,crudEvoluciones);
 /*Multiples Paginas*/
-router.get("/rep_descarga/:hcu",reporteEvolucion_descarga);
-router.get("/rep_frame/:hcu",reporteEvolucion_frame);
+//router.get("/rep_descarga/:hcu",reporteEvolucion_descarga);
+//router.get("/rep_frame/:hcu",reporteEvolucion_frame);
+
+//Reportes
+router.get("/rep_descarga/:hcu/:fecha1/:fecha2",reporteEvolucion_descarga);
+router.get("/rep_frame/:hcu/:fecha1/:fecha2",reporteEvolucion_frame);
 
 
 module.exports=router;

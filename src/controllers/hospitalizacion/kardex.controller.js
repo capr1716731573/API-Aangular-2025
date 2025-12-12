@@ -117,7 +117,12 @@ const reporteKardex_descarga = async (req, res) => {
     // ✅ Validar si llega una fecha válida (no null, no undefined, no vacía)
     if (req.params.fecha1 && req.params.fecha1.trim() !== "" && req.params.fecha1 != null && req.params.fecha1 != 'null') {
         opciones.fecha_desde = req.params.fecha1;
-        opciones.fecha_hasta = dayjs().format("YYYY-MM-DD"); // fecha actual
+        if (req.params.fecha2 && req.params.fecha2.trim() !== "" && req.params.fecha2 != null && req.params.fecha2 != 'null') {
+            opciones.fecha_hasta = req.params.fecha2;
+        } else {
+            opciones.fecha_hasta = dayjs().format("YYYY-MM-DD"); // fecha actual
+        }
+
     } else {
         opciones.fecha_desde = null;
         opciones.fecha_hasta = null;
@@ -148,17 +153,17 @@ const reporteKardex_descarga = async (req, res) => {
     const nombre_archivo = `_kardex.pdf`;
     const logoPath = path.join(__dirname, '../../images/logo_veltimed.png');
 
-    let logoBase64 = null;
+    /* let logoBase64 = null;
     try {
         const logoBuffer = fs.readFileSync(logoPath);
         logoBase64 = `data:image/png;base64,${logoBuffer.toString('base64')}`;
     } catch (err) {
         console.error('No se pudo leer el logo:', err.message);
-    }
+    } */
 
     // 🔴👉 Unificamos TODO en un solo objeto:
     const data = {
-        logo: logoBase64,
+        //logo: logoBase64,
         hcu: data_hcu,
         casa_salud: data_casa_salud,
         kardex: data_kardex ?? [],
@@ -181,7 +186,12 @@ const reporteKardex_frame = async (req, res) => {
     // ✅ Validar si llega una fecha válida (no null, no undefined, no vacía)
     if (req.params.fecha1 && req.params.fecha1.trim() !== "" && req.params.fecha1 != null && req.params.fecha1 != 'null') {
         opciones.fecha_desde = req.params.fecha1;
-        opciones.fecha_hasta = dayjs().format("YYYY-MM-DD"); // fecha actual
+        if (req.params.fecha2 && req.params.fecha2.trim() !== "" && req.params.fecha2 != null && req.params.fecha2 != 'null') {
+            opciones.fecha_hasta = req.params.fecha2;
+        } else {
+            opciones.fecha_hasta = dayjs().format("YYYY-MM-DD"); // fecha actual
+        }
+
     } else {
         opciones.fecha_desde = null;
         opciones.fecha_hasta = null;
@@ -212,17 +222,17 @@ const reporteKardex_frame = async (req, res) => {
     const nombre_archivo = `_kardex.pdf`;
     const logoPath = path.join(__dirname, '../../images/logo_veltimed.png');
 
-    let logoBase64 = null;
+    /* let logoBase64 = null;
     try {
         const logoBuffer = fs.readFileSync(logoPath);
         logoBase64 = `data:image/png;base64,${logoBuffer.toString('base64')}`;
     } catch (err) {
         console.error('No se pudo leer el logo:', err.message);
-    }
+    } */
 
     // 🔴👉 Unificamos TODO en un solo objeto:
     const data = {
-        logo: logoBase64,
+       // logo: logoBase64,
         hcu: data_hcu,
         casa_salud: data_casa_salud,
         kardex: data_kardex ?? [],

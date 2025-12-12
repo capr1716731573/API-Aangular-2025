@@ -130,6 +130,22 @@ const getData = async (sql) => {
     }
 }
 
+const getArray = async (sql) => {
+    try {
+        const [results] = await sequelize.query(sql);
+
+        if (!results || results.length === 0) {
+            return [];
+        }
+
+        return results; // <-- RETORNA TODO EL ARREGLO
+    } catch (error) {
+        console.error("Error ejecutando la consulta:", error.message);
+        return [];
+    }
+};
+
+
 //*********************************************** ******************************************/
 //*****  MANEJO REPORTES                                     *******************************/
 //*********************************************** ******************************************/
@@ -315,6 +331,7 @@ module.exports = {
     getAll_Rows_StoreProcedure,
     getID_Row_StoreProcedure,
     getData,
+    getArray,
     generateMultiplesPDF,
     generateMultiplesPDF_Frame,
     generateOnePdf_Frame

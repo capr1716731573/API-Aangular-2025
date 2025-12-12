@@ -60,8 +60,8 @@ router.get("/signos/f/id/:opcion/:id", authenticationJWT.verificarToken,getSigno
 router.post("/signos/f/:accion", authenticationJWT.verificarToken,crud_SignosVitales_f);
 
 //Reportes
-router.get("/signos/reporte_descarga/:hcu/:fecha1",reporteSignos_descarga);
-router.get("/signos/reporte_frame/:hcu/:fecha1",reporteSignos_frame);
+router.get("/signos/reporte_descarga/:hcu/:fecha1/:fecha2",reporteSignos_descarga);
+router.get("/signos/reporte_frame/:hcu/:fecha1/:fecha2",reporteSignos_frame);
 
 
 

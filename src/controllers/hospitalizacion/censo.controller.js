@@ -1,5 +1,7 @@
 const funcionesSQL = require('../../middlewares/funcionesSQL');
 require('dotenv').config();
+const ExcelJS = require('exceljs');
+const dayjs2 = require("dayjs");
 
 const variablesEntorno = process.env;
 
@@ -21,10 +23,17 @@ let consulta_master = `select
                         sala.pk_tipoubi as sala_pk,
                         habitacion.desc_tipoubi as habitacion,
                         u.descripcion_ubicacion as ubicacion,
-                        (SELECT row_to_json(ch2.*) 
-                        FROM ciclo_hospitalizacion ch2 
-                        WHERE ch2.fk_ciclohosp = ch.pk_ciclohosp AND 
-                        ch2.tipo_ciclohosp='EGRESO') AS egreso
+                       COALESCE(
+                          (
+                            SELECT to_jsonb(ch2)
+                            FROM ciclo_hospitalizacion ch2
+                            WHERE ch2.fk_ciclohosp = ch.pk_ciclohosp
+                              AND ch2.tipo_ciclohosp = 'EGRESO'
+                            ORDER BY ch2.fecha_ciclohosp DESC, ch2.hora_ciclohosp DESC
+                            LIMIT 1
+                          ),
+                          '{}'::jsonb
+                        ) AS egreso
                         from ciclo_hospitalizacion ch 
                         inner join historia_clinica hc 
                         inner join persona p 
@@ -232,6 +241,281 @@ const getEgresoXId = async (req, res) => {
     await funcionesSQL.getRowID(consulta, req, res);
 }
 
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//@@@@@@@@@@@@@@@@@@       Reportes     @@@@@@@@@@@@@@@@@@@@@
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+// Consulta Inec
+const getReporteEgresosINEC = async (req, res) => {
+  try {
+    // 1) Parámetros recibidos por params
+    const { mes, anio } = req.params;
+
+    const p_mes = parseInt(mes, 10);
+    const p_anio = parseInt(anio, 10);
+
+    if (isNaN(p_mes) || isNaN(p_anio)) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Parámetros mes y/o año inválidos',
+      });
+    }
+
+    // 2) Ejecutar función PL/pgSQL reporte_egresos_inec
+    const consulta = `
+      SELECT *
+      FROM reporte_egresos_inec(${p_mes}, ${p_anio});
+    `;
+
+    const datos_consulta = await funcionesSQL.getArray(consulta);
+
+    // 3) Crear workbook
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Reporte');
+
+    // 4) Casa de Salud
+    const consulta_casa_salud = `
+      SELECT * 
+      FROM casas_salud cs
+      INNER JOIN institucion i ON cs.ins_id_fk = i.ins_id_pk
+      WHERE cs.casalud_principal = true
+      LIMIT 1
+    `;
+    let data_casa_salud = await funcionesSQL.getData(consulta_casa_salud);
+
+    // 5) Encabezados (ya sin logo, filas hacia arriba)
+    worksheet.mergeCells('A1', 'G1');
+    worksheet.getCell('A1').value = data_casa_salud
+      ? data_casa_salud.casalud_descripcion
+      : 'CASA DE SALUD';
+    worksheet.getCell('A1').font = { size: 18, bold: true };
+
+    worksheet.mergeCells('A2', 'P2');
+    worksheet.getCell('A2').value =
+      `Reporte de Egresos INEC - Mes: ${p_mes} / Año: ${p_anio} - Generado: ${dayjs2().format('YYYY-MM-DD')}`;
+    worksheet.getCell('A2').font = { size: 16, bold: true };
+
+    // 6) Cabeceras (salidas del RETURN TABLE de reporte_egresos_inec)
+    const headers = [
+      'MES_RECOLECCIÓN_1',
+      'No. HISTORIA CLÍNICA _2',
+      'TIPO_IDENTIFICACIÓN_3',
+      'Número de identificación _4',
+      'PRIMER NOMBRE _5',
+      'SEGUNDO NOMBRE _5',
+      'PRIMER APELLIDO _5',
+      'SEGUNDO APELLIDO _5',
+      'NACIONALIDAD_6',
+      'PAIS_6',
+      'SEXO_7',
+      'ANIO_8',
+      'MES_8',
+      'DIA_8',
+      'FECHA AAAA/MM/DD _8',
+      'TIPO_EDAD_9',
+      'EDAD_9',
+      'ETNIA_10',
+      'TIPO_SEGURO_11',
+      'DISCAPACIDAD_12',
+      'PROVINCIA_13',
+      'CANTON_13',
+      'PARROQUIA_13',
+      'ANIO_INGRESO_14',
+      'MES_INGRESO_14',
+      'DIA_INGRESO_14',
+      'AAAA/MM/DD_INGRESO_14',
+      'HORA_INGRESO_14',
+      'ANIO_EGRESO_15',
+      'MES_EGRESO_15',
+      'DIA_EGRESO_15',
+      'AAAA/MM/DD_EGRESO_15',
+      'HORA_EGRESO_15',
+      'DIAS_ESTADA_16',
+      'CONDICION_EGRESO_17',
+      'ESPECIALIDAD EGRESO',
+      'AFECCIÓN PRINCIPAL_19',
+      'OTRAS AFECCIONES_1_19',
+      'OTRAS AFECCIONES_2_19',
+      'CAUSA EXTERNA_19',
+      'CODIGO AFECCIÓN PRINCIPAL_19',
+      'CODIGO OTRAS AFECCIONES_1_19',
+      'CODIGO OTRAS AFECCIONES_2_19',
+      'CODIGO CAUSA EXTERNA_19'
+    ];
+
+    const startRow = 4;
+    worksheet.getRow(startRow).values = headers;
+    worksheet.getRow(startRow).font = { bold: true };
+
+    // 7) Poner datos
+    let rowIdx = startRow + 1;
+
+    for (const row of datos_consulta) {
+      // Mapear manteniendo orden exacto del RETURN TABLE
+      const valores = headers.map((h) => row[h] ?? '');
+      worksheet.getRow(rowIdx).values = valores;
+      rowIdx++;
+    }
+
+    // Ajuste de ancho de columnas
+    worksheet.columns = headers.map(() => ({ width: 19 }));
+
+    // 8) Enviar archivo Excel
+    res.setHeader(
+      'Content-Type',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    );
+    res.setHeader(
+      'Content-Disposition',
+      `attachment; filename="reporte_egresos_inec_${p_mes}_${p_anio}.xlsx"`
+    );
+
+    await workbook.xlsx.write(res);
+    res.end();
+
+  } catch (error) {
+    console.error('Error generando Excel INEC:', error);
+    return res.status(500).json({
+      status: 'error',
+      message: 'Error al generar el reporte Excel INEC',
+      error: error.message,
+    });
+  }
+};
+
+//Consulta Pacientes Hospitalizados
+const getCensoActualReporte = async (req, res) => {
+  try {
+    let consulta = `${consulta_master} 
+      WHERE tipo_ciclohosp = 'INGRESO' 
+        AND ch.activo_ciclohosp = true 
+      ORDER BY torre.desc_tipoubi ASC, piso.desc_tipoubi ASC, u.descripcion_ubicacion ASC`;
+
+    let datos_consulta = await funcionesSQL.getArray(consulta);
+
+    // 2) Crear workbook y hoja
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Reporte');
+
+    // 3) Casa de Salud
+    const consulta_casa_salud = `
+      SELECT * 
+      FROM casas_salud cs
+      INNER JOIN institucion i ON cs.ins_id_fk = i.ins_id_pk
+      WHERE cs.casalud_principal = true
+      LIMIT 1
+    `;
+    let data_casa_salud = await funcionesSQL.getData(consulta_casa_salud);
+
+    // 4) Logo (COMENTADO)
+    /*
+    const logoPath = path.join(__dirname, '../../images/logo_veltimed.png');
+    let logoBuffer = null;
+    try {
+      logoBuffer = fs.readFileSync(logoPath);
+    } catch (err) {
+      console.error('No se pudo leer el logo:', err.message);
+    }
+
+    if (logoBuffer) {
+      const imageId = workbook.addImage({
+        buffer: logoBuffer,
+        extension: 'png',
+      });
+
+      worksheet.addImage(imageId, {
+        tl: { col: 0, row: 0 },
+        ext: { width: 200, height: 50 }
+      });
+    }
+    */
+
+    // 5) Encabezados (subidos hacia arriba)
+    worksheet.mergeCells('A1', 'G1');
+    worksheet.getCell('A1').value = data_casa_salud
+      ? data_casa_salud.casalud_descripcion
+      : 'CASA DE SALUD';
+    worksheet.getCell('A1').font = { size: 18, bold: true };
+    worksheet.getCell('A1').alignment = {
+      vertical: 'middle',
+      horizontal: 'left',
+      wrapText: true
+    };
+
+    worksheet.mergeCells('A2', 'P2');
+    worksheet.getCell('A2').value =
+      `Reporte de Censo Actual a la fecha: ${dayjs2().format('YYYY-MM-DD')}`;
+    worksheet.getCell('A2').font = { size: 16, bold: true };
+    worksheet.getCell('A2').alignment = {
+      vertical: 'middle',
+      horizontal: 'left',
+      wrapText: true
+    };
+
+    // 6) Cabeceras de columnas (también más arriba)
+    const startRow = 4;
+    const headers = [
+      'TORRE',
+      'PISO',
+      'SALA',
+      'HABITACIÓN',
+      'CAMA',
+      'HCU',
+      'PACIENTE',
+      'SEXO',
+      'EDAD',
+      'FECHA INGRESO',
+      'MÉDICO'
+    ];
+
+    worksheet.getRow(startRow).values = headers;
+    worksheet.getRow(startRow).font = { bold: true };
+
+    // 7) Llenar filas con datos
+    let rowIdx = startRow + 1;
+    for (const row of datos_consulta) {
+      worksheet.getRow(rowIdx).values = [
+        row.torre || '',
+        row.piso || '',
+        row.sala || '',
+        row.habitacion || '',
+        row.ubicacion || '',
+        row.numidentificacion_persona || '',
+        (row.apellidopat_persona + ' ' + row.apellidomat_persona + ' ' + row.nombres_persona) || '',
+        row.sexo || '',
+        (row.edad.valor + ' ' + row.edad.tipo) || '',
+        row.fecha_ciclohosp || '',
+        (row.fecha_creacion_ciclo.apellidopat_persona + ' ' + row.fecha_creacion_ciclo.apellidomat_persona + ' ' + row.fecha_creacion_ciclo.nombre_primario_persona + ' ' + row.fecha_creacion_ciclo.nombre_secundario_persona) || '',
+      ];
+      rowIdx++;
+    }
+
+    // 8) Enviar el archivo Excel en la respuesta
+    res.setHeader(
+      'Content-Type',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    );
+    res.setHeader(
+      'Content-Disposition',
+      'attachment; filename="reporte_censo_actual.xlsx"'
+    );
+
+    await workbook.xlsx.write(res);
+    res.end();
+    console.log('Reporte Excel generado y enviado');
+
+  } catch (error) {
+    console.error('Error generando reporte Excel:', error);
+    return res.status(500).json({
+      status: 'error',
+      message: 'Error al generar el reporte Excel',
+      error: error.message,
+    });
+  }
+};
+
+
+
+
 
 module.exports = {
     getIngresosXHcuVigente,
@@ -242,5 +526,7 @@ module.exports = {
     crudCicloHospitalizacion,
     getEgresosAll,
     getEgresosBusqueda,
-    getEgresoXId
+    getEgresoXId,
+    getReporteEgresosINEC,
+    getCensoActualReporte
 }

@@ -267,12 +267,6 @@ const templatePaths = {
 
 //Descarga pdf: Multiples Hojas  
 const reporteSignos_descarga = async (req, res) => {
-   /*  opciones.hcu = req.params.hcu;
-    opciones.todos = true;
-    opciones.fecha_desde = null;
-    opciones.fecha_hasta = null;
-    opciones.reg_cantidad = null; */
-
     //AQUI VALIDO SI TIENE UNA FECHA PARA COLOCAR EL PERIODO
     opciones.hcu = req.params.hcu;
     opciones.todos = true;
@@ -281,12 +275,16 @@ const reporteSignos_descarga = async (req, res) => {
     // ✅ Validar si llega una fecha válida (no null, no undefined, no vacía)
     if (req.params.fecha1 && req.params.fecha1.trim() !== "" && req.params.fecha1 != null && req.params.fecha1 != 'null') {
         opciones.fecha_desde = req.params.fecha1;
-        opciones.fecha_hasta = dayjs().format("YYYY-MM-DD"); // fecha actual
+        if (req.params.fecha2 && req.params.fecha2.trim() !== "" && req.params.fecha2 != null && req.params.fecha2 != 'null') {
+            opciones.fecha_hasta = req.params.fecha2;
+        } else {
+            opciones.fecha_hasta = dayjs().format("YYYY-MM-DD"); // fecha actual
+        }
+
     } else {
         opciones.fecha_desde = null;
         opciones.fecha_hasta = null;
     }
-
 
 
 
@@ -334,17 +332,17 @@ const reporteSignos_descarga = async (req, res) => {
     const nombre_archivo = `_signos_vitales.pdf`;
     const logoPath = path.join(__dirname, '../../images/logo_veltimed.png');
 
-    let logoBase64 = null;
+    /* let logoBase64 = null;
     try {
         const logoBuffer = fs.readFileSync(logoPath);
         logoBase64 = `data:image/png;base64,${logoBuffer.toString('base64')}`;
     } catch (err) {
         console.error('No se pudo leer el logo:', err.message);
-    }
+    } */
 
     // 🔴👉 Unificamos TODO en un solo objeto:
     const data = {
-        logo: logoBase64,
+        //logo: logoBase64,
         hcu: data_hcu,
         casa_salud: data_casa_salud,
         seccion_b: data_b ?? [],   // o {} según lo que devuelva tu SP
@@ -367,12 +365,6 @@ const reporteSignos_descarga = async (req, res) => {
 
 //Frame pdf: Multiples Hojas
 const reporteSignos_frame = async (req, res) => {
-    /* opciones.hcu = req.params.hcu;
-    opciones.todos = true;
-    opciones.fecha_desde = null;
-    opciones.fecha_hasta = null;
-    opciones.reg_cantidad = null; */
-
     //AQUI VALIDO SI TIENE UNA FECHA PARA COLOCAR EL PERIODO
     opciones.hcu = req.params.hcu;
     opciones.todos = true;
@@ -381,7 +373,12 @@ const reporteSignos_frame = async (req, res) => {
     // ✅ Validar si llega una fecha válida (no null, no undefined, no vacía)
     if (req.params.fecha1 && req.params.fecha1.trim() !== "" && req.params.fecha1 != null && req.params.fecha1 != 'null') {
         opciones.fecha_desde = req.params.fecha1;
-        opciones.fecha_hasta = dayjs().format("YYYY-MM-DD"); // fecha actual
+        if (req.params.fecha2 && req.params.fecha2.trim() !== "" && req.params.fecha2 != null && req.params.fecha2 != 'null') {
+            opciones.fecha_hasta = req.params.fecha2;
+        } else {
+            opciones.fecha_hasta = dayjs().format("YYYY-MM-DD"); // fecha actual
+        }
+
     } else {
         opciones.fecha_desde = null;
         opciones.fecha_hasta = null;
@@ -431,17 +428,17 @@ const reporteSignos_frame = async (req, res) => {
     const nombre_archivo = `_signos_vitales.pdf`;
     const logoPath = path.join(__dirname, '../../images/logo_veltimed.png');
 
-    let logoBase64 = null;
+    /* let logoBase64 = null;
     try {
         const logoBuffer = fs.readFileSync(logoPath);
         logoBase64 = `data:image/png;base64,${logoBuffer.toString('base64')}`;
     } catch (err) {
         console.error('No se pudo leer el logo:', err.message);
-    }
+    } */
 
     // 🔴👉 Unificamos TODO en un solo objeto:
     const data = {
-        logo: logoBase64,
+        //logo: logoBase64,
         hcu: data_hcu,
         casa_salud: data_casa_salud,
         seccion_b: data_b ?? [],   // o {} según lo que devuelva tu SP

@@ -26,8 +26,8 @@ router.get("/det/id/:opcion/:id", authenticationJWT.verificarToken,getKardexDet_
 router.post("/det/:accion", authenticationJWT.verificarToken,crud_KardexDet);
 
 //Reportes
-router.get("/cab/reporte_descarga/:hcu/:fecha1",reporteKardex_descarga);
-router.get("/cab/reporte_frame/:hcu/:fecha1",reporteKardex_frame);
+router.get("/cab/reporte_descarga/:hcu/:fecha1/:fecha2",reporteKardex_descarga);
+router.get("/cab/reporte_frame/:hcu/:fecha1/:fecha2",reporteKardex_frame);
 
 
 
