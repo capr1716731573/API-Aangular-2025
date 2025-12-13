@@ -160,6 +160,13 @@ handlebars.registerHelper('isNullVacio', function (value) {
     else return false;
 });
 
+handlebars.registerHelper("not", (v) => !v);
+
+handlebars.registerHelper("or", function () {
+  // Devuelve true si alguno es truthy
+  return Array.from(arguments).slice(0, -1).some(Boolean);
+});
+
 
 // Reportes en donde el pdf se descarga automaticamente 
 const generateMultiplesPDF = async (nombre_archivo, pageContents, req, res) => {

@@ -1,0 +1,762 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Reporte</title>
+  <meta name="author" content="GSFC." />
+  <meta name="title" content="Untitled Spreadsheet" />
+  <meta name="company" content="Microsoft Corporation" />
+  <style type="text/css">
+    html {
+      font-family: Calibri, Arial, Helvetica, sans-serif;
+      font-size: 11pt;
+      background-color: white
+    }
+
+    a.comment-indicator:hover+div.comment {
+      background: #ffd;
+      position: absolute;
+      display: block;
+      border: 1px solid black;
+      padding: 0.5em
+    }
+
+    a.comment-indicator {
+      background: red;
+      display: inline-block;
+      border: 1px solid black;
+      width: 0.5em;
+      height: 0.5em
+    }
+
+    div.comment {
+      display: none
+    }
+
+    table {
+      border-collapse: collapse;
+      page-break-after: always
+    }
+
+    /* Aumentar ligeramente la altura de TODAS las filas (sin afectar anchos) */
+    table.sheet0 td,
+    table.sheet0 th {
+      padding-top: 2pt;
+      padding-bottom: 2pt;
+    }
+
+    .gridlines td {
+      border: 1px dotted black
+    }
+
+    .gridlines th {
+      border: 1px dotted black
+    }
+
+    .b {
+      text-align: center
+    }
+
+    .e {
+      text-align: center
+    }
+
+    .f {
+      text-align: right
+    }
+
+    .inlineStr {
+      text-align: left
+    }
+
+    .n {
+      text-align: right
+    }
+
+    .s {
+      text-align: left
+    }
+
+    /* CABECERA DE SECCION */
+    td.style82 {
+      vertical-align: middle;
+      text-align: left;
+      padding-left: 0px;
+      border-bottom: 1px solid #5F5F5F !important;
+      border-top: 1px solid #5F5F5F !important;
+      border-left: 1px solid #5F5F5F !important;
+      border-right: 1px solid #5F5F5F !important;
+      font-weight: bold;
+      color: #000000;
+      font-family: 'Arial';
+      font-size: 10pt;
+      background-color: #CCCCFF
+    }
+
+    th.style82 {
+      vertical-align: middle;
+      text-align: left;
+      padding-left: 0px;
+      border-bottom: 1px solid #5F5F5F !important;
+      border-top: 1px solid #5F5F5F !important;
+      border-left: 1px solid #5F5F5F !important;
+      border-right: 1px solid #5F5F5F !important;
+      font-weight: bold;
+      color: #000000;
+      font-family: 'Arial';
+      font-size: 10pt;
+      background-color: #CCCCFF
+    }
+
+    td.style83 {
+      vertical-align: middle;
+      text-align: left;
+      padding-left: 0px;
+      border-bottom: 1px solid #5F5F5F !important;
+      border-top: 1px solid #5F5F5F !important;
+      border-left: 1px solid #5F5F5F !important;
+      border-right: 1px solid #5F5F5F !important;
+      font-weight: bold;
+      color: #000000;
+      font-family: 'Arial';
+      font-size: 10pt;
+      background-color: #CCCCFF
+    }
+
+    th.style83 {
+      vertical-align: middle;
+      text-align: left;
+      padding-left: 0px;
+      border-bottom: 1px solid #5F5F5F !important;
+      border-top: 1px solid #5F5F5F !important;
+      border-left: 1px solid #5F5F5F !important;
+      border-right: 1px solid #5F5F5F !important;
+      font-weight: bold;
+      color: #000000;
+      font-family: 'Arial';
+      font-size: 10pt;
+      background-color: #CCCCFF
+    }
+
+    td.style84 {
+      vertical-align: middle;
+      text-align: left;
+      padding-left: 0px;
+      border-bottom: 1px solid #5F5F5F !important;
+      border-top: 1px solid #5F5F5F !important;
+      border-left: 1px solid #5F5F5F !important;
+      border-right: 1px solid #5F5F5F !important;
+      font-weight: bold;
+      color: #000000;
+      font-family: 'Arial';
+      font-size: 10pt;
+      background-color: #CCCCFF
+    }
+
+    th.style84 {
+      vertical-align: middle;
+      text-align: left;
+      padding-left: 0px;
+      border-bottom: 1px solid #5F5F5F !important;
+      border-top: 1px solid #5F5F5F !important;
+      border-left: 1px solid #5F5F5F !important;
+      border-right: 1px solid #5F5F5F !important;
+      font-weight: bold;
+      color: #000000;
+      font-family: 'Arial';
+      font-size: 10pt;
+      background-color: #CCCCFF
+    }
+
+    td.style85 {
+      vertical-align: middle;
+      text-align: left;
+      padding-left: 0px;
+      border-bottom: 1px solid #5F5F5F !important;
+      border-top: 1px solid #5F5F5F !important;
+      border-left: 1px solid #5F5F5F !important;
+      border-right: 1px solid #5F5F5F !important;
+      font-weight: bold;
+      color: #000000;
+      font-family: 'Arial';
+      font-size: 10pt;
+      background-color: #CCCCFF
+    }
+
+    th.style85 {
+      vertical-align: middle;
+      text-align: left;
+      padding-left: 0px;
+      border-bottom: 1px solid #5F5F5F !important;
+      border-top: 1px solid #5F5F5F !important;
+      border-left: 1px solid #5F5F5F !important;
+      border-right: 1px solid #5F5F5F !important;
+      font-weight: bold;
+      color: #000000;
+      font-family: 'Arial';
+      font-size: 10pt;
+      background-color: #CCCCFF
+    }
+
+    td.style43 {
+      vertical-align: middle;
+      text-align: center;
+      border-bottom: 1px solid #5F5F5F !important;
+      border-top: 1px solid #5F5F5F !important;
+      border-left: 1px solid #5F5F5F !important;
+      border-right: 1px solid #5F5F5F !important;
+      color: #000000;
+      font-family: 'Arial';
+      font-size: 7pt;
+      background-color: white
+    }
+
+    th.style43 {
+      vertical-align: middle;
+      text-align: center;
+      border-bottom: 1px solid #5F5F5F !important;
+      border-top: 1px solid #5F5F5F !important;
+      border-left: 1px solid #5F5F5F !important;
+      border-right: 1px solid #5F5F5F !important;
+      color: #000000;
+      font-family: 'Arial';
+      font-size: 7pt;
+      background-color: white
+    }
+
+    /* SUBCABECERA */
+    td.style97,
+    td.style98,
+    td.style99,
+    th.style97,
+    th.style98,
+    th.style99 {
+      vertical-align: middle;
+      text-align: center;
+      border-bottom: 1px solid #5F5F5F !important;
+      border-top: 1px solid #5F5F5F !important;
+      border-left: 1px solid #5F5F5F !important;
+      border-right: 1px solid #5F5F5F !important;
+      font-weight: bold;
+      color: #000000;
+      font-family: 'Arial';
+      font-size: 7pt;
+      background-color: #CCFFCC
+    }
+
+    /* TITULOS VERDE */
+    td.style14,
+    th.style14,
+    td.style15,
+    th.style15 {
+      vertical-align: middle;
+      text-align: center;
+      border-bottom: 1px solid #5F5F5F !important;
+      border-top: 1px solid #5F5F5F !important;
+      border-left: 1px solid #5F5F5F !important;
+      border-right: 1px solid #5F5F5F !important;
+      font-weight: bold;
+      color: #000000;
+      font-family: 'Arial';
+      font-size: 5pt;
+      background-color: #CCFFCC
+    }
+
+    /* TITULOS MORADO */
+    td.style18,
+    th.style18,
+    td.style19,
+    th.style19 {
+      vertical-align: middle;
+      text-align: right;
+      padding-right: 0px;
+      border-bottom: 1px solid #5F5F5F !important;
+      border-top: 1px solid #5F5F5F !important;
+      border-left: none #000000;
+      color: #000000;
+      font-family: 'Arial';
+      font-size: 5pt;
+      background-color: #CCCCFF
+    }
+
+    td.style19,
+    th.style19 {
+      border-right: 1px solid #5F5F5F !important;
+    }
+
+    /* ESTILO "X" */
+    td.style56,
+    th.style56 {
+      vertical-align: middle;
+      text-align: center;
+      border-bottom: 1px solid #5F5F5F !important;
+      border-top: 1px solid #5F5F5F !important;
+      border-left: 1px solid #5F5F5F !important;
+      border-right: 1px solid #5F5F5F !important;
+      color: #000000;
+      font-family: 'Arial';
+      font-size: 10pt;
+      background-color: white
+    }
+
+    /* RESPUESTAS */
+    td.style44,
+    th.style44 {
+      vertical-align: middle;
+      text-align: center;
+      border-bottom: 1px solid #5F5F5F !important;
+      border-top: 1px solid #5F5F5F !important;
+      border-left: 1px solid #5F5F5F !important;
+      border-right: none #000000;
+      color: #000000;
+      font-family: 'Arial';
+      font-size: 6pt;
+      background-color: white
+    }
+
+    td.style46,
+    th.style46 {
+      vertical-align: middle;
+      text-align: left;
+      border-bottom: 1px solid #5F5F5F !important;
+      border-top: 1px solid #5F5F5F !important;
+      border-left: none #000000;
+      border-right: 1px solid #5F5F5F !important;
+      color: #000000;
+      font-family: 'Arial';
+      font-size: 6pt;
+      background-color: white
+    }
+
+    td.style64,
+    th.style64 {
+      vertical-align: middle;
+      text-align: center;
+      border-bottom: 1px solid #5F5F5F !important;
+      border-top: 1px solid #5F5F5F !important;
+      border-left: 1px solid #5F5F5F !important;
+      border-right: 1px solid #5F5F5F !important;
+      color: #000000;
+      font-family: 'Arial';
+      font-size: 6pt;
+      background-color: white
+    }
+
+    /* SECCION F - DATOS DEL PROFESIONAL RESPONSABLE (aumentar alto de campos) */
+    tr.row69 td.style64 {
+      padding-top: 6pt;
+      padding-bottom: 6pt;
+      height: 18pt;
+    }
+
+    tr.row71 td.style64 {
+      padding-top: 10pt;
+      padding-bottom: 10pt;
+      height: 36pt;
+    }
+
+    td.style94,
+    th.style94 {
+      vertical-align: middle;
+      text-align: right;
+      padding-right: 0px;
+      border: none;
+      font-weight: bold;
+      color: #000000;
+      font-family: 'Arial';
+      font-size: 12pt;
+      background-color: white
+    }
+
+    td.style95,
+    th.style95 {
+      vertical-align: middle;
+      text-align: left;
+      padding-left: 0px;
+      border: none;
+      font-weight: bold;
+      color: #000000;
+      font-family: 'Arial';
+      font-size: 8pt;
+      background-color: white
+    }
+
+    /* NOTA: en tu ejemplo hay style74 pero no está definido; lo dejo mínimo para separador */
+    td.style74 {
+      border: none;
+      height: 8px;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    /* ANCHOS */
+    table.sheet0 col.col0,
+    table.sheet0 col.col1,
+    table.sheet0 col.col2,
+    table.sheet0 col.col3,
+    table.sheet0 col.col4,
+    table.sheet0 col.col5,
+    table.sheet0 col.col6,
+    table.sheet0 col.col7,
+    table.sheet0 col.col8,
+    table.sheet0 col.col9,
+    table.sheet0 col.col10,
+    table.sheet0 col.col11,
+    table.sheet0 col.col12,
+    table.sheet0 col.col13,
+    table.sheet0 col.col14,
+    table.sheet0 col.col15,
+    table.sheet0 col.col16,
+    table.sheet0 col.col17,
+    table.sheet0 col.col18,
+    table.sheet0 col.col19,
+    table.sheet0 col.col20,
+    table.sheet0 col.col21,
+    table.sheet0 col.col22,
+    table.sheet0 col.col23,
+    table.sheet0 col.col24,
+    table.sheet0 col.col25,
+    table.sheet0 col.col26,
+    table.sheet0 col.col27,
+    table.sheet0 col.col28,
+    table.sheet0 col.col29,
+    table.sheet0 col.col30,
+    table.sheet0 col.col31,
+    table.sheet0 col.col32,
+    table.sheet0 col.col33,
+    table.sheet0 col.col34,
+    table.sheet0 col.col35,
+    table.sheet0 col.col36,
+    table.sheet0 col.col37,
+    table.sheet0 col.col38,
+    table.sheet0 col.col39,
+    table.sheet0 col.col40,
+    table.sheet0 col.col41,
+    table.sheet0 col.col42,
+    table.sheet0 col.col43,
+    table.sheet0 col.col44,
+    table.sheet0 col.col45,
+    table.sheet0 col.col46,
+    table.sheet0 col.col47,
+    table.sheet0 col.col48,
+    table.sheet0 col.col49,
+    table.sheet0 col.col50,
+    table.sheet0 col.col51,
+    table.sheet0 col.col52,
+    table.sheet0 col.col53,
+    table.sheet0 col.col54,
+    table.sheet0 col.col55,
+    table.sheet0 col.col56,
+    table.sheet0 col.col57,
+    table.sheet0 col.col58,
+    table.sheet0 col.col59,
+    table.sheet0 col.col60,
+    table.sheet0 col.col61,
+    table.sheet0 col.col62,
+    table.sheet0 col.col63,
+    table.sheet0 col.col64 {
+      width: 8.13333324pt
+    }
+  </style>
+</head>
+
+<body>
+  <style>
+    @page {
+      margin-left: 0in;
+      margin-right: 0in;
+      margin-top: 0in;
+      margin-bottom: 0in;
+    }
+
+    body {
+      margin-left: 0.2in;
+      margin-right: 0.2in;
+      margin-top: 0.1in;
+      margin-bottom: 0.1in;
+    }
+  </style>
+
+  <table border="0" cellpadding="0" cellspacing="0" id="sheet0" class="sheet0">
+    <tbody>
+      <!-- SECCION A -->
+      <tr class="row0">
+        <td class="column0 style82 s style84" colspan="65">A. DATOS DEL ESTABLECIMIENTO</td>
+      </tr>
+      <tr class="row1">
+        <td class="column0 style97 s style98" colspan="18">INSTITUCIÓN DEL SISTEMA</td>
+        <td class="column15 style98 s style98" colspan="9">UNICÓDIGO</td>
+        <td class="column21 style98 s style98" colspan="18">ESTABLECIMIENTO DE SALUD</td>
+        <td class="column36 style98 s style98" colspan="20">NÚMERO DE HISTORIA CLÍNICA ÚNICA</td>
+      </tr>
+      <tr class="row22">
+        <td class="column15 style43 null style43" colspan="18">{{institucion}}</td>
+        <td class="column15 style43 null style43" colspan="9">{{casalud_codigo}}</td>
+        <td class="column15 style43 null style43" colspan="18">{{casalud_descripcion}}</td>
+        <td class="column15 style43 null style43" colspan="20">{{paciente_numidentificacion}}</td>
+      </tr>
+      <!-- FIN SECCION A -->
+
+      <tr class="row29">
+        <td class="column0 style74 null style74" colspan="65"></td>
+      </tr>
+
+      <!-- SECCION B -->
+      <tr class="row4">
+        <td class="column0 style82 s style84" colspan="65">B. REGISTRO DE PACIENTE</td>
+      </tr>
+
+      <tr class="row7">
+        <td class="column0 style14 s style14" colspan="20" rowspan="2">FECHA</td>
+        <td class="column0 style14 s style14" colspan="15" rowspan="2">HORA</td>
+        <td class="column0 style14 s style14" colspan="30">SEGURO SALUD PRINCIPAL</td>
+      </tr>
+      <tr class="row8">
+        <td class="column0 style14 s style14" colspan="5">IESS-G</td>
+        <td class="column0 style14 s style14" colspan="5">IESS-C</td>
+        <td class="column0 style14 s style14" colspan="5">ISSPOL</td>
+        <td class="column0 style14 s style14" colspan="5">ISSFA</td>
+        <td class="column0 style14 s style14" colspan="5">PRIV.</td>
+        <td class="column0 style14 s style14" colspan="5">NING.</td>
+      </tr>
+      <tr class="row9">
+        <td class="column33 style64 null style64" colspan="20">{{fecha_triage}}</td>
+        <td class="column33 style64 null style64" colspan="15">{{hora_triage}}</td>
+        <td class="column33 style64 null style64" colspan="30">{{seguro_desc_catdetalle}}</td>
+      </tr>
+
+      <tr class="row13">
+        <td class="column0 style62 s style14" colspan="45" rowspan="2">APELLIDOS Y NOMBRES</td>
+        <td class="column0 style14 s style14" colspan="10" rowspan="2">EDAD</td>
+        <td class="column0 style14 s style14" colspan="10">CONDICIÓN EDAD</td>
+      </tr>
+      <tr class="row14">
+        <td class="column0 style14 s style14" colspan="3">H</td>
+        <td class="column0 style14 s style14" colspan="2">D</td>
+        <td class="column0 style14 s style14" colspan="3">M</td>
+        <td class="column0 style14 s style14" colspan="2">A</td>
+      </tr>
+      <tr class="row15">
+        <td class="column33 style64 null style64" colspan="45">{{paciente_apellido1}} {{paciente_apellido2}} {{paciente_nombre_primario}} {{pacienteo_nombre_secundario}}</td>
+        <td class="column33 style64 null style64" colspan="10">{{edad.valor}}</td>
+        <!-- En tu JSON no viene edad.tipo, así que lo dejo vacío (sin X) para evitar helpers -->
+        <td class="column33 style64 null style64" colspan="3">
+          {{#if (eq this.edad.tipo 'horas')}}X{{/if}}
+        </td>
+        <td class="column33 style64 null style64" colspan="2">
+          {{#if (eq this.edad.tipo 'dias')}}X{{/if}}
+        </td>
+        <td class="column33 style64 null style64" colspan="3">
+          {{#if (eq this.edad.tipo 'meses')}}X{{/if}}
+        </td>
+        <td class="column33 style64 null style64" colspan="2">
+          {{#if (eq this.edad.tipo 'años')}}X{{/if}}
+        </td>
+      </tr>
+
+      <tr class="row29">
+        <td class="column0 style74 null style74" colspan="65"></td>
+      </tr>
+
+      <!-- SECCION G (reemplaza la C original) -->
+      <tr class="row0">
+        <td class="column0 style82 s style84" colspan="65">
+          G. CONSTANTES VITALES Y ANTROPOMETRÍA
+        </td>
+      </tr>
+
+      <tr class="row1">
+        <td class="column0 style14 s style14 column-width-10" colspan="10">
+          SIN CONSTANTES VITALES
+        </td>
+        <td class="column33 style64 null style64 column-width-6" colspan="6">
+          <!-- {{signos_vitales_triage.sin_constantes_vitales}} -->
+          {{#if signos_vitales_triage.sin_constantes_vitales}}X{{else}}&nbsp;{{/if}}
+        </td>
+        <td class="column0 style14 s style14 column-width-6" colspan="6">
+          PRESIÓN ARTERIAL(mmHg)
+        </td>
+        <td class="column33 style64 null style64 column-width-9" colspan="9">
+          {{signos_vitales_triage.presion_arterial_mmhg}}
+        </td>
+        <td class="column0 style14 s style14 column-width-6" colspan="6">
+          PULSO / min
+        </td>
+        <td class="column33 style64 null style64 column-width-9" colspan="9">
+          {{signos_vitales_triage.pulso_por_min}}
+        </td>
+        <td class="column0 style14 s style14 column-width-10" colspan="10">
+          FRECUENCIA RESPIRATORIA / min
+        </td>
+        <td class="column33 style64 null style64 column-width-9" colspan="9">
+          {{signos_vitales_triage.frecuencia_respiratoria_por_min}}
+        </td>
+      </tr>
+
+      <tr class="row2">
+        <td class="column0 style14 s style14 column-width-10" colspan="10">
+          PULSIOXIMETRIA (%)
+        </td>
+        <td class="column33 style64 null style64 column-width-9" colspan="6">
+          {{signos_vitales_triage.pulsioximetria_porcentaje}}
+        </td>
+        <td class="column0 style14 s style14 column-width-10" colspan="6">
+          PERÍMETRO CEFÁLICO (cm)
+        </td>
+        <td class="column33 style64 null style64 column-width-9" colspan="9">
+          {{signos_vitales_triage.perimetro_cefalico}}
+        </td>
+        <td class="column0 style14 s style14 column-width-10" colspan="4">
+          PESO<br />
+          (kg)
+        </td>
+        <td class="column33 style64 null style64 column-width-9" colspan="5">
+          {{signos_vitales_triage.peso_kg}}
+        </td>
+        <td class="column0 style14 s style14 column-width-10" colspan="3">
+          TALLA<br />
+          (cm)
+        </td>
+        <td class="column33 style64 null style64 column-width-9" colspan="7">
+          {{signos_vitales_triage.talla_cm}}
+        </td>
+        <td class="column0 style14 s style14 column-width-10" colspan="6">
+          GLICEMIA CAPILAR (mg/dl)
+        </td>
+        <td class="column33 style64 null style64 column-width-9" colspan="9">
+          {{signos_vitales_triage.glicemia_capilar_mg_dl}}
+        </td>
+      </tr>
+
+      <tr class="row3">
+        <td class="column0 style14 s style14" colspan="6">GLASGOW INICIAL</td>
+        <td class="column0 style14 s style14" colspan="4">OCULAR (4)</td>
+        <td class="column33 style64 null style64" colspan="6">
+          {{signos_vitales_triage.ocular}}
+        </td>
+        <td class="column0 style14 s style14" colspan="4">VERBAL (5)</td>
+        <td class="column33 style64 null style64" colspan="6">
+          {{signos_vitales_triage.verbal}}
+        </td>
+        <td class="column0 style14 s style14" colspan="4">MOTORA (6)</td>
+        <td class="column33 style64 null style64" colspan="6">
+          {{signos_vitales_triage.motora}}
+        </td>
+        <td class="column0 style14 s style14" colspan="4">
+          REACCIÓN PUPILA DER.
+        </td>
+        <td class="column33 style64 null style64" colspan="6">
+          {{signos_vitales_triage.pupila_der}}
+        </td>
+        <td class="column0 style14 s style14" colspan="5">
+          REACCIÓN PUPILA IZQ.
+        </td>
+        <td class="column33 style64 null style64" colspan="6">
+          {{signos_vitales_triage.pupila_izq}}
+        </td>
+        <td class="column0 style14 s style14" colspan="5">
+          T. LLENADO CAPILAR
+        </td>
+        <td class="column33 style64 null style64" colspan="6">
+          {{signos_vitales_triage.llenado_capilar}}
+        </td>
+      </tr>
+      <!-- FIN SECCION G -->
+
+      <tr class="row29">
+        <td class="column0 style74 null style74" colspan="65"></td>
+      </tr>
+
+    
+
+      <!-- SECCION E -->
+      <tr class="row0">
+        <td class="column0 style82 s style84" colspan="65">E. CLASIFICACIÓN</td>
+      </tr>
+
+      <tr>
+        <td colspan="13" style="background-color: #0000FF; color: white; width: 20%; text-align: center;">AZUL</td>
+        <td colspan="13" style="background-color: #00FF00; color: white; width: 20%; text-align: center;">VERDE</td>
+        <td colspan="13" style="background-color: #FFFF00; color: black; width: 20%; text-align: center;">AMARILLO</td>
+        <td colspan="13" style="background-color: #FFA500; color: black; width: 20%; text-align: center;">NARANJA</td>
+        <td colspan="13" style="background-color: #FF0000; color: white; width: 20%; text-align: center;">ROJO</td>
+      </tr>
+      <tr>
+        <td colspan="13" style="background-color: #ffffff; color: black; width: 20%; font-size: 24px; text-align: center;">{{#if (eq clasificacion_triage 'AZ')}}X{{/if}}</td>
+        <td colspan="13" style="background-color: #ffffff; color: black; width: 20%; font-size: 24px; text-align: center;">{{#if (eq clasificacion_triage 'VE')}}X{{/if}}</td>
+        <td colspan="13" style="background-color: #ffffff; color: black; width: 20%; font-size: 24px; text-align: center;">{{#if (eq clasificacion_triage 'AM')}}X{{/if}}</td>
+        <td colspan="13" style="background-color: #ffffff; color: black; width: 20%; font-size: 24px; text-align: center;">{{#if (eq clasificacion_triage 'NA')}}X{{/if}}</td>
+        <td colspan="13" style="background-color: #ffffff; color: black; width: 20%; font-size: 24px; text-align: center;">{{#if (eq clasificacion_triage 'RO')}}X{{/if}}</td>
+      </tr>
+      <tr>
+        <td colspan="13" style="background-color: #e6f0ff; width: 20%;">Nivel 5. Azul, NO Urgente.<br>Tiempo máximo: 240 minutos.</td>
+        <td colspan="13" style="background-color: #ccffcc; width: 20%;">Nivel 4. Verde, Menos Urgente.<br>Tiempo máximo: 120 minutos.</td>
+        <td colspan="13" style="background-color: #ffffcc; width: 20%;">Nivel 3. Amarillo, Urgente.<br>Tiempo máximo: 60 minutos.</td>
+        <td colspan="13" style="background-color: #ffedcc; width: 20%;">Nivel 2. Naranja, Muy Urgente.<br>Tiempo máximo: 10 a 15 minutos.</td>
+        <td colspan="13" style="background-color: #ffcccc; width: 20%;">Nivel 1. Rojo, Atención Inmediata.<br>Tiempo máximo: 0 minutos.</td>
+      </tr>
+      <tr>
+        <td colspan="13" style="background-color: #e6f0ff; width: 20%;">Situaciones que permiten una demora o programación de la atención sin riesgo para el paciente.</td>
+        <td colspan="13" style="background-color: #ccffcc; width: 20%;">Situaciones complejas, pero sin riesgo vital elevado.</td>
+        <td colspan="13" style="background-color: #ffffcc; width: 20%;">Situaciones de urgencia, con potencial riesgo vital.</td>
+        <td colspan="13" style="background-color: #ffedcc; width: 20%;">Situaciones de emergencia o muy urgentes, de riesgo vital previsible, que la resolución depende del tiempo.</td>
+        <td colspan="13" style="background-color: #ffcccc; width: 20%;">Situaciones con riesgo vital inmediato o que requieren resucitación.</td>
+      </tr>
+
+      <tr class="row29">
+        <td class="column0 style74 null style74" colspan="65"></td>
+      </tr>
+
+      <!-- OBSERVACIONES -->
+      <tr class="row1">
+        <td class="column0 style14 s style14 column-width-10" colspan="65">OBSERVACIONES</td>
+      </tr>
+      <tr class="row1">
+        <td class="column33 style64 null style64 column-width-6" colspan="65">{{observacion_triage}}</td>
+      </tr>
+
+      <tr class="row29">
+        <td class="column0 style74 null style74" colspan="65"></td>
+      </tr>
+
+      <!-- PROFESIONAL RESPONSABLE -->
+      <tr class="row67">
+        <td class="column0 style82 s style84" colspan="65">F. DATOS DEL PROFESIONAL RESPONSABLE</td>
+      </tr>
+      <tr class="row68">
+        <td class="column0 style14 s style14" colspan="8">FECHA<span style="color:#000000; font-family:'Arial'; font-size:6pt"><br />
+            (aaaa-mm-dd)</span></td>
+        <td class="column0 style14 s style14" colspan="6">HORA<span style="color:#000000; font-family:'Arial'; font-size:6pt"><br />
+            (hh:mm)</span></td>
+        <td class="column0 style14 s style14" colspan="51">NOMBRE DEL RESPONSABLE</td>
+      </tr>
+      <tr class="row69">
+        <td class="column33 style64 null style64" colspan="8">{{fecha_creacion.fecha}}</td>
+        <td class="column33 style64 null style64" colspan="6">{{fecha_creacion.hora}}</td>
+        <td class="column33 style64 null style64" colspan="51">{{fecha_creacion.apellidopat_persona}} {{fecha_creacion.apellidomat_persona}} {{fecha_creacion.nombre_primario_persona}} {{fecha_creacion.nombre_secundario_persona}}</td>
+      </tr>
+      <tr class="row70">
+        <td class="column0 style14 s style14" colspan="14">NÚMERO DE DOCUMENTO DE IDENTIFICACIÓN</td>
+        <td class="column0 style14 s style14" colspan="23">FIRMA</td>
+        <td class="column0 style14 s style14" colspan="28">SELLO</td>
+      </tr>
+      <tr class="row71">
+        <td class="column33 style64 null style64" colspan="14" rowspan="2">{{fecha_creacion.numidentificacion_persona}}</td>
+        <td class="column33 style64 null style64" colspan="23" rowspan="2"></td>
+        <td class="column33 style64 null style64" colspan="28" rowspan="2"></td>
+      </tr>
+
+      <tr class="row33">
+        <td class="column0 style74 null style74" colspan="65"></td>
+      </tr>
+
+      <tr class="row66">
+        
+        <td class="column32 style94 s style94" colspan="33">TRIAGE DE MANCHESTER</td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+
+</html>
