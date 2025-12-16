@@ -128,6 +128,40 @@ const reporteTriage_frame = async (req, res) => {
     await funcionesSQL.generateMultiplesPDF_Frame(pageContents, req, res);
 }
 
+async function getAllTriageData({ hcu, fecha_desde, fecha_hasta, desde = 0, hasta = 100 }) {
+    // Armamos el objeto opciones que esperaba tu endpoint original
+    const opciones = {
+        hcu,
+        fecha_desde: fecha_desde || null,
+        fecha_hasta: fecha_hasta || null,
+        reg_desde: Number(desde) || 0,
+        reg_hasta: Number(hasta) || 100, // si tu SP lo soporta; si no, lo ignorará
+    };
+
+    const { rows } = await funcionesSQL.callTextFunctionRaw('emergencia_getall_triage', opciones);
+    return rows;
+}
+
+async function fetchAllTriage({ hcu, fecha_desde, fecha_hasta, pageSize = 100 }) {
+    let desde = 0;
+    const acumulado = [];
+    while (true) {
+        const chunk = await getAllTriageData({
+            hcu,
+            fecha_desde,
+            fecha_hasta,
+            desde,
+            hasta: pageSize,
+        });
+        if (!chunk?.length) break;
+        acumulado.push(...chunk);
+        if (chunk.length < pageSize) break; // última página
+        desde += pageSize;
+    }
+
+    return acumulado;
+}
+
 
 module.exports = {
     getAllTriage,
@@ -136,5 +170,6 @@ module.exports = {
     getTriageID,
     crudTriage,
     reporteTriage_descarga,
-    reporteTriage_frame
+    reporteTriage_frame,
+    fetchAllTriage
 }

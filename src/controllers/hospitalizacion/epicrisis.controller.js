@@ -185,38 +185,44 @@ const reporte_frame = async (req, res) => {
 }
 
 
-//Descarga pdf: Una Sola Hoja
-const reporte008_descarga1 = async (req, res) => {
-    const id = req.params.id;
-    const nombre_archivo = `_008.pdf`;
-    const pageContents = [
-        { templatePath: templatePaths.page1, data: { nombres: "CARLOS ALBERTO", apellidos: "PULLAS RECALDE", fechanac: "10-07-1987" } }
-    ];
-    //Consulto por id
-    await funcionesSQL.generateMultiplesPDF(nombre_archivo, pageContents, req, res);
-}
 
-//Frame pdf: Una sola Hoja
-const reporte008_frame1 = async (req, res) => {
-    const id = req.params.id;
-    //Consulto por id
-    const pageContent = { page1: templatePaths.page1, data: { nombres: "CARLOS ALBERTO", apellidos: "PULLAS RECALDE", fechanac: "10-07-1987" } };
-
-    await funcionesSQL.generateOnePdf_Frame(pageContent, req, res);
-}
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//@@@@@@@@@@@@@@  PDF TOTAL     @@@@@@@@@@@@@@@@@@@@
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 async function getAllEpicrisisData({ hcu, fecha_desde, fecha_hasta, desde = 0, hasta = 100 }) {
-    // Armamos el objeto opciones que esperaba tu endpoint original
-    const opciones = {
-        hcu,
-        fecha_desde: fecha_desde || null,
-        fecha_hasta: fecha_hasta || null,
-        reg_desde: Number(desde) || 0,
-        reg_hasta: Number(hasta) || 100, // si tu SP lo soporta; si no, lo ignorará
-    };
+  // Armamos el objeto opciones que esperaba tu endpoint original
+  const opciones = {
+    hcu,
+    fecha_desde: fecha_desde || null,
+    fecha_hasta: fecha_hasta || null,
+    reg_desde: Number(desde) || 0,
+    reg_hasta: Number(hasta) || 100, // si tu SP lo soporta; si no, lo ignorará
+  };
 
-    const { rows } = await funcionesSQL.callTextFunctionRaw('epicrisis_getall', opciones);
-    return rows;
+  const { rows } = await funcionesSQL.callTextFunctionRaw('epicrisis_getall', opciones);
+  return rows;
+}
+
+async function fetchAllEpicrisis({ hcu, fecha_desde, fecha_hasta, pageSize = 100 }) {
+  let desde = 0;
+  const acumulado = [];
+  while (true) {
+    const chunk = await getAllEpicrisisData({
+      hcu,
+      fecha_desde,
+      fecha_hasta,
+      desde,
+      hasta: pageSize,
+    });
+    if (!chunk?.length) break;
+    acumulado.push(...chunk);
+    if (chunk.length < pageSize) break; // última página
+    desde += pageSize;
+  }
+  // Si necesitas orden cronológico ascendente:
+  // acumulado.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
+  return acumulado;
 }
 
 
@@ -233,5 +239,6 @@ module.exports = {
     crudMedicos_Epicrisis,
     reporte_descarga,
     reporte_frame,
+    fetchAllEpicrisis
    
 }

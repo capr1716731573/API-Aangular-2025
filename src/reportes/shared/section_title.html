@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{{title}}</title>
+    <style>
+      @page {
+        margin: 0;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #fff;
+      }
+      .wrap {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      .title {
+        font-weight: 800;
+        font-size: 52pt;
+        letter-spacing: 1px;
+      }
+      .subtitle {
+        margin-top: 12pt;
+        font-size: 14pt;
+        color: #444;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div>
+        <div class="title">{{title}}</div>
+        {{#if subtitle}}
+          <div class="subtitle">{{subtitle}}</div>
+        {{/if}}
+      </div>
+    </div>
+  </body>
+</html>
+
+

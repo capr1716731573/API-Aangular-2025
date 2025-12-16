@@ -11,7 +11,9 @@ const {
     getEgresosBusqueda,
     getEgresoXId,
     getReporteEgresosINEC,
-    getCensoActualReporte
+    getCensoActualReporte,
+    getPDFTotal,
+    getPDFTotalDescarga
 } = require("../../controllers/hospitalizacion/censo.controller");
 
 
@@ -29,6 +31,8 @@ router.post("/:accion", authenticationJWT.verificarToken, crudCicloHospitalizaci
 //Reportes
 router.get("/reporte/inec/:mes/:anio", getReporteEgresosINEC);
 router.get("/reporte/actual_censo", getCensoActualReporte);
+router.get("/hcucomplete/:hcu", authenticationJWT.verificarToken,getPDFTotal);
+router.get("/hcucomplete/descarga/:hcu", authenticationJWT.verificarToken,getPDFTotalDescarga);
 
 //Egresos
 router.get("/egresos/all", authenticationJWT.verificarToken, getEgresosAll);

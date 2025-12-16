@@ -183,6 +183,11 @@ const reporte008_frame1 = async (req, res) => {
   await funcionesSQL.generateOnePdf_Frame(pageContent, req, res);
 }
 
+
+
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//@@@@@@@@@@@@@@  PDF TOTAL     @@@@@@@@@@@@@@@@@@@@
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 async function getAllAnamnesisData({ hcu, fecha_desde, fecha_hasta, desde = 0, hasta = 100 }) {
   // Armamos el objeto opciones que esperaba tu endpoint original
   const opciones = {

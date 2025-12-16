@@ -76,6 +76,13 @@ const crudAnexos = async (req, res) => {
   await funcionesSQL.crud_StoreProcedure(consulta, req, res);
 };
 
+//Consulta de todas las areas
+async function getAnexosAllData ({hcu}) {
+    let consulta = `select * from anexos a where a.fk_hcu =${hcu}`;
+    const { rows } = await funcionesSQL.getRowsRaw(consulta);
+    return rows;
+}
+
 module.exports = {
   crudAnexos,
   // los demás exports...
@@ -86,4 +93,5 @@ module.exports = {
 module.exports = {
     getAnexosAll,
     crudAnexos,
+    getAnexosAllData
 }
