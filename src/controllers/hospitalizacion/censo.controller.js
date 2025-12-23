@@ -74,6 +74,14 @@ const getIngresosXHcuVigente = async (req, res) => {
   await funcionesSQL.getRows(consulta, req, res);
 }
 
+//Consulta por HCU del ultimo ingreso activo es decir esta hospitalizado
+const getIngresosXHcu = async (req, res) => {
+  let hcu = req.params.hcu;
+  //tipo_censo puede ser INGRESO  o EGRESO
+  let consulta = `${consulta_master} where ch.fk_hcu=${hcu} and tipo_ciclohosp='INGRESO' order by ch.fecha_ciclohosp desc, ch.pk_ciclohosp desc`;
+  await funcionesSQL.getRows(consulta, req, res);
+}
+
 //Consulta de ingresos por area y piso
 const getIngresosXAreaPiso = async (req, res) => {
   let area = req.params.area;
@@ -1103,6 +1111,7 @@ module.exports = {
   getIngresosXAreaPiso,
   getIngresosXAreaTorrePisoSala,
   getCensoXId,
+  getIngresosXHcu,
   getHcuHospitalizado,
   crudCicloHospitalizacion,
   getEgresosAll,

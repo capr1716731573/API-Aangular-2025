@@ -13,7 +13,8 @@ const {
     getReporteEgresosINEC,
     getCensoActualReporte,
     getPDFTotal,
-    getPDFTotalDescarga
+    getPDFTotalDescarga,
+    getIngresosXHcu
 } = require("../../controllers/hospitalizacion/censo.controller");
 
 
@@ -22,6 +23,7 @@ const router = express.Router();
 // Routes
 
 router.get("/hcu/:hcu", authenticationJWT.verificarToken, getIngresosXHcuVigente);
+router.get("/ingresos/:hcu", authenticationJWT.verificarToken, getIngresosXHcu);
 router.get("/area/:area", authenticationJWT.verificarToken, getIngresosXAreaPiso);
 router.get("/paciente_ingresado/:identificacion", authenticationJWT.verificarToken, getHcuHospitalizado);
 router.get("/total/:area/:torre/:piso/:sala", authenticationJWT.verificarToken, getIngresosXAreaTorrePisoSala);
